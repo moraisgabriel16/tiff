@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { background: #0a0010; font-family: 'Lato', sans-serif; overflow-x: hidden; min-height: 100vh; }
+  #game { width: 100%; min-height: 100vh; position: relative; }
+  .screen { display: none; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 24px 20px; text-align: center; position: relative; z-index: 2; }
+  .screen.active { display: flex; }
+  #stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .fheart { position: fixed; pointer-events: none; z-index: 1; font-size: 18px;
+    animation: floatUp 6s ease-in infinite; opacity: 0; }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5) rotate(-10deg); opacity: 0; }
+    10% { opacity: 0.7; } 90% { opacity: 0.5; }
+    100% { transform: translateY(-10vh) scale(1.2) rotate(10deg); opacity: 0; }
+  }
+  #s-intro { background: radial-gradient(ellipse at 50% 40%, #1a0030 0%, #0a0010 70%); }
+  .intro-emoji { font-size: 64px; animation: pulse 2s ease-in-out infinite; margin-bottom: 20px; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+  .intro-to { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 4px;
+    text-transform: uppercase; color: #d4a0ff; margin-bottom: 8px; }
+  .intro-name { font-family: 'Playfair Display', serif; font-size: 52px; color: #fff;
+    line-height: 1; margin-bottom: 24px; text-shadow: 0 0 40px #d080ff; }
+  .intro-sub { font-size: 15px; color: #c090ee; line-height: 1.7; max-width: 300px; margin-bottom: 36px; }
+  .btn-start { background: linear-gradient(135deg, #9b30ff, #e040fb); color: #fff;
+    border: none; border-radius: 50px; padding: 16px 40px; font-size: 17px; font-family: 'Lato', sans-serif;
+    font-weight: 400; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 30px #9b30ff80;
+    animation: glowBtn 2.5s ease-in-out infinite; transition: transform .15s; }
+  .btn-start:active { transform: scale(0.96); }
+  @keyframes glowBtn { 0%,100%{box-shadow:0 0 20px #9b30ff80} 50%{box-shadow:0 0 45px #e040fb90} }
+  .chapter { background: radial-gradient(ellipse at 50% 20%, #1c0035 0%, #0a0010 60%); }
+  .ch-num { font-size: 11px; letter-spacing: 4px; color: #9b60cc; text-transform: uppercase; margin-bottom: 14px; }
+  .ch-icon { font-size: 52px; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .ch-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #f0d0ff;
+    margin-bottom: 14px; line-height: 1.3; }
+  .ch-text { font-size: 15px; color: #c8a0e8; line-height: 1.8; max-width: 320px; margin-bottom: 28px; }
+  .ch-text em { font-family: 'Playfair Display', serif; font-style: italic; color: #f0b0ff; }
+  .btn-next { background: transparent; border: 1px solid #9b30ff; color: #d0a0ff;
+    border-radius: 50px; padding: 14px 36px; font-size: 15px; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all .2s; letter-spacing: .5px; }
+  .btn-next:active { background: #9b30ff30; transform: scale(0.97); }
+  #s-countdown { background: radial-gradient(ellipse at 50% 50%, #1a002e 0%, #050008 70%); }
+  .cd-label { font-size: 12px; letter-spacing: 5px; color: #9b60cc; text-transform: uppercase; margin-bottom: 20px; }
+  .cd-number { font-family: 'Playfair Display', serif; font-size: 120px; color: #fff;
+    line-height: 1; text-shadow: 0 0 60px #d080ff; animation: cdPulse 1s ease-in-out infinite; }
+  @keyframes cdPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.08);opacity:.9} }
+  #s-question { background: radial-gradient(ellipse at 50% 30%, #200040 0%, #0a0010 70%); }
+  .q-icon { font-size: 60px; margin-bottom: 20px; animation: qBeat 1s ease-in-out infinite; }
+  @keyframes qBeat { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+  .q-from { font-size: 13px; letter-spacing: 3px; color: #9b60cc; text-transform: uppercase; margin-bottom: 10px; }
+  .q-text { font-family: 'Playfair Display', serif; font-size: 28px; color: #fff;
+    line-height: 1.35; margin-bottom: 14px; text-shadow: 0 0 30px #d080ff; }
+  .q-name { font-family: 'Playfair Display', serif; font-size: 42px; font-style: italic;
+    background: linear-gradient(135deg, #f0b0ff, #d080ff, #9b30ff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 40px; line-height: 1.1; }
+  .q-buttons { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 260px; }
+  .btn-yes { background: linear-gradient(135deg, #9b30ff, #e040fb); color: #fff; border: none;
+    border-radius: 50px; padding: 18px; font-size: 18px; font-family: 'Lato', sans-serif;
+    cursor: pointer; box-shadow: 0 0 30px #9b30ff80; transition: transform .15s; }
+  .btn-yes:active { transform: scale(0.96); }
+  .btn-no { background: transparent; border: 1px solid #4a2070; color: #6a3090;
+    border-radius: 50px; padding: 16px; font-size: 15px; font-family: 'Lato', sans-serif;
+    cursor: pointer; transition: all .2s; }
+  #s-celebrate { background: radial-gradient(ellipse at 50% 30%, #250045 0%, #0a0010 70%); }
+  .cel-hearts { font-size: 48px; margin-bottom: 20px; animation: celPop 0.5s ease-out; }
+  @keyframes celPop { 0%{transform:scale(0)} 80%{transform:scale(1.2)} 100%{transform:scale(1)} }
+  .cel-tag { font-size: 11px; letter-spacing: 4px; color: #9b60cc; text-transform: uppercase; margin-bottom: 12px; }
+  .cel-title { font-family: 'Playfair Display', serif; font-size: 34px; color: #fff;
+    line-height: 1.2; margin-bottom: 16px; text-shadow: 0 0 40px #e040fb; }
+  .cel-sub { font-size: 16px; color: #d0a0ee; line-height: 1.8; max-width: 300px; margin-bottom: 10px; }
+  .cel-sign { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px;
+    color: #f0b0ff; margin-top: 8px; }
+  .confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+  .conf { position: absolute; width: 8px; height: 8px; border-radius: 2px;
+    animation: confFall var(--cd, 3s) ease-in var(--delay, 0s) infinite; opacity: 0; }
+  @keyframes confFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+  #no-btn-wrap { position: fixed; z-index: 999; transition: top .35s cubic-bezier(.34,1.56,.64,1), left .35s cubic-bezier(.34,1.56,.64,1); }
+  #no-btn-wrap button { background: transparent; border: 1px solid #3a1060; color: #5a2080;
+    border-radius: 50px; padding: 10px 22px; font-size: 13px; font-family: 'Lato', sans-serif; cursor: pointer; }
+  .fade-in { animation: fadeIn .6s ease-out both; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+  .delay-1 { animation-delay: .15s; }
+  .delay-2 { animation-delay: .30s; }
+  .delay-3 { animation-delay: .45s; }
+  .delay-4 { animation-delay: .60s; }
+</style>
+</head>
+<body>
+<div id="game">
+  <canvas id="stars"></canvas>
+
+  <!-- INTRO -->
+  <div id="s-intro" class="screen active">
+    <div class="intro-emoji fade-in">💌</div>
+    <p class="intro-to fade-in delay-1">Uma mensagem especial para</p>
+    <h1 class="intro-name fade-in delay-2">Tiffany</h1>
+    <p class="intro-sub fade-in delay-3">Preparei algo do fundo do meu coração só para você. Toque para começar...</p>
+    <button class="btn-start fade-in delay-4" onclick="goTo('s-ch1')">Começar 💫</button>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <div id="s-ch1" class="screen chapter">
+    <p class="ch-num fade-in">Capítulo I</p>
+    <div class="ch-icon fade-in delay-1">🌙</div>
+    <h2 class="ch-title fade-in delay-2">O dia que tudo começou</h2>
+    <p class="ch-text fade-in delay-3">Foi aquele domingo... te vi parada ali na estação e algo aconteceu dentro de mim. Não consegui mais pensar em outra coisa. <em>Comecei a me derreter ali mesmo.</em></p>
+    <button class="btn-next fade-in delay-4" onclick="goTo('s-ch2')">Continuar →</button>
+  </div>
+
+  <!-- CHAPTER 2 -->
+  <div id="s-ch2" class="screen chapter">
+    <p class="ch-num fade-in">Capítulo II</p>
+    <div class="ch-icon fade-in delay-1">✨</div>
+    <h2 class="ch-title fade-in delay-2">O que você desperta em mim</h2>
+    <p class="ch-text fade-in delay-3">Você me faz sentir o <em>homem mais incrível do mundo</em>. Só de estar perto de você, tudo fica diferente. Melhor. Completo.</p>
+    <button class="btn-next fade-in delay-4" onclick="goTo('s-ch3')">Continuar →</button>
+  </div>
+
+  <!-- CHAPTER 3 -->
+  <div id="s-ch3" class="screen chapter">
+    <p class="ch-num fade-in">Capítulo III</p>
+    <div class="ch-icon fade-in delay-1">🌹</div>
+    <h2 class="ch-title fade-in delay-2">O que eu quero com você</h2>
+    <p class="ch-text fade-in delay-3">Quero passar cada segundo do seu lado. Te fazer bem, te fazer rir, estar lá pra tudo. Decidi que preciso te perguntar algo muito importante...</p>
+    <button class="btn-next fade-in delay-4" onclick="startCountdown()">Estou pronta ✨</button>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div id="s-countdown" class="screen">
+    <p class="cd-label">a grande revelação em</p>
+    <div id="cd-num" class="cd-number">3</div>
+  </div>
+
+  <!-- THE QUESTION -->
+  <div id="s-question" class="screen">
+    <div class="q-icon fade-in">💜</div>
+    <p class="q-from fade-in delay-1">de Gabriel, com todo o meu amor</p>
+    <h2 class="q-text fade-in delay-2">Tiffany, você quer</h2>
+    <div class="q-name fade-in delay-3">namorar comigo?</div>
+    <div class="q-buttons fade-in delay-4">
+      <button class="btn-yes" onclick="sayYes()">💖 Sim, quero muito!</button>
+    </div>
+  </div>
+
+  <!-- NO button (floating, runs away) -->
+  <div id="no-btn-wrap" style="display:none; top:80%; left:10%;">
+    <button onclick="runAway()" id="no-btn">Deixa eu pensar... 🤔</button>
+  </div>
+
+  <!-- CELEBRATION -->
+  <div id="s-celebrate" class="screen">
+    <div class="confetti-wrap" id="confetti"></div>
+    <div class="cel-hearts fade-in">💜💍💜</div>
+    <p class="cel-tag fade-in delay-1">ela disse sim! 🎉</p>
+    <h2 class="cel-title fade-in delay-2">Tiffany & Gabriel</h2>
+    <p class="cel-sub fade-in delay-3">Agora somos oficialmente o casal mais lindo do mundo. Te amo, Tiffany. 💜</p>
+    <p class="cel-sign fade-in delay-4">— Gabriel 💌</p>
+  </div>
+</div>
+
+<script>
+const screens = document.querySelectorAll('.screen');
+
+function goTo(id) {
+  screens.forEach(s => {
+    s.classList.remove('active');
+    s.querySelectorAll('.fade-in').forEach(el => { el.style.animation='none'; void el.offsetWidth; el.style.animation=''; });
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+function startCountdown() {
+  goTo('s-countdown');
+  let n = 3;
+  const el = document.getElementById('cd-num');
+  const tick = () => {
+    el.style.animation = 'none'; void el.offsetWidth; el.style.animation = 'cdPulse 1s ease-in-out infinite';
+    el.textContent = n;
+    if (n === 0) { showQuestion(); return; }
+    n--; setTimeout(tick, 1000);
+  };
+  tick();
+}
+
+function showQuestion() {
+  goTo('s-question');
+  setTimeout(() => { document.getElementById('no-btn-wrap').style.display = 'block'; }, 900);
+}
+
+let runCount = 0;
+function runAway() {
+  runCount++;
+  const w = document.getElementById('no-btn-wrap');
+  const maxX = Math.max(20, window.innerWidth - 170);
+  const maxY = Math.max(20, window.innerHeight - 70);
+  w.style.top = Math.floor(Math.random() * maxY) + 'px';
+  w.style.left = Math.floor(Math.random() * maxX) + 'px';
+  const msgs = ['Ei, volta aqui! 😢', 'Não foge não...', 'Reconsidera! 🥺', 'Para com isso! 😭', 'Você vai me matar 💔', 'Não tem como ser não!'];
+  document.getElementById('no-btn').textContent = msgs[runCount % msgs.length];
+}
+
+function sayYes() {
+  document.getElementById('no-btn-wrap').style.display = 'none';
+  goTo('s-celebrate');
+  launchConfetti();
+  launchFloatingHearts();
+}
+
+function launchConfetti() {
+  const wrap = document.getElementById('confetti');
+  wrap.innerHTML = '';
+  const colors = ['#e040fb','#9b30ff','#f48fb1','#f8bbd0','#fff','#d4a0ff','#ce93d8'];
+  for (let i = 0; i < 70; i++) {
+    const c = document.createElement('div');
+    c.className = 'conf';
+    c.style.cssText = `left:${Math.random()*100}%;top:${(Math.random()*-20).toFixed(0)}px;background:${colors[Math.floor(Math.random()*colors.length)]};--cd:${(2+Math.random()*3).toFixed(1)}s;--delay:${(Math.random()*3).toFixed(1)}s;transform:rotate(${Math.floor(Math.random()*360)}deg)`;
+    wrap.appendChild(c);
+  }
+}
+
+function launchFloatingHearts() {
+  const hearts = ['💜','🌸','✨','💗','🌟'];
+  for (let i = 0; i < 14; i++) {
+    const h = document.createElement('div');
+    h.className = 'fheart';
+    h.textContent = hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.cssText = `left:${Math.random()*90}%;animation-delay:${(Math.random()*5).toFixed(1)}s;animation-duration:${(5+Math.random()*4).toFixed(1)}s`;
+    document.body.appendChild(h);
+  }
+}
+
+(function() {
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; makeStars(); }
+  function makeStars() {
+    stars = [];
+    for (let i = 0; i < 130; i++) {
+      stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        r: Math.random()*1.4+0.4, a: Math.random(),
+        da: (Math.random()*0.008+0.003)*(Math.random()<.5?1:-1) });
+    }
+  }
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s => {
+      s.a += s.da; if(s.a>1||s.a<0.1) s.da*=-1;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(220,180,255,${s.a.toFixed(2)})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', resize);
+  resize(); draw();
+})();
+</script>
+</body>
+</html>
