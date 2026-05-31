@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Aprovação de Deploy - Core Sys v3.0 (Mobile Ready)</title>
+    <style>
+        :root {
+            --bg-color: #060913;
+            --panel-bg: #101424;
+            --panel-header-bg: #161b33;
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff0055;
+            --neon-green: #39ff14;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(16, 20, 36, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 20, 36, 0.4) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Alerta Crítico Superior */
+        .alert-container {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.15) 0%, rgba(16, 20, 36, 0.8) 100%);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.3), inset 0 0 15px rgba(255, 0, 85, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            animation: pulse-border 2.5s infinite ease-in-out;
+        }
+
+        .alert-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--neon-pink);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(255, 0, 85, 0.5);
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .alert-message {
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #cbd5e1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Grid do Painel Principal */
+        .dashboard-grid {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Estrutura de Painel Sci-Fi */
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            height: 320px;
+            position: relative;
+        }
+
+        .panel.cyan-glow { border-color: rgba(0, 243, 255, 0.3); box-shadow: 0 0 15px rgba(0, 243, 255, 0.05); }
+        .panel.pink-glow { border-color: rgba(255, 0, 85, 0.3); box-shadow: 0 0 15px rgba(255, 0, 85, 0.05); }
+
+        .panel-header {
+            background-color: var(--panel-header-bg);
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-header-title { display: flex; align-items: center; gap: 8px; }
+
+        .panel-header-dots span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            margin-left: 4px;
+        }
+
+        .panel-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Painel 1: Pensamentos de Tiffany */
+        .metrics-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .metric-large {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.4);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .ekg-wrapper {
+            background-color: #090d16;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 6px;
+            height: 70px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .ekg-canvas { width: 100%; height: 100%; display: block; }
+
+        .panel-desc {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+            background: rgba(255,255,255,0.02);
+            padding: 8px;
+            border-left: 3px solid var(--neon-cyan);
+            border-radius: 0 4px 4px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* Painel 2: Terminal */
+        .terminal-container {
+            background-color: #070a12;
+            border-radius: 6px;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .terminal-line { margin-bottom: 6px; white-space: pre-wrap; word-break: break-word; }
+        .timestamp { color: var(--text-muted); margin-right: 4px; }
+        .log-success { color: var(--neon-green); }
+        .log-info { color: var(--neon-cyan); }
+        .log-warn { color: #f59e0b; }
+        .log-heart { color: var(--neon-pink); animation: heart-beat 0.8s infinite alternate; display: inline-block; }
+        .cursor { display: inline-block; width: 6px; height: 12px; background-color: var(--neon-green); animation: blink 1s infinite; vertical-align: middle; margin-left: 4px; }
+
+        /* Painel 3: Código */
+        .code-container {
+            background-color: #0d1117;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: 'Fira Code', Consolas, Monaco, monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            flex-grow: 1;
+            overflow-x: auto;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .code-line { display: flex; white-space: nowrap; }
+        .line-num { color: #3b4252; text-align: right; width: 20px; min-width: 20px; margin-right: 10px; user-select: none; }
+        .code-content { color: #adbac7; }
+        .kw { color: #f47067; font-weight: bold; }
+        .fn { color: #dcbdfb; }
+        .str { color: #8ddb8c; }
+        .cm { color: #768390; font-style: italic; }
+
+        /* Área de Interação */
+        .interaction-zone {
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            margin-top: 10px;
+            padding: 20px 15px;
+            background: radial-gradient(circle at center, rgba(16, 20, 36, 0.6) 0%, transparent 80%);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .prompt-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+        }
+
+        .prompt-subtitle {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            padding: 0 10px;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .action-btn {
+            padding: 14px 24px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .btn-approve {
+            background-color: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+            z-index: 2;
+        }
+
+        .btn-approve:hover, .btn-approve:active {
+            background-color: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 25px rgba(57, 255, 20, 0.6);
+            transform: scale(1.02);
+        }
+
+        .btn-cancel {
+            background-color: rgba(255, 0, 85, 0.1);
+            color: var(--neon-pink);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 85, 0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* Modal de Sucesso */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(4, 6, 14, 0.98);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; opacity: 1; }
+
+        .modal-content {
+            background: linear-gradient(145deg, #101424 0%, #060913 100%);
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+            border-radius: 12px;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+        }
+
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-icon { font-size: 40px; margin-bottom: 15px; animation: bounce 1.5s infinite; }
+        .modal-title {
+            color: var(--neon-green);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 22px;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+        .modal-text { color: #cbd5e1; font-size: 14px; line-height: 1.5; margin-bottom: 15px; }
+
+        /* Animações */
+        @keyframes pulse-border { 0%, 100% { border-color: rgba(255, 0, 85, 0.6); } 50% { border-color: rgba(255, 0, 85, 1); box-shadow: 0 0 20px rgba(255, 0, 85, 0.4); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes heart-beat { 0% { transform: scale(1); } 100% { transform: scale(1.3); } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        /* MEDIA QUERIES - OTIMIZAÇÃO EXTREMA MOBILE */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .panel {
+                height: 280px;
+            }
+            .buttons-wrapper {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .action-btn {
+                max-width: 100%;
+                padding: 16px;
+            }
+            .alert-header {
+                font-size: 14px;
+            }
+            .prompt-title {
+                font-size: 16px;
+            }
+            .ekg-wrapper {
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="alert-container">
+        <div class="alert-header">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/><path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.993c.16-.922 1.42-.922 1.58 0l.54 3.11c.07.397-.234.757-.637.757H7.417c-.403 0-.704-.36-.637-.757l.54-3.11z"/></svg>
+            ALERTA: SOBRECARGA EMOCIONAL
+        </div>
+        <div class="alert-message">
+            Núcleo sentimental de Gabriel operando a 4000°C devido à conexão persistente com <strong>[Tiffany]</strong>. Risco de colapso apaixonado se a infraestrutura não for unificada.
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="panel cyan-glow">
+            <div class="panel-header">
+                <div class="panel-header-title">⚡ core_neuro.sh</div>
+                <div class="panel-header-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="panel-body">
+                <div class="metrics-container">
+                    <div>
+                        <div class="metric-large">100%</div>
+                        <div class="metric-label">Foco em Tiffany</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="metric-large" style="color: var(--neon-pink);">0.0ms</div>
+                        <div class="metric-label">SLA de Beijos</div>
+                    </div>
+                </div>
+                <div class="ekg-wrapper">
+                    <canvas id="ekgCanvas" class="ekg-canvas"></canvas>
+                </div>
+                <div class="panel-desc">
+                    <strong>Atividade neural:</strong> Processando teu sorriso, gerando piadas ruins e planejando o nosso futuro. ❤️
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-header-title">📁 observer_logs.log</div>
+                <div class="panel-header-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="panel-body">
+                <div class="terminal-container" id="terminalLogs"></div>
+            </div>
+        </div>
+
+        <div class="panel pink-glow">
+            <div class="panel-header">
+                <div class="panel-header-title">🛠️ deploy_pipeline.py</div>
+                <div class="panel-header-dots"><span></span><span></span><span></span></div>
+            </div>
+            <div class="panel-body">
+                <div class="code-container">
+                    <div class="code-line"><span class="line-num">1</span><span class="code-content"><span class="kw">def</span> <span class="fn">verificar_futuro</span>(tiffany, gabriel):</span></div>
+                    <div class="code-line"><span class="line-num">2</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> tiffany.<span class="fn">aceita_pedido</span>():</span></div>
+                    <div class="code-line"><span class="line-num">3</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status = <span class="str">"Namorando"</span></span></div>
+                    <div class="code-line"><span class="line-num">4</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">iniciar_modo_felicidade</span>()</span></div>
+                    <div class="code-line"><span class="line-num">5</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">"Para sempre"</span></span></div>
+                    <div class="code-line"><span class="line-num">6</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">else</span>:</span></div>
+                    <div class="code-line"><span class="line-num">7</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># Error handling desativado</span></span></div>
+                    <div class="code-line"><span class="line-num">8</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># Esta linha foi apagada ❤️</span></span></div>
+                    <div class="code-line"><span class="line-num">9</span><span class="code-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">pass</span></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="interaction-zone">
+        <div class="prompt-title">Ação requerida:</div>
+        <div class="prompt-subtitle">Por favor, aprove o deploy para evitar que o coração do administrador dê Kernel Panic.</div>
+        
+        <div class="buttons-wrapper">
+            <button class="action-btn btn-approve" onclick="confirmarSucesso()">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                [ Aprovar Deploy ]
+            </button>
+            <button class="action-btn btn-cancel" id="fleeButton">
+                <svg width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                [ Cancelar ]
+            </button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚀💚</div>
+            <div class="modal-title">DEPLOY APROVADO!</div>
+            <div class="modal-text">Pipeline atualizado globalmente. Status de relacionamento configurado para: <strong>NAMORANDO</strong>.</div>
+            <div class="modal-text" style="color: var(--neon-cyan); font-weight: bold; font-family: 'Courier New', Courier, monospace;">
+                [Aviso]: Beije o administrador imediatamente para sincronizar os clusters.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('ekgCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let x = 0;
+        const points = [];
+        const speed = window.innerWidth < 768 ? 1.5 : 2.5;
+
+        function drawEKG() {
+            ctx.fillStyle = 'rgba(9, 13, 22, 0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = '#00f3ff';
+            ctx.lineWidth = 2;
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = '#00f3ff';
+            ctx.beginPath();
+
+            let targetY = canvas.height / 2;
+            let cycle = x % 140;
+
+            if (cycle > 30 && cycle < 35) targetY -= 4;
+            else if (cycle >= 35 && cycle < 40) targetY += 3;
+            else if (cycle >= 45 && cycle < 50) targetY -= 25; 
+            else if (cycle >= 50 && cycle < 55) targetY += 35; 
+            else if (cycle >= 55 && cycle < 60) targetY -= 8;
+            else if (cycle >= 75 && cycle < 90) targetY -= 8; 
+
+            points.push({x: x % canvas.width, y: targetY});
+            if(points.length > canvas.width / speed) points.shift();
+
+            for(let i = 0; i < points.length; i++) {
+                if(i === 0) ctx.moveTo(points[i].x, points[i].y);
+                else {
+                    if(points[i].x > points[i-1].x) ctx.lineTo(points[i].x, points[i].y);
+                    else ctx.moveTo(points[i].x, points[i].y);
+                }
+            }
+            ctx.stroke();
+            x += speed;
+            requestAnimationFrame(drawEKG);
+        }
+        setTimeout(drawEKG, 100); 
+
+        const terminal = document.getElementById('terminalLogs');
+        const logsData = [
+            { type: 'info', text: 'Iniciando pod_relacionamento...' },
+            { type: 'success', text: 'Compatibilidade humor: 100%' },
+            { type: 'success', text: 'DB de memórias sincronizado.' },
+            { type: 'warn', text: 'Ritmo cardíaco de Gabriel elevado.' },
+            { type: 'heart', text: 'O amor por Tiffany é infinito.' }
+        ];
+
+        function getTimestamp() {
+            const now = new Date();
+            return `[${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}:${now.getSeconds().toString().padStart(2,'0')}]`;
+        }
+
+        let logIndex = 0;
+        function renderLogs() {
+            if(logIndex < logsData.length) {
+                const item = logsData[logIndex];
+                let classType = item.type === 'success' ? 'log-success' : item.type === 'warn' ? 'log-warn' : item.type === 'heart' ? 'log-heart' : 'log-info';
+                let prepend = item.type === 'success' ? '✅ ' : item.type === 'warn' ? '⚠️ ' : item.type === 'heart' ? '❤️ ' : '⚙️ ';
+                
+                terminal.innerHTML += `<div class="terminal-line"><span class="timestamp">${getTimestamp()}</span><span class="${classType}">${prepend}${item.text}</span></div>`;
+                terminal.scrollTop = terminal.scrollHeight;
+                logIndex++;
+                setTimeout(renderLogs, 1500);
+            } else {
+                setInterval(() => {
+                    const lines = terminal.querySelectorAll('.terminal-line');
+                    if(lines.length > 8) lines[4].remove();
+                    terminal.innerHTML += `<div class="terminal-line"><span class="timestamp">${getTimestamp()}</span><span class="log-info">⏳ Aguardando Tiffany...<span class="cursor"></span></span></div>`;
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, 2500);
+            }
+        }
+        setTimeout(renderLogs, 500);
+
+        const fleeButton = document.getElementById('fleeButton');
+        
+        function moveButton(e) {
+            if(e) e.preventDefault();
+            
+            const btnWidth = fleeButton.offsetWidth;
+            const btnHeight = fleeButton.offsetHeight;
+            
+            const safePadding = 20;
+            const maxX = window.innerWidth - btnWidth - safePadding;
+            const maxY = window.innerHeight - btnHeight - safePadding;
+            
+            const randomX = Math.max(safePadding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(safePadding, Math.floor(Math.random() * maxY));
+            
+            fleeButton.style.position = 'fixed';
+            fleeButton.style.zIndex = '9999';
+            fleeButton.style.left = randomX + 'px';
+            fleeButton.style.top = randomY + 'px';
+        }
+
+        fleeButton.addEventListener('mouseenter', moveButton);
+        fleeButton.addEventListener('touchstart', moveButton, {passive: false});
+        fleeButton.addEventListener('click', moveButton);
+
+        function confirmarSucesso() {
+            document.getElementById('successModal').classList.add('active');
+        }
+    </script>
+</body>
+</html>
