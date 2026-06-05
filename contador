@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tempo para Ver a Tiff 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #fdf6ec;
+    --blush: #f5c6b0;
+    --rose:  #e07a5f;
+    --deep:  #3d1f1f;
+    --gold:  #c9973a;
+    --soft:  #f9ede0;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* ── background texture ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 20%, #fae8d4 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 80%, #fce0d2 0%, transparent 55%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, #fff8f0 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── floating hearts bg ── */
+  .hearts-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .hb {
+    position: absolute;
+    opacity: 0;
+    animation: floatUp linear infinite;
+    font-size: 18px;
+    filter: blur(0.3px);
+  }
+  @keyframes floatUp {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.8); }
+    10%  { opacity: 0.35; }
+    80%  { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-110vh) rotate(25deg) scale(1.1); }
+  }
+
+  /* ── main layout ── */
+  .page {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    gap: 2.5rem;
+  }
+
+  /* ── decorative line ── */
+  .deco-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s ease forwards;
+  }
+  .deco-line::before, .deco-line::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose));
+  }
+  .deco-line::after {
+    background: linear-gradient(90deg, var(--rose), transparent);
+  }
+  .deco-line span {
+    font-size: 18px;
+  }
+
+  /* ── header ── */
+  .hero {
+    text-align: center;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s 0.2s ease forwards;
+  }
+  .eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--deep);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose);
+  }
+  .hero .sub {
+    margin-top: 1rem;
+    font-size: 15px;
+    font-weight: 300;
+    color: #8a5a4a;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── countdown cards ── */
+  .countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    width: 100%;
+    max-width: 580px;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s 0.45s ease forwards;
+  }
+  .unit {
+    background: #fff9f4;
+    border: 1px solid #f0d4c4;
+    border-radius: 20px;
+    padding: 1.6rem 0.5rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .unit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px -8px rgba(224,122,95,0.2);
+  }
+  .unit::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blush), var(--rose), var(--gold));
+    opacity: 0.7;
+    border-radius: 0 0 20px 20px;
+  }
+  .unit-val {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    color: var(--deep);
+    line-height: 1;
+    min-width: 2ch;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s;
+  }
+  .unit-val.pulse {
+    color: var(--rose);
+  }
+  .unit-lbl {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b07060;
+  }
+
+  /* ── progress ── */
+  .progress-wrap {
+    width: 100%;
+    max-width: 580px;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s 0.65s ease forwards;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #b07060;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .progress-track {
+    height: 5px;
+    background: #f0d4c4;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--blush), var(--rose));
+    transition: width 1s linear;
+  }
+
+  /* ── message ── */
+  .message {
+    max-width: 400px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s 0.85s ease forwards;
+  }
+  .message p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    color: #8a5a4a;
+    line-height: 1.7;
+  }
+
+  /* ── date badge ── */
+  .date-badge {
+    background: var(--deep);
+    color: var(--cream);
+    border-radius: 99px;
+    padding: 0.5rem 1.6rem;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeSlideIn 0.9s 1s ease forwards;
+  }
+  .date-badge strong {
+    font-weight: 400;
+    color: var(--blush);
+  }
+
+  /* ── done screen ── */
+  .done-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+    animation: fadeSlideIn 1s ease forwards;
+  }
+  .done-screen .big-heart {
+    font-size: 5rem;
+    animation: heartbeat 1.2s ease infinite;
+  }
+  .done-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--rose);
+    font-weight: 400;
+  }
+  .done-screen p {
+    font-size: 16px;
+    color: #8a5a4a;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25%       { transform: scale(1.18); }
+    50%       { transform: scale(1.05); }
+    75%       { transform: scale(1.22); }
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 480px) {
+    .countdown { gap: 10px; }
+    .unit { padding: 1.2rem 0.3rem 1rem; border-radius: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<div class="page" id="mainPage">
+
+  <div class="deco-line"><span>♡</span></div>
+
+  <header class="hero">
+    <p class="eyebrow">contagem regressiva</p>
+    <h1>Tempo para<br>ver a <em>Tiff</em></h1>
+    <p class="sub">cada segundo conta ✨</p>
+  </header>
+
+  <div class="countdown" id="countdown">
+    <div class="unit">
+      <span class="unit-val" id="days">--</span>
+      <span class="unit-lbl">dias</span>
+    </div>
+    <div class="unit">
+      <span class="unit-val" id="hours">--</span>
+      <span class="unit-lbl">horas</span>
+    </div>
+    <div class="unit">
+      <span class="unit-val" id="minutes">--</span>
+      <span class="unit-lbl">minutos</span>
+    </div>
+    <div class="unit">
+      <span class="unit-val" id="seconds">--</span>
+      <span class="unit-lbl">segundos</span>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span>05/06 hoje</span>
+      <span id="pct">0%</span>
+      <span>08/06 · 09h00</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="message">
+    <p>"A espera é só o começo<br>de algo lindo que está por vir."</p>
+  </div>
+
+  <div class="date-badge">
+    Encontro marcado para <strong>08 de junho · 09h00</strong>
+  </div>
+
+  <!-- done state -->
+  <div class="done-screen" id="doneScreen">
+    <span class="big-heart">💛</span>
+    <h2>Chegou a hora!</h2>
+    <p>Hoje é o dia de ver a Tiff ✨</p>
+  </div>
+
+</div>
+
+<script>
+  /* ── floating hearts ── */
+  const container = document.getElementById('heartsContainer');
+  const emojis = ['♡','♥','✦','✿','❀','·'];
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('span');
+    el.className = 'hb';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left   = Math.random() * 100 + '%';
+    el.style.bottom = '-30px';
+    el.style.fontSize = (12 + Math.random() * 16) + 'px';
+    el.style.color  = ['#e07a5f','#c9973a','#f5c6b0','#d4856a'][Math.floor(Math.random()*4)];
+    const dur = 14 + Math.random() * 18;
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay   = -(Math.random() * dur) + 's';
+    container.appendChild(el);
+  }
+
+  /* ── countdown ── */
+  const target = new Date('2026-06-08T09:00:00');
+  const start  = new Date('2026-06-05T00:00:00');
+  const totalMs = target - start;
+  const pad = n => String(n).padStart(2, '0');
+
+  let prevSec = -1;
+
+  function tick() {
+    const now  = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').style.display = 'none';
+      document.querySelector('.progress-wrap').style.display = 'none';
+      document.querySelector('.message').style.display = 'none';
+      document.querySelector('.date-badge').style.display = 'none';
+      document.getElementById('doneScreen').style.display = 'flex';
+      document.getElementById('bar').style.width = '100%';
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent    = pad(d);
+    document.getElementById('hours').textContent   = pad(h);
+    document.getElementById('minutes').textContent = pad(m);
+    document.getElementById('seconds').textContent = pad(s);
+
+    if (s !== prevSec) {
+      const el = document.getElementById('seconds');
+      el.classList.add('pulse');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove('pulse'), 400);
+      prevSec = s;
+    }
+
+    const elapsed = Math.max(0, totalMs - diff);
+    const pct = Math.min(100, (elapsed / totalMs) * 100);
+    document.getElementById('bar').style.width = pct.toFixed(2) + '%';
+    document.getElementById('pct').textContent = pct.toFixed(1) + '%';
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
