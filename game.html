@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Benete.inc v8</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--bg:#08081a;--bg2:#11112e;--bg3:#0a0a1e;--bd:#2a2a5a;--tx:#dde0ff;--ac:#8888ff;--gn:#33cc66;--rd:#cc3344;--yw:#ffaa33;--pu:#aa33ff;--cy:#33bbcc;--pk:#ff88cc}
+html,body{background:var(--bg);font-family:'Press Start 2P',monospace;color:var(--tx);font-size:8px;overflow-x:hidden;user-select:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bd)}
+#notifs{position:fixed;top:8px;right:8px;width:160px;z-index:9999;pointer-events:none}
+.notif{background:#1a1a3a;border:2px solid #5533ff;padding:4px 6px;font-size:5px;margin-bottom:3px;color:#ccccff;animation:nin .3s,nout .4s 2.6s forwards;line-height:1.6}
+.notif.ach{border-color:var(--yw);color:#ffdd66}.notif.boost{border-color:var(--gn);color:#66ffaa}
+.notif.tech{border-color:var(--pu);color:#cc88ff}.notif.rival{border-color:var(--rd);color:#ff8888}
+.notif.mission{border-color:var(--cy);color:#88eeff}.notif.ipo{border-color:#ffdd00;color:#ffff88}
+.notif.talent{border-color:var(--pk);color:#ffccee}
+@keyframes nin{from{opacity:0;transform:translateX(15px)}to{opacity:1;transform:translateX(0)}}
+@keyframes nout{to{opacity:0}}
+#page{max-width:700px;margin:0 auto;padding:6px;display:flex;flex-direction:column;gap:5px}
+.header{background:var(--bg2);border:2px solid var(--bd);padding:6px 8px;display:flex;align-items:center;justify-content:space-between}
+.co-name{color:var(--ac);font-size:10px}
+.resources{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.res{background:var(--bg2);border:2px solid var(--bd);padding:5px 3px;text-align:center}
+.res-lbl{color:#4a4a8a;font-size:5px;margin-bottom:1px}
+.res-val{color:#eef;font-size:8px;font-weight:bold;word-break:break-all;line-height:1.2}
+.res-rate{color:var(--gn);font-size:4px;margin-top:1px}
+.coffee-section{background:var(--bg2);border:2px solid var(--bd);padding:6px}
+.coffbar{background:var(--bg3);border:2px solid #884400;height:12px;width:100%}
+.cofffill{height:100%;transition:width .3s}
+.cof-effect{font-size:5px;margin-top:3px;text-align:center;padding:2px;border:1px solid;line-height:1.5}
+.main-row{display:flex;gap:6px}
+.left-col{width:155px;flex-shrink:0;display:flex;flex-direction:column;gap:5px}
+.right-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+@media(max-width:560px){.main-row{flex-direction:column}.left-col{width:100%}.resources{grid-template-columns:repeat(2,1fr)}}
+.bld-wrap{background:var(--bg2);border:2px solid var(--bd);padding:6px;text-align:center}
+.smoke{position:absolute;top:0;left:50%;background:rgba(180,180,200,0.5);border-radius:50%;animation:smokePuff 1.5s ease-out forwards;pointer-events:none}
+@keyframes smokePuff{0%{transform:translate(-50%,0);opacity:.8;width:4px;height:4px}100%{transform:translate(-50%,-22px);opacity:0;width:10px;height:10px}}
+.float{position:absolute;pointer-events:none;font-size:8px;color:#ffff44;animation:fup 1s ease-out forwards;font-weight:bold;z-index:50;white-space:nowrap}
+@keyframes fup{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-45px)}}
+.cw-inner{position:relative;display:inline-block}
+.click-info{font-size:5px;color:var(--ac);margin-bottom:2px}
+.auto-info{font-size:5px;color:var(--cy);margin-bottom:2px;line-height:1.5}
+.auto-dots{display:flex;gap:2px;justify-content:center;margin-bottom:3px;flex-wrap:wrap}
+.adot{width:16px;height:7px;background:var(--bg3);border:1px solid var(--bd);font-size:4px;display:flex;align-items:center;justify-content:center;color:#444466}
+.adot.on{background:#0d2a2a;border-color:var(--cy);color:var(--cy)}
+.sr{display:flex;justify-content:space-between;background:var(--bg3);padding:3px 5px;border-left:2px solid var(--bd);font-size:5px;margin-bottom:2px}
+.sr span:last-child{color:var(--ac)}
+.tab-bar{display:flex;flex-wrap:wrap;border-bottom:2px solid var(--bd);background:var(--bg2)}
+.tab-btn{background:none;border:none;font-family:'Press Start 2P',monospace;font-size:5px;color:#445;padding:5px 5px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;-webkit-appearance:none}
+.tab-btn.on{color:var(--ac);border-bottom-color:var(--ac)}
+.tab-content{background:var(--bg2);border:2px solid var(--bd);border-top:none;padding:6px;overflow-y:auto;max-height:360px;-webkit-overflow-scrolling:touch}
+.cat-bar{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:5px}
+.cat-btn{background:var(--bg3);border:1px solid var(--bd);font-family:'Press Start 2P',monospace;font-size:4px;color:#445;padding:3px 5px;cursor:pointer;-webkit-appearance:none}
+.cat-btn.on{color:var(--ac);border-color:var(--ac)}
+.upg-btn{width:100%;background:var(--bg3);border:2px solid var(--bd);color:var(--tx);font-family:'Press Start 2P',monospace;font-size:5px;padding:5px;cursor:pointer;margin-bottom:3px;text-align:left;line-height:1.8;display:block;-webkit-appearance:none;touch-action:manipulation}
+.upg-btn:active:not(:disabled){background:#181838;border-color:#5555bb}
+.upg-btn:disabled{opacity:0.28;cursor:not-allowed}
+.upg-btn.owned{border-color:var(--gn);opacity:0.65}
+.upg-btn.cat-auto{border-left:3px solid var(--cy)}.upg-btn.cat-cof{border-left:3px solid var(--yw)}
+.upg-btn.cat-dev{border-left:3px solid var(--pk)}.upg-btn.cat-infra{border-left:3px solid #ffcc44}
+.upg-btn.cat-biz{border-left:3px solid var(--pu)}.upg-btn.cat-prod{border-left:3px solid var(--gn)}
+.un{color:#aaaaee;font-size:6px;display:block}.ud{color:#404060;font-size:5px;display:block}.uc{color:var(--yw);font-size:5px;display:block}
+.pbar-o{background:var(--bg3);border:2px solid var(--bd);height:10px;width:100%;margin-bottom:3px}
+.pbar-i{height:100%;background:linear-gradient(90deg,#4422ff,#9922ff);transition:width .5s}
+.act-btn{background:var(--yw);border:none;color:var(--bg);font-family:'Press Start 2P',monospace;font-size:5px;padding:5px;cursor:pointer;width:100%;touch-action:manipulation;-webkit-appearance:none}
+.act-btn:disabled{opacity:.4;cursor:not-allowed;background:#555}
+.boost-bar{background:#0d1a0d;border:2px solid var(--gn);padding:4px}
+.bfill{height:5px;background:var(--gn);transition:width .3s}
+.log-section{background:var(--bg2);border:2px solid var(--bd);padding:5px;max-height:80px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.lm{font-size:5px;padding:1px 0;border-bottom:1px solid #111130;color:#445588;line-height:1.5}
+.lm.g{color:var(--gn)}.lm.b{color:var(--rd)}.lm.w{color:var(--yw)}.lm.p{color:var(--pu)}.lm.i{color:#3388cc}
+.me-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;display:none;align-items:center;justify-content:center;padding:12px}
+.me-overlay.on{display:flex}
+.me-box{background:var(--bg2);border:3px solid var(--yw);padding:14px;width:100%;max-width:320px;text-align:center}
+.me-t{color:var(--yw);font-size:8px;margin-bottom:6px;line-height:1.5}
+.me-ctx{font-size:5px;color:var(--cy);margin-bottom:5px;padding:3px 6px;border:1px solid var(--cy);display:inline-block;line-height:1.6}
+.me-d{color:#9999cc;font-size:5px;line-height:2;margin-bottom:8px}
+.me-timer{font-size:7px;margin-bottom:8px}
+.me-btn{font-family:'Press Start 2P',monospace;font-size:5px;padding:7px 6px;cursor:pointer;border:2px solid;margin:0 0 4px;background:none;display:block;width:100%;text-align:left;touch-action:manipulation;-webkit-appearance:none;line-height:1.6}
+.me-btn.a{border-color:var(--gn);color:var(--gn)}.me-btn.b{border-color:#cc5533;color:#cc5533}
+.me-btn.c{border-color:#5533ff;color:#8888ff}.me-btn.d{border-color:var(--yw);color:var(--yw)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9500;display:none;align-items:center;justify-content:center;padding:12px;overflow-y:auto}
+.overlay.on{display:flex}
+.ov-box{background:var(--bg2);border:3px solid var(--ac);padding:16px;width:100%;max-width:360px}
+.ov-title{color:var(--ac);font-size:10px;text-align:center;margin-bottom:10px;line-height:1.5}
+.ov-input{background:var(--bg3);border:2px solid var(--bd);color:var(--tx);font-family:'Press Start 2P',monospace;font-size:8px;padding:8px;width:100%;text-align:center;outline:none;margin-bottom:10px;-webkit-appearance:none}
+.ov-input:focus{border-color:var(--ac)}
+.ov-btn{font-family:'Press Start 2P',monospace;font-size:6px;padding:8px;cursor:pointer;border:2px solid;display:block;width:100%;margin-bottom:5px;touch-action:manipulation;-webkit-appearance:none}
+.ov-btn.prim{border-color:var(--ac);background:var(--bg3);color:var(--ac)}
+.ov-btn.sec{border-color:var(--bd);background:none;color:#888}
+.ipo-row{display:flex;justify-content:space-between;font-size:6px;padding:4px 0;border-bottom:1px solid var(--bd)}
+.ipo-row:last-child{border-bottom:none}
+.req-ok{color:var(--gn)}.req-no{color:var(--rd)}
+.ach-grid{display:flex;flex-wrap:wrap;gap:2px}
+.abadge{font-size:11px;padding:2px;opacity:.25;filter:grayscale(1);cursor:default;display:inline-block}
+.abadge.done{opacity:1;filter:none}
+.status-bar{display:flex;flex-wrap:wrap;gap:3px}
+.stag{font-size:5px;padding:2px 4px;line-height:1.4}
+.stag.pos{background:#0d2a0d;border:1px solid var(--gn);color:var(--gn)}
+.stag.neg{background:#2a0d0d;border:1px solid var(--rd);color:var(--rd)}
+.milestone{background:#1a1a0a;border:2px solid var(--yw);padding:5px;font-size:5px;color:var(--yw);text-align:center;animation:milo .4s ease-out}
+@keyframes milo{from{opacity:0;transform:scaleY(0)}to{opacity:1;transform:scaleY(1)}}
+.talent-card{background:var(--bg3);border:2px solid var(--pk);padding:6px;margin-bottom:5px}
+.talent-card.hired{border-color:var(--gn);opacity:.7}
+.talent-hire-btn{width:100%;background:none;border:2px solid var(--pk);color:var(--pk);font-family:'Press Start 2P',monospace;font-size:5px;padding:5px;cursor:pointer;touch-action:manipulation;-webkit-appearance:none;margin-top:4px}
+.talent-hire-btn:disabled{opacity:.35;cursor:not-allowed}
+.dev-card{background:var(--bg3);border:2px solid var(--bd);padding:5px;margin-bottom:3px;display:flex;gap:5px}
+.dev-card.special{border-color:var(--pk);background:#1a0d1a}
+.dev-av{width:26px;height:26px;border:2px solid #3a3a6a;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.dev-av.jr{border-color:#5555aa}.dev-av.pl{border-color:var(--gn)}.dev-av.sr{border-color:var(--yw)}.dev-av.sp{border-color:var(--pk)}.dev-av.special{border-color:var(--pk);background:#2a002a}
+.rbadge{font-size:4px;padding:1px 3px;display:inline-block;margin-right:2px}
+.rbadge.jr{background:#222244;color:#8888cc}.rbadge.pl{background:#1a3a1a;color:var(--gn)}.rbadge.sr{background:#3a2a00;color:var(--yw)}.rbadge.sp{background:#3a001a;color:var(--pk)}
+.prod-c{background:var(--bg3);border:1px solid var(--bd);padding:5px;margin-bottom:3px}
+.pmet{background:var(--bg2);border:1px solid var(--bd);height:5px;margin:2px 0}
+.pfill{height:100%;background:#4455ff;transition:width .5s}
+.mis-card{background:var(--bg3);border:2px solid var(--bd);padding:6px;margin-bottom:4px}
+.mis-card.done{border-color:var(--gn)}
+.mis-prog{background:var(--bg2);border:1px solid var(--bd);height:6px;margin:3px 0}
+.mis-fill{height:100%;background:var(--ac);transition:width .4s}
+.mis-claim{width:100%;background:var(--gn);border:none;color:var(--bg);font-family:'Press Start 2P',monospace;font-size:5px;padding:4px;cursor:pointer;margin-top:3px;-webkit-appearance:none}
+.rival-row{background:var(--bg3);border:2px solid var(--bd);padding:5px;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.tech-nd{display:flex;align-items:flex-start;gap:5px;background:var(--bg3);border:2px solid var(--bd);padding:5px;margin-bottom:2px;cursor:pointer}
+.tech-nd.done{border-color:var(--gn);opacity:.75;cursor:default}
+.tech-nd.lkd{opacity:.28;cursor:not-allowed}
+.tcon{width:2px;height:8px;background:var(--bd);margin-left:11px}
+.blink{animation:bk 1s step-end infinite}@keyframes bk{50%{opacity:0}}
+</style>
+</head>
+<body>
+<div id="notifs"></div>
+<div class="overlay on" id="name-ovl">
+  <div class="ov-box">
+    <div class="ov-title">NOVA STARTUP</div>
+    <div style="color:#666;font-size:5px;text-align:center;margin-bottom:12px;line-height:2">Qual o nome da sua empresa?</div>
+    <input class="ov-input" id="name-inp" maxlength="14" placeholder="Ex: Benete.inc">
+    <button class="ov-btn prim" id="name-btn">FUNDAR</button>
+  </div>
+</div>
+<div class="overlay" id="ipo-ovl">
+  <div class="ov-box" style="border-color:#ffdd00">
+    <div style="color:#ffdd00;font-size:11px;text-align:center;margin-bottom:6px">IPO NA NASDAQ</div>
+    <div style="color:#ffdd00;font-size:18px;text-align:center;letter-spacing:3px;margin-bottom:10px" id="ipo-ticker">????</div>
+    <div id="ipo-reqs" style="margin-bottom:10px"></div>
+    <div id="ipo-result" style="display:none;color:var(--gn);font-size:5px;text-align:center;margin-bottom:10px;line-height:2;border:1px solid var(--gn);padding:6px"></div>
+    <button class="ov-btn prim" id="ipo-confirm" style="border-color:#ffdd00;background:#1a1a00;color:#ffdd00">ABRIR CAPITAL</button>
+    <button class="ov-btn sec" onclick="document.getElementById('ipo-ovl').classList.remove('on')">FECHAR</button>
+  </div>
+</div>
+<div class="me-overlay" id="me-ovl">
+  <div class="me-box">
+    <div class="me-t" id="me-title"></div>
+    <div class="me-ctx" id="me-ctx" style="display:none"></div>
+    <div class="me-d" id="me-desc"></div>
+    <div class="me-timer" id="me-timer"></div>
+    <div id="me-btns"></div>
+  </div>
+</div>
+<div id="page">
+  <div class="header">
+    <span style="color:#554499;font-size:5px" id="pres-badge"></span>
+    <span class="co-name" id="co-title">STARTUP</span>
+    <div style="display:flex;gap:4px;align-items:center">
+      <span style="color:#ffdd00;font-size:5px;display:none" id="ipo-badge"></span>
+      <button onclick="document.getElementById('ipo-ovl').classList.add('on');refreshIPO()" style="display:none;background:#1a1a00;border:1px solid #ffdd00;color:#ffdd00;font-family:'Press Start 2P',monospace;font-size:5px;padding:2px 5px;cursor:pointer" id="ipo-btn">IPO</button>
+    </div>
+  </div>
+  <div class="status-bar" id="status-bar"></div>
+  <div class="milestone" id="milestone" style="display:none"></div>
+  <div class="boost-bar" id="boost-bar" style="display:none">
+    <div style="display:flex;justify-content:space-between;font-size:5px;margin-bottom:2px">
+      <span style="color:var(--gn)" id="boost-lbl">2x BOOST</span><span style="color:var(--gn)" id="boost-time">30s</span>
+    </div>
+    <div class="bfill" id="boost-fill" style="width:100%"></div>
+  </div>
+  <div class="resources">
+    <div class="res"><div class="res-lbl">CODIGO</div><div class="res-val" id="r-code">0</div><div class="res-rate" id="rr-code">+0/s</div></div>
+    <div class="res"><div class="res-lbl">REPUTACAO</div><div class="res-val" id="r-rep">0</div><div class="res-rate" id="rr-rep">+0/s</div></div>
+    <div class="res"><div class="res-lbl">FUNDING</div><div class="res-val" id="r-fund">$0</div><div class="res-rate" id="rr-fund">+$0/s</div></div>
+    <div class="res"><div class="res-lbl">VALUATION</div><div class="res-val" id="r-val">$0</div><div class="res-rate" id="rr-val">0%</div></div>
+  </div>
+  <div class="coffee-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <span style="font-size:5px;color:var(--yw)">CAFE DA EQUIPE</span>
+      <span style="font-size:6px" id="cof-pct">100%</span>
+    </div>
+    <div class="coffbar"><div class="cofffill" id="cof-fill" style="width:100%;background:var(--gn)"></div></div>
+    <div class="cof-effect" id="cof-effect" style="border-color:var(--gn);color:var(--gn)">Equipe 100% produtiva</div>
+  </div>
+  <div class="main-row">
+    <div class="left-col">
+      <div class="bld-wrap">
+        <div style="color:var(--ac);font-size:6px;margin-bottom:4px;border-bottom:1px solid var(--bd);padding-bottom:2px" id="bld-title">HQ</div>
+        <div style="position:relative;display:inline-block">
+          <div class="cw-inner" id="cw">
+            <svg id="bld-svg" width="110" height="100" viewBox="0 0 44 40" style="cursor:pointer;display:block;touch-action:manipulation">
+              <rect x="0" y="36" width="44" height="4" fill="#0d0d22"/>
+              <rect x="4" y="16" width="36" height="20" fill="#1a1a3a"/>
+              <rect x="6" y="14" width="32" height="4" fill="#22224a"/>
+              <rect x="8" y="7" width="28" height="9" fill="#1a1a3a"/>
+              <rect x="10" y="5" width="24" height="4" fill="#22224a"/>
+              <rect x="14" y="1" width="16" height="6" fill="#22224a"/>
+              <rect x="18" y="0" width="8" height="3" fill="#8888ff"/>
+              <rect x="30" y="3" width="4" height="6" fill="#1a1a3a" id="chimney"/>
+              <rect x="6"  y="18" width="6" height="5" fill="#2a2a6a" id="w1"/>
+              <rect x="14" y="18" width="6" height="5" fill="#2a2a6a" id="w2"/>
+              <rect x="22" y="18" width="6" height="5" fill="#2a2a6a" id="w3"/>
+              <rect x="30" y="18" width="6" height="5" fill="#2a2a6a" id="w4"/>
+              <rect x="6"  y="26" width="6" height="5" fill="#2a2a6a" id="w5"/>
+              <rect x="14" y="26" width="6" height="5" fill="#2a2a6a" id="w6"/>
+              <rect x="22" y="26" width="6" height="5" fill="#2a2a6a" id="w7"/>
+              <rect x="30" y="26" width="6" height="5" fill="#2a2a6a" id="w8"/>
+              <rect x="10" y="9"  width="4" height="3" fill="#2a2a6a" id="w9"/>
+              <rect x="17" y="9"  width="4" height="3" fill="#2a2a6a" id="w10"/>
+              <rect x="24" y="9"  width="4" height="3" fill="#2a2a6a" id="w11"/>
+              <rect x="31" y="9"  width="4" height="3" fill="#2a2a6a" id="w12"/>
+              <rect x="18" y="30" width="8" height="6" fill="#0a0a1a"/>
+            </svg>
+            <div id="smoke-wrap" style="position:absolute;top:0;left:72%;width:10px;height:20px;overflow:visible;pointer-events:none"></div>
+          </div>
+          <div id="walker-row" style="position:relative;height:14px;overflow:hidden;width:110px;margin-top:1px"></div>
+        </div>
+        <div class="click-info" id="click-pw">+1/click</div>
+        <div class="auto-info" id="auto-info">AUTO: OFF</div>
+        <div class="auto-dots" id="auto-dots"></div>
+        <div style="margin-top:3px">
+          <div class="sr"><span>DEVS</span><span id="s-devs">0/3</span></div>
+          <div class="sr"><span style="color:#7777cc">JR</span><span id="s-jr">0</span></div>
+          <div class="sr"><span style="color:var(--gn)">PL</span><span id="s-pl">0</span></div>
+          <div class="sr"><span style="color:var(--yw)">SR</span><span id="s-sr">0</span></div>
+          <div class="sr"><span style="color:var(--pk)">SP</span><span id="s-sp">0</span></div>
+          <div class="sr"><span style="color:var(--pk)">TALENTOS</span><span id="s-tal">0/3</span></div>
+          <div class="sr"><span>SERV.</span><span id="s-srv">0</span></div>
+          <div class="sr"><span>PRODS</span><span id="s-prods">0</span></div>
+          <div class="sr"><span>MULT</span><span id="s-mult">1x</span></div>
+        </div>
+      </div>
+      <div style="background:var(--bg2);border:2px solid var(--bd);padding:6px">
+        <div style="color:var(--ac);font-size:6px;margin-bottom:4px;border-bottom:1px solid var(--bd);padding-bottom:2px">CONQUISTAS</div>
+        <div class="ach-grid" id="ach-grid"></div>
+      </div>
+    </div>
+    <div class="right-col">
+      <div>
+        <div class="tab-bar" id="tab-bar">
+          <button class="tab-btn on" data-tab="shop">UPG</button>
+          <button class="tab-btn" data-tab="tech">TECH</button>
+          <button class="tab-btn" data-tab="talent">TALENT</button>
+          <button class="tab-btn" data-tab="team">TIME</button>
+          <button class="tab-btn" data-tab="prods">PROD</button>
+          <button class="tab-btn" data-tab="missions">MISS</button>
+          <button class="tab-btn" data-tab="rivals">RANK</button>
+          <button class="tab-btn" data-tab="stats">STATS</button>
+        </div>
+        <div class="tab-content" id="tab-content"></div>
+      </div>
+      <div style="background:var(--bg2);border:2px solid var(--bd);padding:6px">
+        <div style="color:var(--ac);font-size:6px;margin-bottom:4px;border-bottom:1px solid var(--bd);padding-bottom:2px">META <span id="goal-lbl">$1B</span></div>
+        <div class="pbar-o"><div class="pbar-i" id="prog-bar" style="width:0%"></div></div>
+        <div style="font-size:5px;color:#333355;margin-bottom:3px" id="prog-lbl">$0 / $1B</div>
+        <button class="act-btn" id="prestige-btn" disabled>COMPRE MODO PRESTIGE</button>
+        <div id="run-hist" style="margin-top:3px"></div>
+      </div>
+      <div id="ipo-mini" style="display:none;background:var(--bg2);border:2px solid #ffdd00;padding:6px">
+        <div style="color:#ffdd00;font-size:6px;margin-bottom:4px">IPO STATUS</div>
+        <div id="ipo-mini-content"></div>
+      </div>
+    </div>
+  </div>
+  <div class="log-section">
+    <div style="color:#333355;font-size:5px;margin-bottom:2px">LOG <span class="blink">_</span></div>
+    <div id="log"></div>
+  </div>
+</div>
+<script>
+
+const el=id=>document.getElementById(id);
+const fmt=n=>{if(n<0)return'-'+fmt(-n);if(n>=1e12)return(n/1e12).toFixed(2)+'T';if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return Math.floor(n)+''};
+const fmtT=s=>{s=Math.floor(Math.abs(s));const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sc=s%60;return h>0?h+'h'+m+'m':m>0?m+'m'+sc+'s':sc+'s'};
+let actx=null;
+const ga=()=>{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx};
+const beep=(f,d,v=0.09,t='square')=>{try{const c=ga(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type=t;o.frequency.value=f;g.gain.setValueAtTime(v,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.start();o.stop(c.currentTime+d)}catch(e){}};
+const sfx={
+  click:()=>beep(880,0.04,0.07),
+  buy:()=>{beep(440,0.04,0.07);setTimeout(()=>beep(660,0.05,0.07),55);setTimeout(()=>beep(880,0.09,0.08),120)},
+  good:()=>{beep(523,0.05,0.08,'triangle');setTimeout(()=>beep(784,0.1,0.08,'triangle'),80)},
+  bad:()=>{beep(200,0.09,0.09,'sawtooth');setTimeout(()=>beep(150,0.14,0.09,'sawtooth'),100)},
+  notify:()=>{beep(1047,0.04,0.06,'sine');setTimeout(()=>beep(1319,0.07,0.06,'sine'),65)},
+  tech:()=>{[440,554,659,880].forEach((f,i)=>setTimeout(()=>beep(f,0.07,0.09,'triangle'),i*65))},
+  prestige:()=>{[523,659,784,1047,1319,1568].forEach((f,i)=>setTimeout(()=>beep(f,0.09,0.1,'triangle'),i*70))},
+  milestone:()=>{beep(660,0.05,0.09);setTimeout(()=>beep(880,0.05,0.09),55);setTimeout(()=>beep(1100,0.09,0.1),110)},
+  boost:()=>{beep(660,0.04,0.08);setTimeout(()=>beep(1100,0.09,0.09),90)},
+  promote:()=>{[330,440,550,660,880].forEach((f,i)=>setTimeout(()=>beep(f,0.06,0.09,'triangle'),i*50))},
+  autoUpg:()=>{beep(440,0.04,0.09);setTimeout(()=>beep(660,0.09,0.1),100)},
+  rival:()=>{beep(330,0.08,0.09,'sawtooth');setTimeout(()=>beep(220,0.12,0.09,'sawtooth'),100)},
+  mission:()=>{[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,0.08,0.09,'triangle'),i*60))},
+  ipo:()=>{[523,659,784,1047,1319,1568,2093].forEach((f,i)=>setTimeout(()=>beep(f,0.12,0.12,'triangle'),i*80))},
+  talent:()=>{beep(880,0.06,0.1,'triangle');setTimeout(()=>beep(1108,0.06,0.1,'triangle'),80);setTimeout(()=>beep(1320,0.1,0.1,'triangle'),160)},
+};
+let cName=localStorage.getItem('b8n')||'';
+let cTicker='';
+function setName(n){cName=n.trim()||'Startup';cTicker=cName.replace(/[^a-zA-Z]/g,'').toUpperCase().slice(0,4)||'CORP';localStorage.setItem('b8n',cName);}
+// BUILDING ANIM
+const ALL_WINS=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12'];
+let smokeTimer=0,walkers=[];
+function isNight(){const h=new Date().getHours();return h>=22||h<6;}
+function updateBldAnim(dt){
+  const devCount=G?G.devs:0,isN=isNight(),cofHigh=G&&G.coffee>70;
+  const litCount=Math.min(ALL_WINS.length,Math.ceil(devCount*0.8));
+  ALL_WINS.forEach((id,i)=>{
+    const e=document.getElementById(id);if(!e)return;
+    if(i<litCount){
+      const nc=hiredTalents.includes('night_coder');
+      const col=isN&&nc?'#ffdd22':isN?'#ffdd66':'#aaaaff';
+      if(Math.random()<0.003)e.setAttribute('fill','#2a2a6a');
+      else e.setAttribute('fill',col);
+    } else e.setAttribute('fill','#2a2a6a');
+  });
+  smokeTimer+=dt;
+  if(cofHigh&&smokeTimer>2.5){smokeTimer=0;const sc=document.getElementById('smoke-wrap');if(sc){const s=document.createElement('div');s.className='smoke';s.style.cssText='position:absolute;left:0;top:0;width:4px;height:4px';sc.appendChild(s);setTimeout(()=>s.remove(),1500);}}
+  walkerTick(dt);
+}
+const WEMOJI=['👨‍💻','👩‍💻','🧑‍💻','☕','🚬','🎧','🦸'];
+function walkerTick(dt){
+  const row=document.getElementById('walker-row');if(!row)return;
+  const maxW=Math.min(G?Math.ceil(G.devs/2):0,4);
+  if(walkers.length<maxW&&Math.random()<0.03){
+    const dir=Math.random()<0.5?1:-1;
+    const eidx=Math.min(Math.floor(Math.random()*(G&&G.devs>0?Math.min(G.devs,WEMOJI.length):1)),WEMOJI.length-1);
+    const w={x:dir>0?-15:115,dir,emoji:WEMOJI[eidx],spd:8+Math.random()*6,domEl:null};
+    const d=document.createElement('div');
+    d.style.cssText='position:absolute;bottom:0;font-size:10px;pointer-events:none;transition:left .1s linear';
+    d.style.transform=dir<0?'scaleX(-1)':'scaleX(1)';
+    d.textContent=w.emoji;row.appendChild(d);w.domEl=d;walkers.push(w);
+  }
+  walkers.forEach((w,i)=>{w.x+=w.dir*w.spd*dt;if(w.domEl)w.domEl.style.left=w.x+'px';if((w.dir>0&&w.x>115)||(w.dir<0&&w.x<-15)){if(w.domEl)w.domEl.remove();walkers[i]=null;}});
+  walkers=walkers.filter(Boolean);
+}
+function flashWin(){const id=ALL_WINS[Math.floor(Math.random()*ALL_WINS.length)];const e=document.getElementById(id);if(e){e.setAttribute('fill','#ffffff');setTimeout(()=>e.setAttribute('fill','#aaaaff'),100);}}
+// TALENT MARKET
+const TALENT_POOL=[
+  {id:'night_coder',name:'Carlos Noturno',emoji:'🌙',skill:'Night Coder',effect:'+200% producao das 22h as 6h (horario real)',cost:{fund:800,rep:200},onHire:null,onTick:(G,dt)=>{if(isNight())G.code+=G.codeRate*2*dt;},smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'office_romance',name:'Ana e Pedro',emoji:'💕',skill:'Office Romance',effect:'Moral da equipe permanentemente ALTA (+25% prod)',cost:{fund:600,rep:150},onHire:null,onTick:(G)=>{G.moraleHigh=true;G.moraleLow=false;},smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'zero_bug',name:'Diego Deploy',emoji:'🚀',skill:'Zero Bug Deploy',effect:'Deploys sempre ok. Bugs causam 10% do dano normal.',cost:{fund:1000,rep:300},onHire:null,onTick:null,smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'solo_dev',name:'Felipe Solo',emoji:'🦸',skill:'Solo Dev',effect:'Pode lancar qualquer produto com apenas 1 dev. 3x cooldown.',cost:{fund:1200,rep:400},onHire:null,onTick:null,smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'smoker',name:'Bruno Fumante',emoji:'🚬',skill:'Fumante',effect:'A cada 60s sai fumar. Volta com +500% prod por 30s.',cost:{fund:500,rep:100},onHire:null,onTick:null,smokeTimer:60,smokeBurst:false,smokeBurstTimer:0},
+  {id:'lofi_dev',name:'Gabi Lo-Fi',emoji:'🎧',skill:'Lo-Fi Dev',effect:'Click power +80% permanente.',cost:{fund:700,rep:180},onHire:(G)=>{G.clickPow*=1.8;},onTick:null,smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'junk_food',name:'Hugo Junk',emoji:'🌮',skill:'Viciado em Junk Food',effect:'Substitui cafe. Cafe nunca abaixo de 40%. Rep -0.5% passivo.',cost:{fund:400,rep:80},onHire:null,onTick:(G,dt)=>{G.coffee=Math.max(G.coffee,40);G.rep=Math.max(0,G.rep*(1-0.005*dt));},smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+  {id:'caffeine_iv',name:'Iris IV',emoji:'💉',skill:'Caffeine IV',effect:'Cafe drena 90% mais devagar para toda equipe.',cost:{fund:900,rep:250},onHire:(G)=>{G.coffeeDrain=Math.min(G.coffeeDrain||1,0.1);},onTick:null,smokeTimer:0,smokeBurst:false,smokeBurstTimer:0},
+];
+let hiredTalents=[],marketSlots=[],marketTimer=180;
+function genMarket(){const avail=TALENT_POOL.filter(t=>!hiredTalents.includes(t.id)).sort(()=>Math.random()-0.5);marketSlots=avail.slice(0,4);marketTimer=180;}
+function hireTalent(id){
+  const t=TALENT_POOL.find(x=>x.id===id);if(!t||hiredTalents.includes(id))return;
+  if(hiredTalents.length>=3){addLog('Limite de 3 talentos!','b');return;}
+  if(G.fund<t.cost.fund||G.rep<t.cost.rep){addLog('Sem recursos para '+t.name,'b');return;}
+  G.fund-=t.cost.fund;G.rep-=t.cost.rep;
+  hiredTalents.push(id);
+  if(t.onHire)t.onHire(G);
+  G.devs++;employees.push({name:t.name,rank:'sp',role:t.skill,mood:0,quirk:t.effect,prod:'10',emoji:t.emoji,g:0,special:true,talentId:id});
+  addLog('Talento: '+t.name+' ('+t.skill+')','g');
+  notify('TALENTO: '+t.name,'talent');sfx.talent();
+  genMarket();renderTab();
+}
+function tickTalents(dt){
+  const smkT=TALENT_POOL.find(x=>x.id==='smoker');
+  if(hiredTalents.includes('smoker')&&smkT){
+    smkT.smokeTimer-=dt;
+    if(smkT.smokeTimer<=0&&!smkT.smokeBurst){smkT.smokeBurst=true;smkT.smokeBurstTimer=30;smkT.smokeTimer=60;addLog('Bruno foi fumar... volta turbinado!','w');}
+    if(smkT.smokeBurst){smkT.smokeBurstTimer-=dt;G.code+=G.codeRate*5*dt;if(smkT.smokeBurstTimer<=0){smkT.smokeBurst=false;addLog('Bruno voltou do cigarro.','i');}}
+  }
+  hiredTalents.forEach(id=>{const t=TALENT_POOL.find(x=>x.id===id);if(t&&t.onTick)t.onTick(G,dt);});
+  if(hiredTalents.includes('office_romance')){G.moraleHigh=true;G.moraleLow=false;}
+  marketTimer-=dt;if(marketTimer<=0)genMarket();
+}
+// DEV RANKS
+const RANKS=[
+  {id:'jr',label:'Junior',  badge:'JR',emoji:['👦','👧'],      prod:1,  mult:1},
+  {id:'pl',label:'Pleno',   badge:'PL',emoji:['👨','👩'],      prod:2.2,mult:1.5},
+  {id:'sr',label:'Senior',  badge:'SR',emoji:['🧔','👩‍🦱'],  prod:4.5,mult:2.5},
+  {id:'sp',label:'Esp.',    badge:'SP',emoji:['🧙‍♂️','🧙‍♀️'],prod:9, mult:5},
+];
+const DN=['Ana','Bruno','Carla','Diego','Elena','Felipe','Gabi','Hugo','Iris','Joao','Kenia','Leo'];
+const DS=['Silva','Costa','Lima','Souza','Ferreira','Alves'];
+const DR={jr:['Dev Jr','Estagiario','Frontend Jr'],pl:['Dev Pleno','Full-Stack','DevOps'],sr:['Tech Lead','Dev Senior','Arquiteto'],sp:['Staff Eng','Distinguished','Fellow']};
+const DQ=['Odeia reunioes','Usa vim','Dark mode only','8 cafes/dia','Commita na main','Sem testes','PR as 23h','Reescreve em Rust'];
+function mkEmp(rank='jr'){const r=RANKS.find(x=>x.id===rank),g=Math.floor(Math.random()*2);return{name:DN[Math.floor(Math.random()*DN.length)]+' '+DS[Math.floor(Math.random()*DS.length)],rank,role:DR[rank][Math.floor(Math.random()*DR[rank].length)],mood:Math.floor(Math.random()*3),quirk:DQ[Math.floor(Math.random()*DQ.length)],prod:(r.prod*(0.85+Math.random()*0.3)).toFixed(1),emoji:r.emoji[g],g};}
+const AUTO_LVL=[{lvl:0,spd:0,lbl:'OFF'},{lvl:1,spd:1,lbl:'1x/s',cost:80},{lvl:2,spd:2,lbl:'2x/s',cost:250},{lvl:3,spd:5,lbl:'5x/s',cost:700},{lvl:4,spd:10,lbl:'10x/s',cost:2000},{lvl:5,spd:20,lbl:'20x/s',cost:6000},{lvl:6,spd:50,lbl:'50x/s',cost:20000},{lvl:7,spd:100,lbl:'100x/s',cost:80000},{lvl:8,spd:200,lbl:'200x/s',cost:300000}];
+const RIVAL_DEF=[{name:'PixelStartup',logo:'🟣',spd:0.9},{name:'DevForge',logo:'🔴',spd:0.75},{name:'ByteRocket',logo:'🟠',spd:0.6},{name:'TechStart',logo:'🔵',spd:0.4}];
+let rivals=[];
+function initRivals(){rivals=RIVAL_DEF.map(r=>({...r,fund:Math.random()*50,rep:0,val:0,ahead:false}));}
+function tickRivals(dt){rivals.forEach(r=>{const b=(G.fundRate||0.05)*r.spd*(0.7+Math.random()*0.6);r.fund+=b*dt;r.rep+=G.repRate*r.spd*0.4*dt;r.val=r.fund*10+r.rep*80;const wa=r.ahead;r.ahead=r.val>(G.totalFund*10+G.rep*80);if(r.ahead&&!wa&&G.totalFund>500){addLog(r.name+' ultrapassou '+cName+'!','b');notify(r.name+' te ultrapassou!','rival');sfx.rival();}else if(!r.ahead&&wa&&G.totalFund>500){addLog(cName+' ultrapassou '+r.name+'!','g');notify('Ultrapassou '+r.name,'boost');sfx.good();}});}
+const MIS_POOL=[
+  {id:'c50',title:'Cliqueiro',desc:'Clique 50 vezes',type:'clicks',tgt:50,rwd:{t:'fund',v:500},rl:'+$500'},
+  {id:'c300',title:'Digitador',desc:'Clique 300 vezes',type:'clicks',tgt:300,rwd:{t:'fund',v:2500},rl:'+$2.5K'},
+  {id:'f1k',title:'Seed!',desc:'Acumule $1K funding',type:'totalFund',tgt:1000,rwd:{t:'rep',v:100},rl:'+100 rep'},
+  {id:'r100',title:'Influencer',desc:'Alcance 100 rep',type:'rep',tgt:100,rwd:{t:'code',v:500},rl:'+500 cod'},
+  {id:'d3',title:'Fundadores',desc:'Tenha 3 devs',type:'devs',tgt:3,rwd:{t:'fund',v:800},rl:'+$800'},
+  {id:'s1',title:'Online!',desc:'Compre 1 servidor',type:'servers',tgt:1,rwd:{t:'rep',v:200},rl:'+200 rep'},
+  {id:'p1',title:'Launch!',desc:'Lance 1 produto',type:'prods',tgt:1,rwd:{t:'fund',v:3000},rl:'+$3K'},
+  {id:'ev3',title:'Resiliente',desc:'Sobreviva 3 eventos',type:'evSurv',tgt:3,rwd:{t:'fund',v:1500},rl:'+$1.5K'},
+  {id:'t1',title:'Pesquisador',desc:'Pesquise 1 tech',type:'techs',tgt:1,rwd:{t:'rep',v:500},rl:'+500 rep'},
+  {id:'tal1',title:'Talent Scout',desc:'Contrate 1 talento',type:'talents',tgt:1,rwd:{t:'fund',v:5000},rl:'+$5K'},
+  {id:'pit2',title:'Pitcher',desc:'Faca 2 pitches',type:'pitches',tgt:2,rwd:{t:'fund',v:4000},rl:'+$4K'},
+  {id:'pl1',title:'Crescendo',desc:'Promova 1 dev p/ Pleno',type:'rankPl',tgt:1,rwd:{t:'code',v:1500},rl:'+1.5K cod'},
+];
+let missions=[],mp={clicks:0,totalFund:0,rep:0,devs:0,servers:0,prods:0,evSurv:0,pitches:0,rankPl:0,techs:0,talents:0},misTimer=300;
+function genMissions(){const pool=[...MIS_POOL];const out=[];for(let i=0;i<3&&pool.length;i++){const idx=Math.floor(Math.random()*pool.length);out.push({...pool[idx],prog:0,done:false,claimed:false});pool.splice(idx,1);}missions=out;misTimer=300;mp={clicks:0,totalFund:0,rep:0,devs:0,servers:0,prods:0,evSurv:0,pitches:0,rankPl:0,techs:0,talents:0};}
+function tickMissions(){mp.totalFund=G.totalFund;mp.rep=G.rep;mp.devs=G.devs;mp.servers=G.servers;mp.prods=products.length;mp.techs=Object.keys(techDone).length;mp.rankPl=employees.filter(e=>['pl','sr','sp'].includes(e.rank)&&!e.special).length;mp.talents=hiredTalents.length;missions.forEach(m=>{if(m.done)return;m.prog=Math.min(mp[m.type]||0,m.tgt);if(m.prog>=m.tgt){m.done=true;addLog('MISSAO: '+m.title+'!','g');notify(m.title,'mission');sfx.mission();}});}
+function claimMis(i){const m=missions[i];if(!m||!m.done||m.claimed)return;m.claimed=true;const r=m.rwd,mult=G.prestigeMult;if(r.t==='fund'){G.fund+=r.v*mult;G.totalFund+=r.v*mult;}else if(r.t==='rep')G.rep+=r.v*mult;else if(r.t==='code')G.code+=r.v*mult;else if(r.t==='boost'){G.boostActive=true;G.boostMult=2;G.boostTime=r.v;G.boostMax=r.v;}addLog('Recompensa: '+m.rl,'g');sfx.buy();renderTab();}
+let ipoUnlocked=false,ipoDone=false,sharePrice=0,divTimer=0;
+function checkIPO(){if(G.totalPrestige>=1&&!ipoDone)ipoUnlocked=true;}
+function refreshIPO(){
+  el('ipo-ticker').textContent=cTicker;
+  const reqs=[{l:'Valuation $10B',ok:G.totalFund*10>=1e10,v:'$'+fmt(G.totalFund*10)+' / $10B'},{l:'Reputacao 10K',ok:G.rep>=10000,v:fmt(G.rep)+' / 10K'},{l:'3 produtos',ok:products.length>=3,v:products.length+' / 3'},{l:'1 Prestige',ok:G.totalPrestige>=1,v:G.totalPrestige+' / 1'}];
+  const allOk=reqs.every(r=>r.ok);
+  el('ipo-reqs').innerHTML=reqs.map(r=>`<div class="ipo-row"><span>${r.l}</span><span class="${r.ok?'req-ok':'req-no'}">${r.v} ${r.ok?'ok':'x'}</span></div>`).join('');
+  const btn=el('ipo-confirm');
+  if(ipoDone){btn.textContent='IPO REALIZADO';btn.disabled=true;el('ipo-result').style.display='block';el('ipo-result').textContent=cName+' na NASDAQ! Ticker: '+cTicker;}
+  else{btn.textContent='ABRIR CAPITAL';btn.disabled=!allOk;btn.onclick=allOk?confirmIPO:null;}
+}
+function confirmIPO(){if(ipoDone)return;sfx.ipo();ipoDone=true;sharePrice=parseFloat((G.totalFund*10/1e8).toFixed(2));divTimer=60;el('ipo-result').style.display='block';el('ipo-result').textContent=cName+' capital aberto!\nTicker: '+cTicker+' | Share: $'+sharePrice.toFixed(2);el('ipo-confirm').textContent='IPO REALIZADO';el('ipo-confirm').disabled=true;addLog('IPO! '+cName+' na NASDAQ!','p');notify('IPO realizado!','ipo');refreshIPO();save();}
+const TECH=[
+  {id:'mvp',br:'prod',name:'MVP Rapido',icon:'📱',desc:'Launch cooldown -50%',cost:150,dep:null,col:'#33aa66'},
+  {id:'growth',br:'prod',name:'Growth Hacking',icon:'📊',desc:'Usuarios crescem 3x',cost:500,dep:'mvp',col:'#33aa66'},
+  {id:'global',br:'prod',name:'Expansao Global',icon:'🌍',desc:'Produtos: rep 2x',cost:2000,dep:'growth',col:'#33aa66'},
+  {id:'cicd',br:'eng',name:'CI/CD Pipeline',icon:'⚡',desc:'cod/s +60%',cost:200,dep:null,col:'#3388cc'},
+  {id:'micro',br:'eng',name:'Microservicos',icon:'🏗',desc:'Servidores valem 2x',cost:800,dep:'cicd',col:'#3388cc'},
+  {id:'aicp',br:'eng',name:'AI Copilot',icon:'🤖',desc:'Auto +50% velocidade',cost:3000,dep:'micro',col:'#3388cc'},
+  {id:'vc_net',br:'biz',name:'Network de VCs',icon:'🤝',desc:'Pitch rende 2x',cost:300,dep:null,col:'#cc8822'},
+  {id:'valboost',br:'biz',name:'Valuation Boost',icon:'📈',desc:'Meta prestige=$500M',cost:1200,dep:'vc_net',col:'#cc8822'},
+  {id:'seriesA',br:'biz',name:'Serie A',icon:'🏦',desc:'Funding passivo 3x',cost:4000,dep:'valboost',col:'#cc8822'},
+];
+let techDone={};
+const TM=()=>({launchCD:techDone['mvp']?0.5:1,userGrowth:techDone['growth']?3:1,prodRep:techDone['global']?2:1,codeBonus:techDone['cicd']?1.6:1,srvMult:techDone['micro']?2:1,aiBonus:techDone['aicp']?1.5:1,pitchMult:techDone['vc_net']?2:1,goal:techDone['valboost']?5e8:1e9,fundMult:techDone['seriesA']?3:1});
+function canRes(t){return!techDone[t.id]&&G.rep>=t.cost&&(!t.dep||techDone[t.dep]);}
+function isLkd(t){return!techDone[t.id]&&!!t.dep&&!techDone[t.dep];}
+function doResearch(id){const t=TECH.find(x=>x.id===id);if(!t||!canRes(t))return;G.rep-=t.cost;techDone[id]=true;mp.techs++;sfx.tech();addLog('TECH: '+t.name,'p');notify('TECH: '+t.name,'tech');renderTab();}
+const PTYPES=[
+  {type:'SaaS',icon:'☁',repR:2,fundR:1.2,devN:3,codC:500,funC:60,desc:'Receita mensal'},
+  {type:'App Mobile',icon:'📱',repR:4,fundR:0.8,devN:2,codC:350,funC:40,desc:'Downloads=rep'},
+  {type:'API Publica',icon:'🔌',repR:1,fundR:1.8,devN:4,codC:750,funC:80,desc:'Devs pagam'},
+  {type:'AI Tool',icon:'🤖',repR:5,fundR:2.5,devN:6,codC:1800,funC:200,desc:'Hype maximo'},
+];
+let products=[],launchCD=0;
+function launchProd(i){const tm=TM(),pt=PTYPES[i];const solo=hiredTalents.includes('solo_dev');const devN=solo?1:pt.devN;const cdMult=solo?3:1;if(G.code<pt.codC||G.fund<pt.funC||G.devs<devN||launchCD*tm.launchCD*cdMult>0)return;G.code-=pt.codC;G.fund-=pt.funC;products.push({name:cName.split('.')[0]+' '+pt.type,type:pt.type,icon:pt.icon,repR:pt.repR,fundR:pt.fundR,age:0,users:0,maxU:3000+Math.random()*7000});launchCD=12*cdMult;sfx.buy();addLog('Produto lancado!','g');notify('Novo produto!','boost');renderTab();}
+const ACHS=[
+  {id:'c1',icon:'💾',name:'Primeiro commit',chk:()=>G.totalClicks>=1},
+  {id:'c1k',icon:'👆',name:'1K clicks',chk:()=>G.totalClicks>=1000},
+  {id:'d1',icon:'👦',name:'Primeiro dev',chk:()=>G.devs>=1},
+  {id:'d10',icon:'👥',name:'Time de 10',chk:()=>G.devs>=10},
+  {id:'pl1',icon:'👨',name:'Primeiro Pleno',chk:()=>employees.some(e=>e.rank==='pl'&&!e.special)},
+  {id:'sr1',icon:'🧔',name:'Primeiro Senior',chk:()=>employees.some(e=>e.rank==='sr'&&!e.special)},
+  {id:'sp1',icon:'🧙',name:'Especialista!',chk:()=>employees.some(e=>e.rank==='sp'&&!e.special)},
+  {id:'s1',icon:'💻',name:'Servidor online',chk:()=>G.servers>=1},
+  {id:'f1m',icon:'💰',name:'$1M funding',chk:()=>G.totalFund>=1e6},
+  {id:'f1b',icon:'🏦',name:'$1B funding',chk:()=>G.totalFund>=1e9},
+  {id:'a8',icon:'🤖',name:'Auto 200x/s',chk:()=>G.autoLvl>=8},
+  {id:'p1',icon:'📱',name:'Primeiro produto',chk:()=>products.length>=1},
+  {id:'t9',icon:'🌳',name:'Arvore completa',chk:()=>Object.keys(techDone).length>=9},
+  {id:'tal1',icon:'⭐',name:'Primeiro talento',chk:()=>hiredTalents.length>=1},
+  {id:'tal3',icon:'🌟',name:'3 talentos',chk:()=>hiredTalents.length>=3},
+  {id:'rv1',icon:'🏆',name:'Ultrapassou rival',chk:()=>rivals.some(r=>!r.ahead&&r.val>0)},
+  {id:'prs1',icon:'🦄',name:'Unicornio!',chk:()=>G.totalPrestige>=1},
+  {id:'ipo',icon:'📈',name:'Capital Aberto!',chk:()=>ipoDone},
+];
+let achDone={};
+const DEF={code:0,rep:0,fund:0,coffee:100,devs:0,servers:0,offSlots:3,bootcamp:false,security:false,analytics:false,filial:false,pairProg:false,hackday:false,prFirm:false,legal:false,autoLvl:0,clickPow:1,coffeeDrain:1,coffeeMin:0,cof_espresso:false,cdnBonus:1,k8s:false,backup:false,brandBonus:0,osBonus:0,appStoreBonus:1,b2bBonus:0,prestigeMult:1,prestigeCount:0,totalPrestige:0,totalClicks:0,totalFund:0,boostActive:false,boostMult:1,boostTime:0,boostMax:30,eventsCount:0,runStart:Date.now(),milestone:null,milestoneTimer:0,repDamaged:false,moraleHigh:false,moraleLow:false,serverUnstable:false,viralMoment:false,investorAttn:false,mediaBlackout:false,crunchMode:false,crunchTimer:0,moraleTimer:0,mediaTimer:0,pitchesMade:0,evSurv:0};
+let G={...DEF},employees=[],runHistory=[],prestigeUnlocked=false;
+let eventPause=0,eventTimer=22,autoTimer=0,saveTimer=0,lastTick=Date.now();
+let curTab='shop',catFilter='all',miniEv=null,meTimer=0,milestonesSeen={};
+const SHOP_DEF=[
+  {id:'cof_machine',name:'Cafeteira basica',icon:'☕',cat:'cof',desc:'Restaura +60% cafe',base:{code:15},t:'code',max:99},
+  {id:'cof_premium',name:'Cafeteria premium',icon:'🍵',cat:'cof',desc:'Cafe drena 40% mais devagar',base:{fund:200},t:'fund',max:1},
+  {id:'cof_drip',name:'Filtro coado',icon:'🫖',cat:'cof',desc:'Cafe minimo 10%',base:{fund:350},t:'fund',max:1},
+  {id:'cof_espresso',name:'Maquina espresso',icon:'⚗',cat:'cof',desc:'+30% prod quando cafe acima de 80%',base:{fund:500,rep:50},t:'bf',max:1},
+  {id:'cof_french',name:'French Press',icon:'🧪',cat:'cof',desc:'Cafe nunca abaixo de 25%',base:{fund:700},t:'fund',max:1},
+  {id:'cof_cold_brew',name:'Cold Brew',icon:'🧊',cat:'cof',desc:'Drain 70% mais devagar + min 30%',base:{fund:1200,rep:80},t:'bf',max:1},
+  {id:'cof_iv',name:'Cafe IV direto',icon:'💉',cat:'cof',desc:'Cafe min 50%, drain quase zero',base:{fund:3000,rep:200},t:'bf',max:1},
+  {id:'auto1',name:'Auto-clicker v1',icon:'🖱',cat:'auto',desc:'1x/s automatico',base:{fund:80},t:'fund',max:1},
+  {id:'auto2',name:'Auto-clicker v2',icon:'⚡',cat:'auto',desc:'Upgrade: 2x/s',base:{fund:250},t:'fund',max:1},
+  {id:'auto3',name:'Auto-clicker v3',icon:'🚀',cat:'auto',desc:'Upgrade: 5x/s',base:{fund:700},t:'fund',max:1},
+  {id:'auto4',name:'Auto-clicker v4',icon:'🤖',cat:'auto',desc:'Upgrade: 10x/s',base:{fund:2000},t:'fund',max:1},
+  {id:'auto5',name:'Auto-clicker v5',icon:'🧠',cat:'auto',desc:'Upgrade: 20x/s',base:{fund:6000},t:'fund',max:1},
+  {id:'auto6',name:'Auto-clicker v6',icon:'🔥',cat:'auto',desc:'Upgrade: 50x/s',base:{fund:20000},t:'fund',max:1},
+  {id:'auto7',name:'Auto-clicker v7',icon:'💀',cat:'auto',desc:'Upgrade: 100x/s',base:{fund:80000},t:'fund',max:1},
+  {id:'auto8',name:'Auto-clicker v8 MAX',icon:'👾',cat:'auto',desc:'Upgrade: 200x/s',base:{fund:300000},t:'fund',max:1},
+  {id:'fastclk',name:'Teclado mecanico',icon:'⌨',cat:'auto',desc:'+4 ao click permanente',base:{code:100},t:'code',max:10},
+  {id:'ergonomic',name:'Setup ergonomico',icon:'🖥',cat:'auto',desc:'Click power +10%',base:{code:300,fund:50},t:'both',max:5},
+  {id:'dev',name:'Contratar dev Jr',icon:'👦',cat:'dev',desc:'+1 dev Jr na equipe',base:{code:30},t:'code',max:999},
+  {id:'office',name:'Escritorio maior',icon:'🏢',cat:'infra',desc:'+5 slots de dev',base:{code:180,fund:15},t:'both',max:10},
+  {id:'promote_pl',name:'Promover p/ Pleno',icon:'📈',cat:'dev',desc:'Promove Jr para Pleno',base:{code:300,fund:50},t:'both',max:99},
+  {id:'promote_sr',name:'Promover p/ Senior',icon:'🌟',cat:'dev',desc:'Promove Pleno para Senior',base:{code:800,fund:150},t:'both',max:99},
+  {id:'promote_sp',name:'Promover p/ Esp.',icon:'🧙',cat:'dev',desc:'Promove Senior p/ Especialista',base:{code:2500,fund:500},t:'both',max:99},
+  {id:'bootcamp',name:'Bootcamp interno',icon:'🎓',cat:'dev',desc:'Devs +30% producao',base:{fund:200},t:'fund',max:1},
+  {id:'pair_prog',name:'Pair Programming',icon:'👫',cat:'dev',desc:'+20% cod/s',base:{code:400,fund:60},t:'both',max:1},
+  {id:'hackday',name:'Hack Day semanal',icon:'💡',cat:'dev',desc:'+click por dev',base:{fund:500},t:'fund',max:1},
+  {id:'server',name:'Servidor proprio',icon:'💻',cat:'infra',desc:'cod/s x1.4 por servidor',base:{code:250,fund:50},t:'both',max:20},
+  {id:'cdn',name:'CDN global',icon:'🌐',cat:'infra',desc:'Servidores +20%',base:{fund:400,rep:50},t:'bf',max:1},
+  {id:'k8s',name:'Kubernetes',icon:'🐳',cat:'infra',desc:'Servidores sempre estaveis',base:{fund:600,rep:100},t:'bf',max:1},
+  {id:'security',name:'Time de seguranca',icon:'🔒',cat:'infra',desc:'Bloqueia 55% eventos ruins',base:{fund:250},t:'fund',max:1},
+  {id:'backup',name:'Backup automatico',icon:'💾',cat:'infra',desc:'Limita dano em eventos',base:{fund:350,rep:40},t:'bf',max:1},
+  {id:'analytics',name:'Analytics dash',icon:'📊',cat:'biz',desc:'Rep gera 2x mais funding',base:{rep:80,fund:200},t:'rf',max:1},
+  {id:'boost',name:'Energy drink',icon:'🥤',cat:'biz',desc:'2x tudo por 30s',base:{fund:120},t:'fund',max:99},
+  {id:'pitch',name:'Pitch investidor',icon:'💼',cat:'biz',desc:'Rep x15 em funding agora',base:{rep:150},t:'rep',max:99},
+  {id:'pr_firm',name:'Assessoria de PR',icon:'📣',cat:'biz',desc:'Rep/s +40% permanente',base:{fund:600,rep:100},t:'bf',max:1},
+  {id:'legal',name:'Juridico interno',icon:'⚖',cat:'biz',desc:'Funding +30% mais seguro',base:{fund:450},t:'fund',max:1},
+  {id:'crunch',name:'Modo Crunch',icon:'😤',cat:'biz',desc:'2x cod/s por 45s (moral cai)',base:{fund:200},t:'fund',max:99},
+  {id:'filial',name:'Abrir filial',icon:'🏗',cat:'biz',desc:'2x toda producao passiva',base:{fund:800,rep:120},t:'bf',max:1},
+  {id:'prestige',name:'Modo prestige',icon:'🦄',cat:'biz',desc:'Desbloqueia prestige ao $1B',base:{fund:2500},t:'fund',max:1},
+  {id:'ipo_prep',name:'Preparar IPO',icon:'📈',cat:'biz',desc:'Desbloqueia sistema de IPO',base:{fund:50000,rep:5000},t:'bf',max:1},
+  {id:'brand',name:'Brand identity',icon:'🎨',cat:'prod',desc:'+0.5 rep/s permanente',base:{rep:60,fund:100},t:'rf',max:1},
+  {id:'app_store',name:'App Store Premium',icon:'⭐',cat:'prod',desc:'Apps 2x mais usuarios',base:{fund:300,rep:80},t:'bf',max:1},
+  {id:'b2b',name:'Vendas B2B',icon:'🤝',cat:'prod',desc:'+fund/s por produto',base:{fund:500,rep:120},t:'bf',max:1},
+  {id:'open_src',name:'Open Source',icon:'🐙',cat:'prod',desc:'+200 rep + rep/s bonus',base:{code:500},t:'code',max:1},
+];
+let shop=SHOP_DEF.map(u=>({...u,count:0,cost:{...u.base}}));
+function canAfford(u){if(u.count>=(u.max||1))return false;const c=u.cost;if(u.t==='code')return G.code>=c.code;if(u.t==='fund')return G.fund>=c.fund;if(u.t==='rep')return G.rep>=c.rep;if(u.t==='both')return G.code>=c.code&&G.fund>=c.fund;if(u.t==='bf')return G.fund>=c.fund&&G.rep>=c.rep;if(u.t==='rf')return G.rep>=c.rep&&G.fund>=c.fund;return false;}
+function costStr(u){const c=u.cost;if(u.t==='code')return fmt(c.code)+' cod';if(u.t==='fund')return '$'+fmt(c.fund);if(u.t==='rep')return fmt(c.rep)+' rep';if(u.t==='both')return fmt(c.code)+' cod+$'+fmt(c.fund);if(u.t==='bf')return '$'+fmt(c.fund)+'+'+fmt(c.rep)+' rep';if(u.t==='rf')return fmt(c.rep)+' rep+$'+fmt(c.fund);return '';}
+function doBuy(i){
+  const u=shop[i];if(!canAfford(u))return;
+  const c=u.cost,sc=u.count<5?1.45:1.7;
+  if(u.t==='code'){G.code-=c.code;u.cost.code=Math.ceil(c.code*sc);}
+  if(u.t==='fund'){G.fund-=c.fund;u.cost.fund=Math.ceil(c.fund*sc);}
+  if(u.t==='rep'){G.rep-=c.rep;u.cost.rep=Math.ceil(c.rep*sc);}
+  if(u.t==='both'){G.code-=c.code;G.fund-=c.fund;u.cost.code=Math.ceil(c.code*sc);u.cost.fund=Math.ceil(c.fund*sc);}
+  if(u.t==='bf'){G.fund-=c.fund;G.rep-=c.rep;u.cost.fund=Math.ceil(c.fund*sc);u.cost.rep=Math.ceil(c.rep*sc);}
+  if(u.t==='rf'){G.rep-=c.rep;G.fund-=c.fund;u.cost.rep=Math.ceil(c.rep*sc);u.cost.fund=Math.ceil(c.fund*sc);}
+  u.count++;applyBuy(u.id);sfx.buy();addLog('Comprado: '+u.name,'g');renderTab();
+}
+function promoteEmp(from,to){const idx=employees.findIndex(e=>e.rank===from&&!e.special);if(idx<0){addLog('Sem '+from+' para promover','w');return;}const e=employees[idx],r=RANKS.find(x=>x.id===to);e.rank=to;e.role=DR[to][Math.floor(Math.random()*DR[to].length)];e.prod=(r.prod*(0.85+Math.random()*0.3)).toFixed(1);e.emoji=r.emoji[e.g||0];addLog(e.name+' virou '+r.label+'!','g');sfx.promote();notify(e.name+' promovido!','boost');mp.rankPl++;}
+function applyBuy(id){
+  if(id==='cof_machine'){G.coffee=Math.min(100,G.coffee+60);}
+  else if(id==='cof_premium')G.coffeeDrain=(G.coffeeDrain||1)*0.6;
+  else if(id==='cof_drip')G.coffeeMin=Math.max(G.coffeeMin||0,10);
+  else if(id==='cof_espresso')G.cof_espresso=true;
+  else if(id==='cof_french')G.coffeeMin=Math.max(G.coffeeMin||0,25);
+  else if(id==='cof_cold_brew'){G.coffeeDrain=(G.coffeeDrain||1)*0.3;G.coffeeMin=Math.max(G.coffeeMin||0,30);}
+  else if(id==='cof_iv'){G.coffeeMin=Math.max(G.coffeeMin||0,50);G.coffeeDrain=Math.min(G.coffeeDrain||1,0.05);}
+  else if(id==='auto1'){G.autoLvl=Math.max(G.autoLvl,1);sfx.autoUpg();notify('Auto 1x/s!','boost');}
+  else if(id==='auto2'){G.autoLvl=Math.max(G.autoLvl,2);sfx.autoUpg();notify('Auto 2x/s!','boost');}
+  else if(id==='auto3'){G.autoLvl=Math.max(G.autoLvl,3);sfx.autoUpg();notify('Auto 5x/s!','boost');}
+  else if(id==='auto4'){G.autoLvl=Math.max(G.autoLvl,4);sfx.autoUpg();notify('Auto 10x/s!','boost');}
+  else if(id==='auto5'){G.autoLvl=Math.max(G.autoLvl,5);sfx.autoUpg();notify('Auto 20x/s!','boost');}
+  else if(id==='auto6'){G.autoLvl=Math.max(G.autoLvl,6);sfx.autoUpg();notify('Auto 50x/s!','boost');}
+  else if(id==='auto7'){G.autoLvl=Math.max(G.autoLvl,7);sfx.autoUpg();notify('Auto 100x/s!','boost');}
+  else if(id==='auto8'){G.autoLvl=Math.max(G.autoLvl,8);sfx.autoUpg();notify('Auto 200x/s MAX!','boost');}
+  else if(id==='fastclk')G.clickPow+=4;
+  else if(id==='ergonomic')G.clickPow*=1.1;
+  else if(id==='dev'){G.devs++;employees.push(mkEmp('jr'));}
+  else if(id==='office')G.offSlots+=5;
+  else if(id==='promote_pl')promoteEmp('jr','pl');
+  else if(id==='promote_sr')promoteEmp('pl','sr');
+  else if(id==='promote_sp')promoteEmp('sr','sp');
+  else if(id==='bootcamp')G.bootcamp=true;
+  else if(id==='pair_prog')G.pairProg=true;
+  else if(id==='hackday')G.hackday=true;
+  else if(id==='server')G.servers++;
+  else if(id==='cdn')G.cdnBonus=1.2;
+  else if(id==='k8s'){G.k8s=true;G.serverUnstable=false;}
+  else if(id==='security')G.security=true;
+  else if(id==='backup')G.backup=true;
+  else if(id==='analytics')G.analytics=true;
+  else if(id==='boost'){G.boostActive=true;G.boostMult=2;G.boostTime=30;G.boostMax=30;sfx.boost();notify('2x por 30s!','boost');}
+  else if(id==='pitch'){const tm=TM();const ia=G.investorAttn?3:1;const b=Math.floor(G.rep*15*G.prestigeMult*tm.pitchMult*ia);G.fund+=b;G.totalFund+=b;G.investorAttn=false;G.pitchesMade++;mp.pitches=G.pitchesMade;addLog('Pitch! +$'+fmt(b),'g');notify('+$'+fmt(b)+'!');}
+  else if(id==='pr_firm')G.prFirm=true;
+  else if(id==='legal')G.legal=true;
+  else if(id==='crunch'){G.crunchMode=true;G.crunchTimer=45;G.moraleLow=true;G.moraleTimer=60;sfx.boost();}
+  else if(id==='filial')G.filial=true;
+  else if(id==='prestige'){prestigeUnlocked=true;notify('Prestige desbloqueado!','ach');}
+  else if(id==='ipo_prep'){ipoUnlocked=true;notify('IPO disponivel!','ipo');el('ipo-btn').style.display='block';}
+  else if(id==='brand')G.brandBonus=0.5;
+  else if(id==='app_store')G.appStoreBonus=2;
+  else if(id==='b2b')G.b2bBonus=0.5;
+  else if(id==='open_src'){G.rep+=200;G.osBonus=0.3;}
+}
+function getCofMult(){if(hiredTalents.includes('junk_food'))return 1.0;const c=G.coffee;if(c>=80&&G.cof_espresso)return 1.5;if(c>=50)return 1.0;if(c>=30)return 0.85;if(c>=15)return 0.65;if(c>=5)return 0.4;return 0.2;}
+function getCofColor(c){return c>=50?'var(--gn)':c>=25?'var(--yw)':c>=15?'#cc8822':'var(--rd)';}
+function getCofLabel(c){if(hiredTalents.includes('junk_food'))return'Junk Food substitui cafe! Sempre ok.';if(c>=80&&G.cof_espresso)return'Espresso! +50% prod';if(c>=50)return'Equipe produtiva (1.0x)';if(c>=30)return'Cafe caindo (-15%)';if(c>=15)return'CAFE BAIXO! Devs lentos (-35%)';if(c>=5)return'SEM CAFE! Devs em greve (-60%)';return'CAFE ZERO! -80% producao';}
+function calcRates(){
+  const tm=TM(),srvM=(1+G.servers*0.4)*(G.cdnBonus||1)*tm.srvMult,bcM=(G.bootcamp?1.3:1)*(G.pairProg?1.2:1),filM=G.filial?2:1,bstM=G.boostActive?G.boostMult:1,crM=(G.crunchMode&&G.crunchTimer>0)?2:1,morM=G.moraleHigh?1.25:G.moraleLow?0.75:1,cofM=getCofMult(),espM=(G.coffee>=80&&G.cof_espresso)?1.3:1;
+  const empP=employees.reduce((a,e)=>{const r=RANKS.find(x=>x.id===e.rank);return a+(r?r.mult*parseFloat(e.prod||1):1);},0);
+  const hackM=G.hackday?1+(employees.length*0.02):1;
+  G.codeRate=empP*bcM*srvM*filM*G.prestigeMult*bstM*cofM*espM*tm.codeBonus*crM*morM*hackM;
+  const pRepR=products.reduce((a,p)=>a+p.repR*tm.prodRep,0)*(G.appStoreBonus||1);
+  G.repRate=(G.devs*0.15+pRepR+(G.osBonus||0)+(G.brandBonus||0))*filM*G.prestigeMult*bstM*(G.prFirm?1.4:1)*(G.mediaBlackout?0:1);
+  const pFR=products.reduce((a,p)=>a+p.fundR,0)+(G.b2bBonus||0)*products.length;
+  G.fundRate=(G.rep*0.04*(G.analytics?2:1)+pFR)*filM*G.prestigeMult*bstM*tm.fundMult*(G.legal?1.3:1);
+  if(ipoDone&&divTimer<=0){const d=sharePrice*1e8*0.0001*G.prestigeMult;G.fund+=d;G.totalFund+=d;divTimer=60;addLog('Dividendos: +$'+fmt(d),'p');}
+}
+function doClick(e){
+  sfx.click();const pw=G.clickPow*G.prestigeMult*getCofMult()*(G.boostActive?G.boostMult:1);
+  G.code+=pw;G.totalClicks++;mp.clicks++;flashWin();
+  const cw=document.getElementById('cw');
+  if(cw){const ft=document.createElement('div');ft.className='float';ft.textContent='+'+fmt(pw);const r=cw.getBoundingClientRect();ft.style.left=(e.clientX-r.left-15)+'px';ft.style.top=(e.clientY-r.top-30)+'px';cw.appendChild(ft);setTimeout(()=>ft.remove(),1000);}
+}
+function doPrestige(){
+  const tm=TM();if(!prestigeUnlocked||G.totalFund<tm.goal)return;
+  sfx.prestige();runHistory.unshift({time:(Date.now()-G.runStart)/1000,fund:G.totalFund,mult:G.prestigeMult});if(runHistory.length>8)runHistory.pop();
+  G.prestigeCount++;G.totalPrestige++;G.prestigeMult=Math.pow(2,G.prestigeCount);
+  const keep={prestigeMult:G.prestigeMult,prestigeCount:G.prestigeCount,totalPrestige:G.totalPrestige,totalClicks:G.totalClicks};
+  G={...DEF,...keep,runStart:Date.now()};
+  shop=SHOP_DEF.map(u=>({...u,count:0,cost:{...u.base}}));
+  prestigeUnlocked=false;employees=[];products=[];launchCD=0;achDone={};techDone={};milestonesSeen={};
+  hiredTalents=[];TALENT_POOL.forEach(t=>{t.smokeTimer=60;t.smokeBurst=false;t.smokeBurstTimer=0;});
+  walkers=[];genMarket();initRivals();genMissions();checkIPO();
+  addLog('PRESTIGE x'+G.prestigeCount+'! '+G.prestigeMult.toFixed(0)+'x','p');notify('UNICORNIO x'+G.prestigeCount,'ach');
+  updateUI();renderTab();
+}
+function checkAchs(){ACHS.forEach(a=>{if(!achDone[a.id]&&a.chk()){achDone[a.id]=true;addLog('CONQUISTA: '+a.name,'g');notify(a.icon+' '+a.name,'ach');sfx.notify();}});}
+const MS=[{id:'m10',v:10,l:'$10! Bom começo!'},{id:'m1k',v:1e3,l:'$1K! Seed!'},{id:'m10k',v:1e4,l:'$10K!'},{id:'m100k',v:1e5,l:'$100K!'},{id:'m1m',v:1e6,l:'$1M!'},{id:'m10m',v:1e7,l:'$10M!'},{id:'m100m',v:1e8,l:'$100M!'},{id:'m1b',v:1e9,l:'$1B! Faca Prestige!'},{id:'m10b',v:1e10,l:'$10B! Pronto p/ IPO!'}];
+function checkMS(){MS.forEach(m=>{if(!milestonesSeen[m.id]&&G.totalFund>=m.v){milestonesSeen[m.id]=true;G.milestone=m.l;G.milestoneTimer=4;sfx.milestone();addLog('META: '+m.l,'w');}});}
+const MINI_EV=[
+  {title:'BUG CRITICO!',ctx:()=>G.serverUnstable?'SERVIDOR INSTAVEL!':'',desc:()=>'Bug em producao.'+(hiredTalents.includes('zero_bug')?' Zero Bug: dano reduzido!':G.repDamaged?' Rep danificada!':''),
+   opts:[{l:'Hotfix (-50% cod)',c:'a',fn:()=>{const dmg=hiredTalents.includes('zero_bug')?0.95:G.serverUnstable?0.3:0.5;G.code*=dmg;G.serverUnstable=false;G.evSurv++;mp.evSurv++;}},{l:'Rollback (-12s)',c:'b',fn:()=>{eventPause+=hiredTalents.includes('zero_bug')?3:12;G.serverUnstable=false;G.evSurv++;mp.evSurv++;}},{l:'Feature flag (-rep)',c:'c',fn:()=>{G.rep*=hiredTalents.includes('zero_bug')?0.99:0.8;G.repDamaged=true;G.evSurv++;mp.evSurv++;}},{l:'Ignorar (risco)',c:'d',fn:()=>{if(hiredTalents.includes('zero_bug')){addLog('Zero Bug preveniu!','g');}else if(Math.random()<0.4){G.rep*=0.5;G.repDamaged=true;}else addLog('Passou!','g');G.serverUnstable=false;G.evSurv++;mp.evSurv++;}}]},
+  {title:'VC QUER INVESTIR!',ctx:()=>G.investorAttn?'VCs ATENTOS!':'',desc:()=>'VC quer fazer aporte.'+(G.viralMoment?' Viral!':''),
+   opts:[{l:'$5K por 20%',c:'a',fn:()=>{const b=Math.floor(5000*G.prestigeMult*(G.viralMoment?2:1)*(G.investorAttn?1.5:1));G.fund+=b;G.totalFund+=b;G.investorAttn=false;G.viralMoment=false;addLog('+$'+fmt(b),'g');G.evSurv++;mp.evSurv++;}},{l:'$20K por 45%',c:'b',fn:()=>{const b=Math.floor(20000*G.prestigeMult*(G.viralMoment?2:1));G.fund+=b;G.totalFund+=b;G.viralMoment=false;addLog('+$'+fmt(b),'w');G.evSurv++;mp.evSurv++;}},{l:'Rejeitar (+rep)',c:'c',fn:()=>{G.rep+=150*G.prestigeMult;G.investorAttn=true;addLog('+rep','g');G.evSurv++;mp.evSurv++;}}]},
+  {title:'TECHCRUNCH!',ctx:()=>G.viralMoment?'VIRAL - 2x!':'',desc:'Jornalista quer materia.',
+   opts:[{l:'Aceitar (+rep viral)',c:'a',fn:()=>{G.rep+=(G.viralMoment?600:300)*G.prestigeMult;G.viralMoment=true;addLog('VIRAL!','g');sfx.good();G.evSurv++;mp.evSurv++;}},{l:'Patrocinada (+fund)',c:'b',fn:()=>{const b=250*G.prestigeMult;G.fund+=b;G.totalFund+=b;G.rep+=80*G.prestigeMult;G.evSurv++;mp.evSurv++;}},{l:'Recusar (+cod)',c:'c',fn:()=>{G.code+=300;G.evSurv++;mp.evSurv++;}}]},
+  {title:'HACKATHON!',ctx:()=>G.moraleHigh?'TIME MOTIVADO!':G.moraleLow?'TIME DESMOTIVADO':'',desc:'Convite para hackathon.',
+   opts:[{l:'Mandar equipe (+rep)',c:'a',fn:()=>{G.rep+=(G.moraleHigh?400:200)*G.prestigeMult;G.moraleHigh=true;G.moraleTimer=60;addLog('Venceram!','g');sfx.good();G.evSurv++;mp.evSurv++;}},{l:'1 dev menor risco',c:'b',fn:()=>{G.rep+=80*G.prestigeMult;addLog('+rep','g');G.evSurv++;mp.evSurv++;}},{l:'Recusar (+cod)',c:'c',fn:()=>{G.code+=300;G.evSurv++;mp.evSurv++;}}]},
+  {title:'BIG TECH QUER COMPRAR!',ctx:()=>G.viralMoment?'VIRAL - oferta maior!':'',desc:'Big Tech ofereceu $50M.',
+   opts:[{l:'Aceitar $50M',c:'a',fn:()=>{const b=Math.floor(50000000*G.prestigeMult*(G.viralMoment?2:1));G.fund+=b;G.totalFund+=b;addLog('AQUISICAO! +$'+fmt(b),'g');sfx.prestige();G.viralMoment=false;G.evSurv++;mp.evSurv++;}},{l:'Contra $100M',c:'b',fn:()=>{if(Math.random()<0.45){const b=Math.floor(100000000*G.prestigeMult);G.fund+=b;G.totalFund+=b;addLog('$100M!!!','g');sfx.prestige();}else addLog('Recusaram.','w');G.viralMoment=false;G.evSurv++;mp.evSurv++;}},{l:'Rejeitar (+rep)',c:'c',fn:()=>{G.rep+=500*G.prestigeMult;G.investorAttn=true;addLog('+rep MASSIVO','g');sfx.good();G.evSurv++;mp.evSurv++;}}]},
+];
+const REG_EV=[
+  {msg:'Dev commitou direto na main! -cod',t:'b',fn:()=>{G.code*=0.85;G.evSurv++;mp.evSurv++;}},
+  {msg:'Cafe acabou! Devs lentos',t:'b',fn:()=>{if(!hiredTalents.includes('junk_food')){G.coffee=Math.max(G.coffeeMin||0,G.coffee-30);eventPause+=8;G.evSurv++;mp.evSurv++;}else addLog('Junk food substituiu cafe!','g');}},
+  {msg:'GitHub Stars! +rep',t:'g',fn:()=>{G.rep+=(G.viralMoment?2:1)*150*G.prestigeMult;sfx.good();}},
+  {msg:'Intern chegou! +1 dev Jr',t:'g',fn:()=>{G.devs++;employees.push(mkEmp('jr'));sfx.good();}},
+  {msg:'Black Friday! +funding',t:'g',fn:()=>{const b=(G.viralMoment?2:1)*1000*G.prestigeMult;G.fund+=b;G.totalFund+=b;sfx.good();}},
+  {msg:'Podcast mencionou a empresa!',t:'g',fn:()=>{if(!G.mediaBlackout){G.rep+=90*G.prestigeMult;G.viralMoment=true;}else addLog('Blackout: ignorado','w');}},
+  {msg:'Deploy sexta 17h...',t:'b',fn:()=>{if(hiredTalents.includes('zero_bug')){addLog('Zero Bug Dev: deploy perfeito!','g');}else if(G.serverUnstable){G.rep*=0.6;G.code*=0.7;G.evSurv++;mp.evSurv++;}else if(Math.random()<0.35){G.rep*=0.8;G.serverUnstable=true;G.evSurv++;mp.evSurv++;}else addLog('Deploy OK!','g');}},
+  {msg:'Energy drink gratis! Boost 20s',t:'w',fn:()=>{G.coffee=Math.min(100,G.coffee+30);G.boostActive=true;G.boostMult=1.5;G.boostTime=20;G.boostMax=20;sfx.boost();}},
+  {msg:'Cliente enterprise! +funding',t:'g',fn:()=>{const b=500*G.prestigeMult;G.fund+=b;G.totalFund+=b;sfx.good();}},
+  {msg:'Dev pediu aumento',t:'w',fn:()=>{if(Math.random()<(G.moraleLow?0.6:0.3)){const e=employees.find(x=>['sr','sp'].includes(x.rank)&&!x.special);if(e){employees.splice(employees.indexOf(e),1);G.devs=Math.max(0,G.devs-1);addLog('Dev foi embora!','b');sfx.bad();}}}},
+  {msg:'Parceria estrategica! +rep',t:'g',fn:()=>{G.rep+=120*G.prestigeMult;sfx.good();}},
+];
+const logs=[];
+function addLog(msg,t=''){logs.unshift({msg,t});if(logs.length>40)logs.pop();const logEl=el('log');if(logEl)logEl.innerHTML=logs.slice(0,20).map(m=>`<div class="lm ${m.t}">> ${m.msg}</div>`).join('');}
+function notify(msg,type=''){const area=el('notifs');if(!area)return;const d=document.createElement('div');d.className='notif '+(type||'');d.textContent=(type==='ach'?'* ':type==='boost'?'! ':type==='tech'?'T ':type==='rival'?'! ':type==='mission'?'v ':type==='ipo'?'$ ':type==='talent'?'* ':'')+msg;area.appendChild(d);setTimeout(()=>d.remove(),3200);}
+function resolveME(i){if(!miniEv)return;miniEv.opts[i].fn();miniEv=null;meTimer=0;el('me-ovl').classList.remove('on');}
+function triggerMiniEv(){const ev=MINI_EV[Math.floor(Math.random()*MINI_EV.length)];const desc=typeof ev.desc==='function'?ev.desc():ev.desc;const ctx=typeof ev.ctx==='function'?ev.ctx():ev.ctx;miniEv={...ev,desc,ctx};meTimer=25;sfx.bad();addLog('EVENTO: '+miniEv.title,'w');showME();}
+function showME(){if(!miniEv){el('me-ovl').classList.remove('on');return;}el('me-title').textContent=miniEv.title;el('me-desc').textContent=miniEv.desc;const ctxE=el('me-ctx');ctxE.textContent=miniEv.ctx;ctxE.style.display=miniEv.ctx?'inline-block':'none';el('me-timer').textContent='Timer: '+Math.ceil(meTimer)+'s';el('me-timer').style.color=meTimer<8?'var(--rd)':'var(--yw)';el('me-btns').innerHTML=miniEv.opts.map((o,i)=>`<button class="me-btn ${o.c}" data-me="${i}">${o.l}</button>`).join('');el('me-ovl').classList.add('on');}
+function save(){try{localStorage.setItem('b8',JSON.stringify({G,shop:shop.map(u=>({count:u.count,cost:u.cost})),prestigeUnlocked,runHistory,employees,products,achDone,techDone,milestonesSeen,rivals,missions,mp,misTimer,ipoUnlocked,ipoDone,sharePrice,divTimer,hiredTalents,marketSlots,marketTimer,ts:Date.now()}));}catch(e){}}
+function load(){try{const raw=localStorage.getItem('b8');if(!raw)return false;const d=JSON.parse(raw);G={...DEF,...d.G};d.shop.forEach((s,i)=>{if(shop[i]){shop[i].count=s.count;shop[i].cost=s.cost;}});prestigeUnlocked=d.prestigeUnlocked||false;runHistory=d.runHistory||[];employees=d.employees||[];products=d.products||[];achDone=d.achDone||{};techDone=d.techDone||{};milestonesSeen=d.milestonesSeen||{};rivals=d.rivals||[];if(!rivals.length)initRivals();missions=d.missions||[];if(!missions.length)genMissions();mp=d.mp||{};misTimer=d.misTimer||300;ipoUnlocked=d.ipoUnlocked||false;ipoDone=d.ipoDone||false;sharePrice=d.sharePrice||0;divTimer=d.divTimer||60;hiredTalents=d.hiredTalents||[];marketSlots=d.marketSlots||[];marketTimer=d.marketTimer||180;if(!marketSlots.length)genMarket();const off=Math.min((Date.now()-d.ts)/1000,3600*10);if(off>5){calcRates();G.code+=G.codeRate*off;const fg=G.fundRate*off;G.fund+=fg;G.totalFund+=fg;G.rep+=G.repRate*off;setTimeout(()=>{addLog('Offline '+fmtT(off)+': +$'+fmt(fg),'w');notify('Renda offline!','boost');},500);}return true;}catch(e){return false;}}
+function renderTab(){
+  const tc=el('tab-content');if(!tc)return;
+  const tm=TM();
+  if(curTab==='shop'){
+    const cats=[{id:'all',l:'TODOS'},{id:'cof',l:'CAFE'},{id:'auto',l:'AUTO'},{id:'dev',l:'DEVS'},{id:'infra',l:'INFRA'},{id:'biz',l:'BIZ'},{id:'prod',l:'PROD'}];
+    const fs=shop.map((u,i)=>({u,i})).filter(({u})=>catFilter==='all'||u.cat===catFilter);
+    tc.innerHTML=`<div class="cat-bar">${cats.map(c=>`<button class="cat-btn${catFilter===c.id?' on':''}" data-cat="${c.id}">${c.l}</button>`).join('')}</div>`+fs.map(({u,i})=>{const owned=u.count>=(u.max||1)&&u.max<99;const cnt=u.max>1&&u.count>0?' x'+u.count:'';return`<button class="upg-btn cat-${u.cat}${owned?' owned':''}"${(!canAfford(u)&&!owned)||owned?' disabled':''} data-buy="${i}"><span class="un">${u.icon} ${u.name}${cnt}${owned?' ok':''}</span><span class="ud">${u.desc}</span>${!owned?`<span class="uc">${costStr(u)}</span>`:''}</button>`;}).join('');
+    
+    
+  }else if(curTab==='tech'){
+    const brs=[{id:'prod',l:'Produto',c:'#33aa66'},{id:'eng',l:'Engenharia',c:'#3388cc'},{id:'biz',l:'Negocios',c:'#cc8822'}];
+    tc.innerHTML=brs.map(br=>{const nodes=TECH.filter(t=>t.br===br.id);return`<div style="margin-bottom:8px"><div style="font-size:6px;margin-bottom:4px;padding-left:4px;border-left:2px solid ${br.c};color:${br.c}">${br.l}</div>${nodes.map((t,ni)=>{const done=techDone[t.id],lkd=isLkd(t),can=canRes(t);return(ni>0?'<div class="tcon"></div>':'')+`<div class="tech-nd${done?' done':lkd?' lkd':''}" data-tech="${t.id}" style="${done?'border-color:'+t.col:can?'border-color:'+t.col+'66':''}"><span style="font-size:14px;flex-shrink:0">${t.icon}</span><div style="flex:1;min-width:0"><div style="color:${done?t.col:'#aaaaee'};font-size:5px">${t.name}</div><div style="color:#404060;font-size:5px">${t.desc}</div>${!done?`<div style="color:var(--yw);font-size:5px">${fmt(t.cost)} rep${lkd?' bloq':can?' ok':' -'+fmt(t.cost-G.rep)+' rep'}</div>`:''}</div>${done?`<span style="color:var(--gn);font-size:8px">ok</span>`:''}</div>`;}).join('')}</div>`;}).join('');
+    
+  }else if(curTab==='talent'){
+    const h3=hiredTalents.length>=3;
+    const smkT=TALENT_POOL.find(x=>x.id==='smoker');
+    tc.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:5px;color:var(--pk)">MERCADO DE TALENTOS</span><span style="font-size:5px;color:#444466">refresh:${fmtT(marketTimer)} | ${hiredTalents.length}/3</span></div>`+
+    (h3?'<div style="background:#2a0d1a;border:1px solid var(--pk);padding:5px;font-size:5px;color:var(--pk);margin-bottom:5px">LIMITE DE 3 TALENTOS ATINGIDO</div>':'')+
+    marketSlots.map(t=>{const isH=hiredTalents.includes(t.id);const canH=!isH&&!h3&&G.fund>=t.cost.fund&&G.rep>=t.cost.rep;return`<div class="talent-card${isH?' hired':''}"><div style="display:flex;gap:6px"><div style="font-size:20px;flex-shrink:0">${t.emoji}</div><div style="flex:1"><div style="color:#ffccee;font-size:6px;margin-bottom:2px">${t.name}</div><div style="color:var(--pk);font-size:5px;margin-bottom:2px">${t.skill}</div><div style="color:#404060;font-size:5px;margin-bottom:3px;line-height:1.6">${t.effect}</div><div style="color:var(--yw);font-size:5px;margin-bottom:3px">$${fmt(t.cost.fund)} + ${fmt(t.cost.rep)} rep</div>${isH?`<div style="color:var(--gn);font-size:5px">CONTRATADO</div>`:`<button class="talent-hire-btn"${!canH?' disabled':''} data-hire="${t.id}">CONTRATAR</button>`}</div></div></div>`;}).join('')+
+    (hiredTalents.length>0?`<div style="margin-top:8px;color:var(--pk);font-size:5px;margin-bottom:4px">TALENTOS ATIVOS:</div>${hiredTalents.map(id=>{const t=TALENT_POOL.find(x=>x.id===id);if(!t)return'';const isSmk=id==='smoker'&&smkT;return`<div style="background:#1a0d1a;border:1px solid var(--pk);padding:5px;margin-bottom:3px;display:flex;gap:5px;align-items:center"><span style="font-size:14px">${t.emoji}</span><div><div style="color:#ffccee;font-size:5px">${t.name}</div><div style="color:var(--pk);font-size:4px;line-height:1.6">${t.skill}${isSmk?(smkT.smokeBurst?' | TURBINADO! +500% por '+Math.ceil(smkT.smokeBurstTimer)+'s':' | cigarro em '+Math.ceil(smkT.smokeTimer)+'s'):''}</div></div></div>`;}).join('')}`:'');
+    
+  }else if(curTab==='team'){
+    const rc=RANKS.map(r=>({...r,n:employees.filter(e=>e.rank===r.id&&!e.special).length}));
+    tc.innerHTML=`<div style="display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px">${rc.map(r=>`<div style="background:var(--bg3);border:1px solid var(--bd);padding:3px 5px;text-align:center;flex:1;min-width:50px"><div style="font-size:11px">${r.emoji[0]}</div><span class="rbadge ${r.id}">${r.badge}</span><div style="font-size:4px;color:var(--ac)">${r.n} | ${r.mult}x</div></div>`).join('')}</div>`+
+    (employees.length===0?'<div style="color:#333355;font-size:5px">Contrate devs!</div>':employees.map(e=>`<div class="dev-card${e.special?' special':''}"><div class="dev-av ${e.special?'special':e.rank}">${e.emoji}</div><div style="flex:1;min-width:0"><div style="font-size:5px"><span class="rbadge ${e.special?'sp':e.rank}">${e.special?'*':RANKS.find(r=>r.id===e.rank).badge}</span>${e.name}</div><div style="color:${e.special?'var(--pk)':'#404060'};font-size:4px">${e.role}</div><div style="color:#404060;font-size:4px">${e.quirk.substring(0,40)}</div></div></div>`).join(''));
+  }else if(curTab==='prods'){
+    tc.innerHTML=(products.length===0?'<div style="color:#333355;font-size:5px;margin-bottom:8px">Lance um produto!</div>':products.map(p=>`<div class="prod-c"><div style="color:#aaaaee;font-size:6px">${p.icon} ${p.name}</div><div style="color:#404060;font-size:5px">${p.type} | ${fmtT(p.age)}</div><div class="pmet"><div class="pfill" style="width:${(p.users/p.maxU*100).toFixed(1)}%"></div></div><div style="display:flex;justify-content:space-between;font-size:5px;color:#445"><span>${fmt(p.users)} users</span><span>+${p.repR} rep/s +$${p.fundR}/s</span></div></div>`).join(''))+
+    '<div style="margin-top:5px;color:var(--ac);font-size:5px;margin-bottom:3px">LANCAR:</div>'+PTYPES.map((pt,i)=>{const cd=launchCD*tm.launchCD;const solo=hiredTalents.includes('solo_dev');const devN=solo?1:pt.devN;const cdM=solo?3:1;const can=G.code>=pt.codC&&G.fund>=pt.funC&&G.devs>=devN&&cd*cdM<=0;return`<button class="upg-btn cat-prod"${!can?' disabled':''} data-launch="${i}"><span class="un">${pt.icon} ${pt.type}${solo?' (1dev)':''}</span><span class="ud">${pt.desc}</span><span class="uc">${fmt(pt.codC)} cod+$${fmt(pt.funC)}+${devN} dev${cd*cdM>0?' cd '+Math.ceil(cd*cdM)+'s':''}</span></button>`;}).join('');
+    
+  }else if(curTab==='missions'){
+    tc.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:5px;color:var(--cy)">MISSOES</span><span style="font-size:5px;color:${misTimer<60?'var(--rd)':'#444466'}">reset:${fmtT(misTimer)}</span></div>`+missions.map((m,i)=>`<div class="mis-card${m.done?' done':''}"><div style="color:#aaaaee;font-size:6px;margin-bottom:2px">${m.title}${m.claimed?' ok':''}</div><div style="color:#404060;font-size:5px;margin-bottom:3px">${m.desc}</div><div class="mis-prog"><div class="mis-fill" style="width:${Math.min(100,(m.prog/m.tgt)*100).toFixed(1)}%"></div></div><div style="display:flex;justify-content:space-between;font-size:5px"><span style="color:var(--yw)">${m.rl}</span><span style="color:#444466">${fmt(m.prog)}/${fmt(m.tgt)}</span></div>${m.done&&!m.claimed?`<button class="mis-claim" data-claim="${i}">COLETAR</button>`:''}</div>`).join('');
+    
+  }else if(curTab==='rivals'){
+    const myVal=G.totalFund*10+G.rep*80;
+    const all=[...rivals,{name:cName,logo:'🟢',val:myVal,you:true,ahead:false}].sort((a,b)=>b.val-a.val);
+    tc.innerHTML='<div style="font-size:5px;color:#444466;margin-bottom:5px">Ranking de valuation</div>'+all.map((r,i)=>`<div class="rival-row" style="border-color:${r.you?'var(--gn)':r.ahead?'var(--rd)':'#222244'}"><span style="font-size:13px">${r.logo}</span><div style="flex:1;min-width:0"><div style="font-size:5px;color:${r.you?'var(--gn)':r.ahead?'var(--rd)':'#555588'}">#${i+1} ${r.name}${r.you?' (voce)':''}</div><div style="font-size:5px;color:${r.you?'var(--yw)':'#444466'}">$${fmt(r.val)}</div></div>${!r.you?`<span style="color:${r.ahead?'var(--rd)':'var(--gn)'};">${r.ahead?'A':'V'}</span>`:''}</div>`).join('');
+  }else if(curTab==='stats'){
+    tc.innerHTML=[['Empresa',cName],['Ticker',cTicker||'--'],['Clicks',fmt(G.totalClicks)],['Total fund','$'+fmt(G.totalFund)],['Prestige',G.prestigeCount],['Mult',G.prestigeMult.toFixed(0)+'x'],['Devs',G.devs],['Talentos',hiredTalents.length+'/3'],['Serv.',G.servers],['Prods',products.length],['Auto',AUTO_LVL[G.autoLvl].lbl],['Techs',Object.keys(techDone).length+'/9'],['Cafe',Math.floor(G.coffee)+'%'],['Horario',isNight()?'NOITE':'DIA'],['Cod/s',fmt(G.codeRate)],['Fund/s','$'+fmt(G.fundRate)],['IPO',ipoDone?cTicker+' $'+sharePrice.toFixed(2):'nao'],['Run',fmtT((Date.now()-G.runStart)/1000)]].map(r=>`<div class="sr" style="margin-bottom:2px"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')+(runHistory.length?`<div style="color:var(--ac);font-size:5px;margin:4px 0 3px">HISTORICO</div>${runHistory.map((r,i)=>`<div class="sr"><span>#${i+1} ${fmtT(r.time)}</span><span>$${fmt(r.fund)} ${r.mult.toFixed(0)}x</span></div>`).join('')}`:'');
+  }
+}
+function updateUI(){
+  const tm=TM(),goal=tm.goal,pct=Math.min(100,G.totalFund/goal*100);
+  const pw=G.clickPow*G.prestigeMult*getCofMult()*(G.boostActive?G.boostMult:1);
+  el('r-code').textContent=fmt(G.code);el('rr-code').textContent='+'+fmt(G.codeRate)+'/s';
+  el('r-rep').textContent=fmt(G.rep);el('rr-rep').textContent=G.mediaBlackout?'BLACKOUT':'+'+fmt(G.repRate)+'/s';
+  el('r-fund').textContent='$'+fmt(G.fund);el('rr-fund').textContent='+$'+fmt(G.fundRate)+'/s';
+  el('r-val').textContent='$'+fmt(G.totalFund*10);el('rr-val').textContent=pct.toFixed(1)+'%';
+  const c=G.coffee,cc=getCofColor(c);
+  el('cof-pct').textContent=Math.floor(c)+'%';el('cof-pct').style.color=cc;
+  el('cof-fill').style.width=c.toFixed(0)+'%';el('cof-fill').style.background=cc;
+  const cef=el('cof-effect');cef.textContent=getCofLabel(c);cef.style.borderColor=cc;cef.style.color=cc;
+  el('co-title').textContent=cName.toUpperCase();
+  el('pres-badge').textContent=G.prestigeCount>0?'x'+G.prestigeCount+' | '+G.prestigeMult.toFixed(0)+'x':'';
+  const isN=isNight();
+  el('bld-title').textContent=(isN?'NOITE - ':'')+'HQ '+cName.split('.')[0];
+  if(ipoDone){el('ipo-badge').textContent=cTicker;el('ipo-badge').style.display='inline';}
+  if(ipoUnlocked&&!ipoDone)el('ipo-btn').style.display='block';
+  const bb=el('boost-bar');
+  if(G.boostActive){bb.style.display='block';el('boost-lbl').textContent=G.boostMult+'x BOOST';el('boost-time').textContent=Math.ceil(G.boostTime)+'s';el('boost-fill').style.width=(G.boostTime/G.boostMax*100).toFixed(1)+'%';}else bb.style.display='none';
+  const mEl=el('milestone');if(G.milestone){mEl.textContent='* '+G.milestone;mEl.style.display='block';}else mEl.style.display='none';
+  const smkT=TALENT_POOL.find(x=>x.id==='smoker');
+  const tags=[G.moraleHigh&&{l:'Moral Alta +25%',c:'pos'},G.moraleLow&&{l:'Moral Baixa -25%',c:'neg'},G.serverUnstable&&{l:'Servidor Instavel',c:'neg'},G.viralMoment&&{l:'Viral!',c:'pos'},G.investorAttn&&{l:'VCs Atentos',c:'pos'},G.mediaBlackout&&{l:'Blackout',c:'neg'},G.crunchMode&&{l:'Crunch 2x cod',c:'pos'},G.repDamaged&&{l:'Rep Danificada',c:'neg'},c<15&&!hiredTalents.includes('junk_food')&&{l:'Cafe Critico!',c:'neg'},isN&&hiredTalents.includes('night_coder')&&{l:'Night +200%',c:'pos'},smkT&&smkT.smokeBurst&&{l:'Fumante +500%',c:'pos'},hiredTalents.includes('office_romance')&&{l:'Moral perm.',c:'pos'}].filter(Boolean);
+  el('status-bar').innerHTML=tags.map(s=>`<span class="stag ${s.c}">${s.l}</span>`).join('');
+  const rc=RANKS.map(r=>({...r,n:employees.filter(e=>e.rank===r.id&&!e.special).length}));
+  el('s-devs').textContent=G.devs+'/'+(G.offSlots+3);el('s-jr').textContent=rc[0].n;el('s-pl').textContent=rc[1].n;el('s-sr').textContent=rc[2].n;el('s-sp').textContent=rc[3].n;el('s-tal').textContent=hiredTalents.length+'/3';el('s-srv').textContent=G.servers+(G.serverUnstable?'!':'');el('s-prods').textContent=products.length;el('s-mult').textContent=G.prestigeMult.toFixed(0)+'x';
+  el('click-pw').textContent='+'+fmt(pw)+'/click'+(isN&&hiredTalents.includes('night_coder')?' NOITE':'');
+  el('auto-info').textContent='AUTO: '+AUTO_LVL[G.autoLvl].lbl+(techDone['aicp']?' (AI)':'');
+  el('auto-dots').innerHTML=[1,2,3,4,5,6,7,8].map(l=>`<div class="adot${G.autoLvl>=l?' on':''}">${l}</div>`).join('');
+  el('goal-lbl').textContent='$'+fmt(goal);el('prog-bar').style.width=pct.toFixed(3)+'%';el('prog-lbl').textContent='$'+fmt(G.totalFund)+' / $'+fmt(goal);
+  const pbtn=el('prestige-btn');pbtn.disabled=!(prestigeUnlocked&&G.totalFund>=goal);pbtn.textContent=prestigeUnlocked&&G.totalFund>=goal?'>>> VIRAR UNICORNIO! <<<':prestigeUnlocked?'ACUMULE $'+fmt(goal):'COMPRE MODO PRESTIGE';
+  el('run-hist').innerHTML=runHistory.slice(0,3).map((r,i)=>`<div class="sr" style="margin-top:2px"><span>#${i+1} ${fmtT(r.time)}</span><span>$${fmt(r.fund)}</span></div>`).join('');
+  el('ach-grid').innerHTML=ACHS.map(a=>`<span class="abadge${achDone[a.id]?' done':''}" title="${a.name}">${a.icon}</span>`).join('');
+  const im=el('ipo-mini');if(ipoUnlocked||ipoDone){im.style.display='block';const imc=el('ipo-mini-content');if(ipoDone)imc.innerHTML=`<div class="sr"><span style="color:#ffdd00">Ticker</span><span style="color:#ffdd00">${cTicker}</span></div><div class="sr"><span>Share</span><span style="color:var(--gn)">$${sharePrice.toFixed(2)}</span></div><div class="sr"><span>Dividendo em</span><span>${Math.ceil(Math.max(0,divTimer))}s</span></div>`;else imc.innerHTML=`<button class="act-btn" style="font-size:5px;background:#1a1a00;color:#ffdd00;border:1px solid #ffdd00" onclick="document.getElementById('ipo-ovl').classList.add('on');refreshIPO()">VER IPO</button>`;}
+}
+let tickN=0,autoTimer2=0;
+function tick(){
+  const now=Date.now(),dt=Math.min((now-lastTick)/1000,0.5);lastTick=now;tickN++;
+  calcRates();
+  if(eventPause>0)eventPause=Math.max(0,eventPause-dt);
+  else{G.code+=G.codeRate*dt;const fg=G.fundRate*dt;G.fund+=fg;G.totalFund+=fg;if(!G.mediaBlackout)G.rep+=G.repRate*dt;}
+  const drain=(G.coffeeDrain||1)*((G.crunchMode&&G.crunchTimer>0)?3:1);
+  G.coffee=Math.max(G.coffeeMin||0,G.coffee-drain*dt);
+  launchCD=Math.max(0,launchCD-dt);
+  if(G.autoLvl>0){autoTimer+=dt;const spd=AUTO_LVL[G.autoLvl].spd*(techDone['aicp']?TM().aiBonus:1);if(autoTimer>=1/spd){autoTimer=0;const pw=G.clickPow*G.prestigeMult*getCofMult()*(G.boostActive?G.boostMult:1)*0.75;G.code+=pw;G.totalClicks++;mp.clicks++;flashWin();}}
+  if(G.boostActive){G.boostTime-=dt;if(G.boostTime<=0){G.boostActive=false;G.boostMult=1;addLog('Boost acabou','w');}}
+  if(G.crunchMode&&G.crunchTimer>0){G.crunchTimer-=dt;if(G.crunchTimer<=0){G.crunchMode=false;addLog('Crunch acabou','w');}}
+  if((G.moraleHigh||G.moraleLow)&&G.moraleTimer>0){G.moraleTimer-=dt;if(G.moraleTimer<=0){G.moraleHigh=false;G.moraleLow=false;}}
+  if(G.mediaBlackout&&G.mediaTimer>0){G.mediaTimer-=dt;if(G.mediaTimer<=0)G.mediaBlackout=false;}
+  if(G.milestoneTimer>0){G.milestoneTimer-=dt;if(G.milestoneTimer<=0)G.milestone=null;}
+  if(miniEv&&meTimer>0){meTimer-=dt;el('me-timer').textContent='Timer: '+Math.ceil(meTimer)+'s';el('me-timer').style.color=meTimer<8?'var(--rd)':'var(--yw)';if(meTimer<=0){miniEv.opts[miniEv.opts.length-1].fn();miniEv=null;el('me-ovl').classList.remove('on');addLog('Evento expirou!','b');sfx.bad();}}
+  const tm=TM();products.forEach(p=>{p.age+=dt;p.users=Math.min(p.maxU,p.users+dt*4*tm.userGrowth*(G.appStoreBonus||1));});
+  tickRivals(dt);tickTalents(dt);
+  misTimer-=dt;if(misTimer<=0)genMissions();tickMissions();
+  if(ipoDone&&divTimer>0)divTimer-=dt;
+  eventTimer-=dt;
+  if(eventTimer<=0&&!miniEv){eventTimer=20+Math.random()*20;G.eventsCount++;if(Math.random()<0.35)triggerMiniEv();else{const ev=REG_EV[Math.floor(Math.random()*REG_EV.length)];if(ev.t==='b'&&G.security&&Math.random()<0.55)addLog('Seguranca bloqueou!','i');else{ev.fn();addLog(ev.msg,ev.t);if(ev.t==='b')sfx.bad();else if(ev.t==='g')sfx.good();}}}
+  while(employees.length<Math.min(G.devs,25))employees.push(mkEmp('jr'));
+  while(employees.length>G.devs)employees.pop();
+  saveTimer+=dt;if(saveTimer>20){saveTimer=0;save();}
+  checkAchs();checkMS();checkIPO();
+  updateBldAnim(dt);
+  updateUI();
+  if(tickN%5===0)renderTab();
+  requestAnimationFrame(tick);
+}
+function startGame(){
+  el('prestige-btn').addEventListener('click',doPrestige);
+  const bld=el('bld-svg');
+  bld.addEventListener('click',doClick);
+  bld.addEventListener('touchend',e=>{e.preventDefault();doClick(e.changedTouches[0]);},{passive:false});
+  el('ipo-confirm').addEventListener('click',confirmIPO);
+  // Tab switching - stable element, delegated
+  el('tab-bar').addEventListener('click',e=>{
+    const b=e.target.closest('[data-tab]');if(!b)return;
+    curTab=b.dataset.tab;
+    el('tab-bar').querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    renderTab();
+  });
+  // Tab content - single delegated listener for all dynamic buttons
+  el('tab-content').addEventListener('click',e=>{
+    const buy=e.target.closest('[data-buy]');
+    const launch=e.target.closest('[data-launch]');
+    const me=e.target.closest('[data-me]');
+    const cat=e.target.closest('[data-cat]');
+    const tech=e.target.closest('[data-tech]');
+    const claim=e.target.closest('[data-claim]');
+    const hire=e.target.closest('[data-hire]');
+    if(buy&&!buy.disabled)doBuy(+buy.dataset.buy);
+    else if(launch&&!launch.disabled)launchProd(+launch.dataset.launch);
+    else if(me)resolveME(+me.dataset.me);
+    else if(cat){catFilter=cat.dataset.cat;renderTab();}
+    else if(tech)doResearch(tech.dataset.tech);
+    else if(claim)claimMis(+claim.dataset.claim);
+    else if(hire&&!hire.disabled)hireTalent(hire.dataset.hire);
+  });
+  initRivals();genMissions();genMarket();
+  const loaded=load();
+  lastTick=Date.now();
+  if(loaded)addLog(cName+' v8 restaurado!','g');
+  else{addLog(cName+' fundada! Bora codar.','i');addLog('DICA: cafe + devs primeiro!','w');}
+  renderTab();tick();
+}
+// Mini event buttons - delegated
+el('me-btns').addEventListener('click',e=>{
+  const b=e.target.closest('[data-me]');
+  if(!b||!miniEv)return;
+  resolveME(+b.dataset.me);
+});
+el('name-btn').addEventListener('click',()=>{
+  const v=el('name-inp').value.trim();
+  if(!v){el('name-inp').style.borderColor='var(--rd)';return;}
+  setName(v);el('name-ovl').classList.remove('on');startGame();
+});
+el('name-inp').addEventListener('keydown',e=>{if(e.key==='Enter')el('name-btn').click();});
+if(cName){el('name-ovl').classList.remove('on');startGame();}
+window.addEventListener('beforeunload',save);
+
+</script>
+</body>
+</html>
