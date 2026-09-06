@@ -1,397 +1,415 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>135 dias com você, Tiffany</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>♥ My Tiff Romance ♥ *:･ﾟ✧</title>
 <style>
-  /* ===========================================================
-     EDITE AQUI: nomes, data de início, hora do encontro de terça
-     =========================================================== */
-  :root{
-    --bg:        #0A0A0D;
-    --bg-deep:   #050505;
-    --pink:      #FF3D8A;
-    --pink-soft: #FF8FBE;
-    --pink-deep: #C21868;
-    --ivory:     #F6EEF1;
-    --muted:     #9C8A92;
-    --line:      rgba(255,143,190,0.18);
+  * { box-sizing: border-box; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text y="18" font-size="18">🖤</text></svg>') 12 12, auto; }
+
+  body {
+    margin: 0;
+    background: #000 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="10" cy="10" r="1" fill="white" opacity="0.6"/><circle cx="50" cy="70" r="1.5" fill="white" opacity="0.4"/><circle cx="80" cy="30" r="1" fill="white" opacity="0.5"/><circle cx="30" cy="90" r="1" fill="white" opacity="0.3"/><circle cx="70" cy="10" r="0.8" fill="white" opacity="0.5"/></svg>');
+    color: #eee;
+    font-family: "Times New Roman", serif;
+    text-align: center;
+    overflow-x: hidden;
   }
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    font-family:'Jost', sans-serif;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,61,138,0.16), transparent 60%),
-      radial-gradient(ellipse 50% 30% at 85% 90%, rgba(255,61,138,0.10), transparent 60%),
-      var(--bg);
-    color: var(--ivory);
-    min-height:100vh;
-    overflow-x:hidden;
-    position:relative;
+  #sparkle-trail span {
+    position: fixed;
+    pointer-events: none;
+    font-size: 14px;
+    animation: fadeup 1s forwards;
+    z-index: 9999;
+  }
+  @keyframes fadeup {
+    to { transform: translateY(-40px); opacity: 0; }
   }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  .marquee-wrap {
+    background: #8b0000;
+    border-top: 3px dashed #fff;
+    border-bottom: 3px dashed #fff;
+    padding: 6px 0;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
   }
 
-  /* ---------- ambient sparks ---------- */
-  .ambient{ position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
-  .spark{
-    position:absolute; bottom:-6%; border-radius:50%;
-    background: var(--pink-soft);
-    opacity:0.25; filter: blur(0.3px);
-    animation: rise linear infinite;
-  }
-  @keyframes rise{
-    0%{ transform:translateY(0); opacity:0; }
-    12%{ opacity:0.35; }
-    88%{ opacity:0.18; }
-    100%{ transform:translateY(-108vh); opacity:0; }
+  header {
+    padding: 30px 10px 10px;
   }
 
-  main{
-    position:relative; z-index:2;
-    max-width: 720px; margin:0 auto;
-    padding: 84px 24px 90px;
+  h1 {
+    font-family: "Papyrus", "Copperplate", fantasy;
+    font-size: 3em;
+    color: #fff;
+    text-shadow:
+      0 0 5px #ff0000,
+      0 0 15px #ff0000,
+      0 0 30px #8b0000,
+      2px 2px 0 #000;
+    margin: 10px 0 0;
+    animation: flicker 3s infinite alternate;
+  }
+  @keyframes flicker {
+    0%,100% { opacity: 1; }
+    45% { opacity: 0.85; }
+    50% { opacity: 1; }
+    70% { opacity: 0.9; }
   }
 
-  .eyebrow{
-    font-size:11.5px; letter-spacing:0.32em; text-transform:uppercase;
-    color: var(--pink-soft); opacity:0.85; text-align:center;
+  .subtitle {
+    font-family: "Comic Sans MS", cursive;
+    color: #ff69b4;
+    font-size: 1.1em;
+    text-shadow: 1px 1px #000;
   }
 
-  h1.title{
-    margin-top:18px;
-    font-family:'Playfair Display', serif;
-    font-style:italic; font-weight:600;
-    font-size: clamp(32px, 6vw, 52px);
-    line-height:1.14; text-align:center;
-    color: var(--ivory);
-    text-shadow: 0 0 40px rgba(255,61,138,0.35);
-  }
-  h1.title span{ color: var(--pink); }
+  .blink { animation: blink 1s step-start infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
 
-  .subtitle{
-    margin: 18px auto 0; max-width: 480px;
-    text-align:center; font-size:15px; line-height:1.75;
-    color: var(--muted);
+  .divider {
+    color: #ff0000;
+    letter-spacing: 4px;
+    margin: 10px 0;
   }
 
-  /* ---------- glowing heartbeat divider (signature element) ---------- */
-  .pulse-wrap{
-    margin: 46px auto 0; width:100%; max-width:420px; height:46px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .pulse-wrap svg{ width:100%; height:100%; overflow:visible; }
-  .pulse-line{
-    fill:none; stroke: var(--pink); stroke-width:1.6;
-    stroke-linecap:round; stroke-linejoin:round;
-    filter: drop-shadow(0 0 6px rgba(255,61,138,0.75)) drop-shadow(0 0 14px rgba(255,61,138,0.4));
-    stroke-dasharray: 340; stroke-dashoffset: 340;
-    animation: draw 2.6s ease forwards, glow-pulse 2.4s ease-in-out 2.6s infinite;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  @keyframes glow-pulse{
-    0%,100%{ opacity:0.85; }
-    50%{ opacity:0.45; }
+  .content-box {
+    max-width: 700px;
+    margin: 25px auto;
+    background: repeating-linear-gradient(45deg, #1a0000, #1a0000 10px, #000 10px, #000 20px);
+    border: 4px double #ff0000;
+    padding: 20px;
+    box-shadow: 0 0 25px #8b0000;
+    position: relative;
   }
 
-  /* ---------- main counter ---------- */
-  .card{
-    margin-top: 38px;
-    background: linear-gradient(165deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 40px 30px;
-    backdrop-filter: blur(6px);
+  .content-box::before {
+    content: "🦇";
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    font-size: 24px;
+  }
+  .content-box::after {
+    content: "🦇";
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    font-size: 24px;
   }
 
-  .card-label{
-    text-align:center; font-size:11.5px; letter-spacing:0.24em; text-transform:uppercase;
-    color: var(--muted);
+  .content-box h2 {
+    font-family: "Comic Sans MS", cursive;
+    color: #ff1493;
+    text-shadow: 1px 1px #000;
+    border-bottom: 2px dotted #ff69b4;
+    display: inline-block;
+    padding-bottom: 4px;
   }
 
-  .counter{
-    display:grid; grid-template-columns: repeat(4, 1fr);
-    gap: 12px; margin-top: 22px;
-  }
-  .counter .unit{ text-align:center; }
-  .counter .num{
-    font-family:'Playfair Display', serif; font-weight:700;
-    font-variant-numeric: tabular-nums;
-    font-size: clamp(28px, 6vw, 42px);
-    color: var(--ivory);
-    text-shadow: 0 0 22px rgba(255,61,138,0.28);
-  }
-  .counter .lab{
-    margin-top:6px; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;
-    color: var(--pink-soft); opacity:0.8;
+  .content-box p {
+    line-height: 1.6;
+    font-size: 1.05em;
+    color: #f0f0f0;
   }
 
-  .divider{
-    height:1px; margin: 30px 0;
-    background: linear-gradient(90deg, transparent, var(--pink-deep), transparent);
-    opacity:0.5;
+  .heart-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    display: inline-block;
+  }
+  .heart-list li {
+    margin: 6px 0;
+  }
+  .heart-list li::before {
+    content: "🖤 ";
   }
 
-  .note{
-    font-size:15px; line-height:1.8; text-align:center; color: #D9C9D0;
-    max-width: 520px; margin: 0 auto;
-  }
-  .note strong{ color: var(--pink-soft); font-weight:500; }
-
-  /* ---------- saudade / tuesday countdown ---------- */
-  .tuesday-card{
-    margin-top:26px;
-    border: 1px dashed var(--line);
-    border-radius: 16px;
-    padding: 26px 22px;
-    text-align:center;
-  }
-  .tuesday-card .eyebrow{ margin-bottom:4px; }
-  .tuesday-title{
-    font-family:'Playfair Display', serif; font-style:italic; font-size:17px;
-    color: var(--ivory); margin-top:6px;
-  }
-  .mini-counter{
-    display:flex; justify-content:center; gap:18px; margin-top:16px;
-  }
-  .mini-counter .m-unit{ text-align:center; }
-  .mini-counter .m-num{
-    font-family:'Playfair Display', serif; font-weight:600; font-size:22px;
-    color: var(--pink-soft);
-  }
-  .mini-counter .m-lab{
-    font-size:9.5px; letter-spacing:0.16em; text-transform:uppercase; color: var(--muted); margin-top:3px;
+  .photo-frame {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    background: #111;
+    border: 4px ridge #ff0000;
+    margin: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    color: #888;
+    font-family: monospace;
+    vertical-align: top;
   }
 
-  /* ---------- milestone ---------- */
-  .milestone{ margin-top: 34px; }
-  .milestone-top{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color: var(--muted);
-    margin-bottom:8px;
-  }
-  .bar{
-    height:8px; border-radius:999px; background:rgba(255,255,255,0.06); overflow:hidden;
-    border:1px solid var(--line);
-  }
-  .bar-fill{
-    height:100%; border-radius:999px;
-    background: linear-gradient(90deg, var(--pink-deep), var(--pink));
-    width:0%; transition: width 1.2s ease;
-    box-shadow: 0 0 12px rgba(255,61,138,0.6);
-  }
-  .milestone-msg{ margin-top:10px; font-size:13px; text-align:center; color: var(--muted); }
-
-  /* ---------- reasons ---------- */
-  .reasons{ margin-top: 40px; text-align:center; }
-  .reason-box{
-    margin-top:16px; min-height: 90px;
-    display:flex; align-items:center; justify-content:center; padding:0 8px;
-  }
-  .reason-text{
-    font-family:'Playfair Display', serif; font-style:italic; font-weight:500;
-    font-size: 18px; color: var(--ivory); max-width:460px;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-  .reason-nav{ display:flex; gap:9px; justify-content:center; margin-top:14px; }
-  .dot{
-    width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.18);
-    cursor:pointer; border:none; padding:0;
-    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .dot.active{ background: var(--pink); transform:scale(1.4); box-shadow:0 0 8px rgba(255,61,138,0.8); }
-
-  .signoff{
-    margin-top: 44px; text-align:center; font-size:13.5px;
-    font-family:'Playfair Display', serif; font-style:italic; color: var(--muted);
+  .stamp {
+    display: inline-block;
+    background: #ff69b4;
+    color: #000;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 0.8em;
+    padding: 4px 10px;
+    border-radius: 50%;
+    border: 2px dashed #fff;
+    transform: rotate(-8deg);
+    margin: 4px;
   }
 
-  footer.credit{
-    text-align:center; margin-top:22px; font-size:10.5px; letter-spacing:0.05em; color: rgba(255,255,255,0.25);
+  #guestbook-entries {
+    text-align: left;
+    background: #0a0a0a;
+    border: 2px inset #ff0000;
+    padding: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    font-family: "Comic Sans MS", cursive;
+    font-size: 0.9em;
+  }
+  #guestbook-entries .entry {
+    border-bottom: 1px dotted #444;
+    padding: 6px 0;
+  }
+  #guestbook-entries .name {
+    color: #ff69b4;
+    font-weight: bold;
   }
 
-  @media (max-width:420px){
-    .counter{ gap:6px; }
-    .card{ padding:30px 18px; }
-    .mini-counter{ gap:12px; }
+  input, textarea {
+    width: 90%;
+    background: #000;
+    color: #fff;
+    border: 2px solid #ff0000;
+    padding: 6px;
+    font-family: "Comic Sans MS", cursive;
+    margin: 4px 0;
   }
+
+  button {
+    background: #8b0000;
+    color: #fff;
+    border: 2px outset #ff69b4;
+    padding: 8px 18px;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  button:hover {
+    background: #ff1493;
+  }
+
+  .counter {
+    background: #000;
+    border: 2px solid #444;
+    display: inline-block;
+    padding: 6px 14px;
+    font-family: "Courier New", monospace;
+    color: #0f0;
+    letter-spacing: 3px;
+    margin: 10px;
+  }
+
+  .webring {
+    background: #111;
+    border-top: 2px dashed #ff0000;
+    padding: 20px 10px 40px;
+    font-size: 0.85em;
+    color: #999;
+    font-family: "Comic Sans MS", cursive;
+  }
+
+  .under-construction {
+    display: inline-block;
+    background: #ffd700;
+    color: #000;
+    font-family: "Comic Sans MS", cursive;
+    font-weight: bold;
+    padding: 4px 10px;
+    border: 2px dashed #000;
+    margin: 8px;
+    transform: rotate(-2deg);
+  }
+
+  a { color: #ff69b4; }
 </style>
 </head>
 <body>
 
-  <div class="ambient" id="ambient"></div>
+<div id="sparkle-trail"></div>
 
-  <main>
-    <p class="eyebrow">Para Tiffany</p>
-    <h1 class="title">135 dias com <span>você</span></h1>
-    <p class="subtitle">Esse fim de semana a gente não se vê, mas terça já tá logo ali. Enquanto isso, um contadorzinho pra passar o tempo.</p>
+<div class="marquee-wrap">
+  <marquee behavior="scroll" direction="left" scrollamount="6">
+    ★彡 BEM VINDA AO MEU CANTINHO, TIFFANY 彡★ &nbsp;&nbsp;&nbsp; 🖤 SEJA SEMPRE BEM VINDA 🖤 &nbsp;&nbsp;&nbsp; ★彡 CLIQUE, ROLE, CHORE (DE FOFURA) 彡★
+  </marquee>
+</div>
 
-    <div class="pulse-wrap">
-      <svg viewBox="0 0 400 46" preserveAspectRatio="none">
-        <path class="pulse-line" d="M0 23 H140 L160 5 L180 41 L200 23 H400" />
-      </svg>
+<header>
+  <h1>♥ My Tiff Romance ♥</h1>
+  <p class="subtitle">um site TOSCO feito com muito <span class="blink">amor</span> pra pessoa que eu escolheria de novo em qualquer vida</p>
+  <div class="divider">×´¯`×.¸¸.«´¯`×.¸.«´¯`×.¸¸.×´¯`×</div>
+</header>
+
+<div class="content-box">
+  <h2>* Sobre Este Cantinho *</h2>
+  <p>
+    Esse espaço foi feito com amor e carinho pra minha maior alegria,
+    meu amooooo, te amo UAI! Um cantinho bem "Geocities 2004", cheio de
+    brilho, estrelinha e nostalgia — porque você merece um site inteiro só
+    seu, Tiffany. Considere isso o equivalente digital de um mixtape gravado
+    com carinho, faixa por faixa, cada uma escolhida pensando em você. Se
+    existisse um jeito de colocar "para sempre" num arquivo HTML, seria esse.
+  </p>
+</div>
+
+<div class="content-box">
+  <h2>* Do Meu Blog *</h2>
+  <div style="text-align:left; font-family:'Comic Sans MS', cursive;">
+    <p style="color:#ff69b4; font-size:0.85em; margin-bottom:2px;">📅 postado hoje ⋅ humor: apaixonado(a) ⋅ ouvindo: My Chemical Romance</p>
+    <h3 style="color:#fff; text-shadow:1px 1px #000; margin:4px 0;">você é minha Morticia, não perco meu Gomez por nada</h3>
+    <p style="line-height:1.6;">
+      Tem um tipo de amor que não precisa de explicação, só precisa ser
+      vivido — tipo o dos Addams. A Morticia e o Gomez se olham depois de
+      décadas juntos com a mesma intensidade do primeiro dia, e é
+      exatamente isso que eu sinto quando olho pra você, Tiffany. Não é o
+      tipo de romance clarinho e óbvio; é mais escuro, mais intenso, mais
+      "eu escolho você todos os dias e não vou soltar sua mão". Onde você
+      for, eu vou. Se o mundo for esquisito, melhor ainda — a gente
+      combina exatamente com esse tipo de estranho-lindo. Você é a minha
+      pessoa favorita pra assombrar essa vida inteira, e eu não pretendo
+      perder meu Gomez por nada nesse universo. 🖤
+    </p>
+    <p style="color:#999; font-size:0.85em; margin-top:10px;">💬 3 comentários</p>
+    <div style="text-align:left; background:#0a0a0a; border:2px inset #ff0000; padding:10px; margin-top:6px;">
+      <div class="entry"><span class="name">Morticia Addams:</span> "cara, esse aí ama de verdade, dá pra sentir daqui." 🥀</div>
+      <div class="entry"><span class="name">Gomez Addams:</span> "Tish, você chamou meu nome?" — brincadeiras à parte, que amor lindo, chérie.</div>
+      <div class="entry"><span class="name">Wednesday Addams:</span> repugnante o quanto isso é fofo. aprovado mesmo assim.</div>
     </div>
+  </div>
+</div>
 
-    <div class="card">
-      <p class="card-label">desde 1º de abril</p>
-      <div class="counter" id="counter" aria-live="polite">
-        <div class="unit"><div class="num" id="d">000</div><div class="lab">dias</div></div>
-        <div class="unit"><div class="num" id="h">00</div><div class="lab">horas</div></div>
-        <div class="unit"><div class="num" id="m">00</div><div class="lab">min</div></div>
-        <div class="unit"><div class="num" id="s">00</div><div class="lab">seg</div></div>
-      </div>
+<div class="content-box">
+  <h2>* Playlist Oficial do Site *</h2>
+  <p>toca automaticamente na sua cabeça, use fones imaginários:</p>
+  <ul class="heart-list">
+    <li>Welcome to the Black Parade</li>
+    <li>Helena</li>
+    <li>I'm Not Okay (I Promise)</li>
+    <li>Teenagers</li>
+    <li>Na Na Na</li>
+    <li>The Ghost of You</li>
+    <li>Famous Last Words</li>
+  </ul>
+  <p><em>(volume no talo, é claro)</em></p>
+</div>
 
-      <div class="divider"></div>
+<div class="content-box">
+  <h2>* Motivos Pelos Quais Você é Incrível *</h2>
+  <ul class="heart-list">
+    <li>Seu gosto musical é impecável</li>
+    <li>Você faz até dia ruim ficar bom</li>
+    <li>Namorar você é o meu parade preferido</li>
+    <li>Seu jeito de ser é a melhor parte do meu dia</li>
+    <li>Seu sorriso é melhor que refrão de MCR</li>
+    <li>Você canta "Helena" com uma emoção absurda</li>
+    <li>Seu abraço resolve qualquer dia ruim</li>
+    <li>Você tem bom gosto até pra escolher namorado(a) 😏</li>
+    <li>Sua risada é contagiante</li>
+    <li>Você é teimosa do jeito certo</li>
+    <li>Cuida de quem você ama igual ninguém</li>
+    <li>Seu jeito de se vestir tem personalidade própria</li>
+    <li>Você lembra de detalhes que eu nem lembrava</li>
+    <li>Tem paciência comigo até quando eu não mereço</li>
+    <li>Faz qualquer playlist ficar melhor</li>
+    <li>É corajosa pra encarar o que dá medo</li>
+    <li>Seu jeito de amar é intenso e verdadeiro</li>
+    <li>Você é sincera mesmo quando dói</li>
+    <li>Tem um coração enorme debaixo de toda a atitude emo</li>
+    <li>Consegue me acalmar só de falar comigo</li>
+    <li>Seu senso de humor é do tipo que eu mais gosto</li>
+    <li>Você luta pelas coisas que acredita</li>
+    <li>É leal até o fim, tipo música boa</li>
+    <li>Sabe ser forte sem perder a sensibilidade</li>
+    <li>Cada conversa com você vira meu momento favorito do dia</li>
+    <li>Tem gosto certeiro pra filme, série e música</li>
+    <li>Não tem medo de ser exatamente quem é</li>
+    <li>Seu jeito de cuidar dos amigos é lindo de ver</li>
+    <li>Faz eu querer ser uma pessoa melhor</li>
+    <li>Você é curiosa e adora aprender coisas novas</li>
+    <li>Seu abraço bagunçado é o meu lugar favorito</li>
+    <li>Você celebra as pequenas vitórias como se fossem gigantes</li>
+    <li>Tem uma memória afiada pra detalhes bobos que eu amo</li>
+    <li>Você é gentil até quando ninguém está olhando</li>
+    <li>Consegue transformar qualquer dia chato em aventura</li>
+    <li>Seu jeito de amar MCR é fofo e intenso ao mesmo tempo</li>
+    <li>Você acredita em mim mesmo quando eu duvido de mim</li>
+    <li>Tem estilo próprio e não copia ninguém</li>
+    <li>Você é a pessoa que eu escolho todos os dias</li>
+    <li>Simplesmente: você é você, e isso já é incrível o suficiente</li>
+  </ul>
+  <div>
+    <span class="stamp">100% MCR ARMY</span>
+    <span class="stamp">TIFFANY'S #1 FAN</span>
+    <span class="stamp">MADE W/ LOVE</span>
+  </div>
+</div>
 
-      <p class="note">
-        <strong>135 dias</strong> desde 1º de abril — já foi bastante coisa boa.
-        Esse fim de semana a gente fica devendo, mas terça a gente resolve isso. 💗
-      </p>
+<div class="content-box">
+  <h2>* Livro de Visitas *</h2>
+  <div id="guestbook-entries">
+    <div class="entry"><span class="name">seu namorado ♥:</span> bem-vinda ao seu cantinho oficial na internet, eu te amo muito!!</div>
+    <div class="entry"><span class="name">Dr. Frank-N-Furter:</span> "Don't dream it, be it" — e você já é a coisa mais espetacular desse site, dahling.</div>
+    <div class="entry"><span class="name">Magenta:</span> até o castelo tá com inveja da química de vocês dois, honestamente.</div>
+    <div class="entry"><span class="name">Columbia:</span> tap tap tap!! esse casal merece seu próprio Time Warp, ass!</div>
+  </div>
+  <br>
+  <input id="gb-name" placeholder="seu nome"><br>
+  <textarea id="gb-msg" rows="2" placeholder="deixe um recadinho..."></textarea><br>
+  <button onclick="addEntry()">Assinar o Livro ✎</button>
+</div>
 
-      <div class="tuesday-card">
-        <p class="eyebrow">a gente se vê em</p>
-        <p class="tuesday-title">Terça-feira</p>
-        <div class="mini-counter" id="tuesdayCounter">
-          <div class="m-unit"><div class="m-num" id="td">0</div><div class="m-lab">dias</div></div>
-          <div class="m-unit"><div class="m-num" id="th">00</div><div class="m-lab">horas</div></div>
-          <div class="m-unit"><div class="m-num" id="tm">00</div><div class="m-lab">min</div></div>
-        </div>
-      </div>
+<div class="counter">SÓ VOCÊ NO MEU CORAÇÃO</div>
+<br>
+<button onclick="pop()">clique aqui pra uma surpresinha ✨</button>
 
-      <div class="milestone">
-        <div class="milestone-top">
-          <span id="milestoneLabel">Rumo aos 150 dias</span>
-          <span id="milestonePct">0%</span>
-        </div>
-        <div class="bar"><div class="bar-fill" id="barFill"></div></div>
-        <p class="milestone-msg" id="milestoneMsg"></p>
-      </div>
-
-      <div class="reasons">
-        <p class="eyebrow">Coisas que passam pela minha cabeça</p>
-        <div class="reason-box">
-          <p class="reason-text" id="reasonText"></p>
-        </div>
-        <div class="reason-nav" id="reasonNav"></div>
-      </div>
-
-      <p class="signoff">— Gabs, o Mineiro, seu doidinho do centro</p>
-    </div>
-
-    <footer class="credit">135 dias e contando · te vejo terça</footer>
-  </main>
+<div class="webring">
+  <p>◄ webring "namoradas de emo" ►</p>
+  <p>Este site é otimizado para resolução 800x600 e Internet Explorer 6 (mentira, mas dá pra sentir o clima)</p>
+  <p>© eu, feito só pra você, Tiffany 🖤</p>
+</div>
 
 <script>
-(function(){
-  /* =========================================================
-     EDITE AQUI: data de início e do encontro de terça, motivos
-     ========================================================= */
-  const START_DATE   = new Date(2026, 3, 1, 0, 0, 0);   // 1º de abril de 2026
-  const TUESDAY_DATE = new Date(2026, 7, 18, 19, 0, 0); // terça, 18/ago/2026 às 19h — ajuste o horário combinado
-
-  const REASONS = [
-    "Já quero saber tudo que você aprontou nesse fim de semana.",
-    "Sábado sem você é mais devagar, mas passa.",
-    "Terça eu já chego contando as novidades.",
-    "135 dias e ainda acho pouco tempo com você.",
-    "Domingo à noite eu já tô pensando em terça."
-  ];
-
-  // ---------- ambient sparks ----------
-  const ambient = document.getElementById('ambient');
-  for(let i=0;i<16;i++){
-    const el = document.createElement('span');
-    el.className = 'spark';
-    const size = 2 + Math.random()*3;
-    el.style.width = size+'px';
-    el.style.height = size+'px';
-    el.style.left = (Math.random()*100)+'vw';
-    el.style.animationDuration = (12+Math.random()*14)+'s';
-    el.style.animationDelay = (Math.random()*14)+'s';
-    ambient.appendChild(el);
-  }
-
-  function pad(n, len){ return String(n).padStart(len, '0'); }
-
-  function tick(){
-    const now = new Date();
-
-    // main counter since start
-    let diff = Math.max(0, now - START_DATE);
-    const totalSeconds = Math.floor(diff/1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400)/3600);
-    const mins = Math.floor((totalSeconds % 3600)/60);
-    const secs = totalSeconds % 60;
-
-    document.getElementById('d').textContent = pad(days,3);
-    document.getElementById('h').textContent = pad(hours,2);
-    document.getElementById('m').textContent = pad(mins,2);
-    document.getElementById('s').textContent = pad(secs,2);
-
-    // countdown to tuesday
-    let tdiff = Math.max(0, TUESDAY_DATE - now);
-    const tTotalSeconds = Math.floor(tdiff/1000);
-    const tDays = Math.floor(tTotalSeconds / 86400);
-    const tHours = Math.floor((tTotalSeconds % 86400)/3600);
-    const tMins = Math.floor((tTotalSeconds % 3600)/60);
-
-    document.getElementById('td').textContent = tDays;
-    document.getElementById('th').textContent = pad(tHours,2);
-    document.getElementById('tm').textContent = pad(tMins,2);
-
-    // milestone: next multiple of 50 days
-    const nextMilestone = (Math.floor(days/50)+1)*50;
-    const prevMilestone = nextMilestone - 50;
-    const pct = Math.min(100, Math.round(((days-prevMilestone)/50)*100));
-    document.getElementById('milestoneLabel').textContent = `Rumo aos ${nextMilestone} dias`;
-    document.getElementById('milestonePct').textContent = pct + '%';
-    document.getElementById('barFill').style.width = pct + '%';
-    document.getElementById('milestoneMsg').textContent =
-      `Faltam ${nextMilestone - days} dias para completarmos ${nextMilestone} dias juntos.`;
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  // ---------- reasons carousel ----------
-  const reasonText = document.getElementById('reasonText');
-  const nav = document.getElementById('reasonNav');
-  let idx = 0;
-
-  REASONS.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'dot' + (i===0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Motivo ' + (i+1));
-    dot.addEventListener('click', () => showReason(i));
-    nav.appendChild(dot);
+  // sparkle cursor trail
+  const sparkles = ['✨','🖤','★','♥','☆'];
+  document.addEventListener('mousemove', (e) => {
+    if (Math.random() > 0.7) {
+      const s = document.createElement('span');
+      s.textContent = sparkles[Math.floor(Math.random()*sparkles.length)];
+      s.style.left = e.pageX + 'px';
+      s.style.top = e.pageY + 'px';
+      document.getElementById('sparkle-trail').appendChild(s);
+      setTimeout(() => s.remove(), 1000);
+    }
   });
 
-  function showReason(i){
-    idx = i;
-    reasonText.style.opacity = 0;
-    reasonText.style.transform = 'translateY(6px)';
-    setTimeout(() => {
-      reasonText.textContent = '“' + REASONS[idx] + '”';
-      reasonText.style.opacity = 1;
-      reasonText.style.transform = 'translateY(0)';
-      [...nav.children].forEach((d,j)=> d.classList.toggle('active', j===idx));
-    }, 200);
+  function addEntry() {
+    const name = document.getElementById('gb-name').value.trim() || 'anônimo(a)';
+    const msg = document.getElementById('gb-msg').value.trim();
+    if (!msg) return;
+    const div = document.createElement('div');
+    div.className = 'entry';
+    div.innerHTML = '<span class="name">' + name.replace(/</g,'&lt;') + ':</span> ' + msg.replace(/</g,'&lt;');
+    document.getElementById('guestbook-entries').prepend(div);
+    document.getElementById('gb-name').value = '';
+    document.getElementById('gb-msg').value = '';
   }
-  reasonText.textContent = '“' + REASONS[0] + '”';
 
-  setInterval(() => {
-    showReason((idx+1) % REASONS.length);
-  }, 6000);
-})();
+  function pop() {
+    alert('🖤 Eu te amo mais que a discografia inteira do MCR (e olha que é muita coisa) 🖤');
+  }
 </script>
+
 </body>
 </html>
