@@ -55,7 +55,7 @@
       0% { transform: translateX(0) translateY(0) scale(0.8) rotate(-5deg); }
       25% { transform: translateX(-30vw) translateY(15px) scale(1.1) rotate(5deg); }
       50% { transform: translateX(-60vw) translateY(-10px) scale(0.9) rotate(-5deg); }
-      75% { transform: translateX(-85vw) translateY(20px) scale(1) rotate(3deg); }
+      75% { transform: translateX(-85vw) translateY(20px) scale(3deg); }
       100% { transform: translateX(-110vw) translateY(0) scale(0.8) rotate(-5deg); }
     }
 
@@ -239,25 +239,6 @@
       color: #ffccd9;
     }
 
-    /* ESTILOS DOS TERMOS DE USO */
-    .terms-box {
-      background: rgba(10, 2, 6, 0.9);
-      border: 1px solid #ff0055;
-      border-radius: 8px;
-      padding: 14px;
-      font-size: 0.85rem;
-      max-height: 220px;
-      overflow-y: auto;
-      margin-bottom: 16px;
-      color: #e6b8c8;
-      line-height: 1.6;
-    }
-
-    .terms-box p {
-      font-size: 0.83rem;
-      margin-bottom: 10px;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -295,7 +276,7 @@
       Do seu doidinho, com muito amor 🤪🖤
     </p>
     <div class="options">
-      <button class="btn" onclick="startQuiz()">Bora responder! 🚀</button>
+      <button class="btn" style="text-align: center;" onclick="startQuiz()">Bora responder! 🚀</button>
     </div>
   </div>
 
@@ -767,33 +748,27 @@
         </p>
       `;
     } else {
-      // CENÁRIO DIVERTIDO: TERMOS E CONDIÇÕES DE ATENDIMENTO
+      // CENÁRIO LEVE E BEM-HUMORADO (SEM FORÇAR / SEM JOGAR BAIXO)
       finalContainer.innerHTML = `
-        <h1>⚠️ TERMOS E CONDIÇÕES DE USO DO DOIDINHO 📜🤓</h1>
+        <h1>Modo Marrenta Ativado! 😜🖤</h1>
         
-        <p style="font-size: 0.88rem; color: #ffb3d1; margin-bottom: 12px;">
-          Detectamos uma quantidade perigosamente alta de respostas ranzinzas! Antes de prosseguir, você precisa declarar aceite dos seguintes termos:
-        </p>
+        <p>Percebi que você estava num dia mais reservado ou só querendo tirar uma onda com a cara do seu doidinho durante o teste...</p>
+        
+        <p>E tá tudo bem! Não tem pressão, não tem cobrança e nem conversa pesada. Eu sei respeitar o seu espaço e o seu tempo quando precisa.</p>
 
-        <div class="terms-box">
-          <p><strong>CLÁUSULA 1:</strong> Aceito e reconheço que eu (a pessoa mais maravilhosa, incrível e perfeita que já passou na vida desse doido) estou sendo aturada por um garoto que tenta expressar amor fazendo código e site Y2K.</p>
-          
-          <p><strong>CLÁUSULA 2:</strong> Estou ciente de que, mesmo respondendo com marra ou fazendo jogo duro, este doidinho não vai a lugar nenhum e continuará exigindo xodó, abraços e paciência diária.</p>
-          
-          <p><strong>CLÁUSULA 3:</strong> Declaro para todos os fins que tentar parecer insensível no quiz foi apenas uma tentativa falha de disfarçar o quanto eu sou doida por ele no fundo.</p>
-          
-          <p><strong>CLÁUSULA 4:</strong> Fica estipulada a multa imediata de 1 (um) abraço bem apertado e demorado para compensar cada resposta marrenta marcada durante este teste.</p>
+        <div class="quote-box">
+          O objetivo desse site não era te convencer de nada, mas só te fazer sorrir ou lembrar que, do meu jeito torto de SRE/Soberano dos códigos, eu me importo de verdade com você. 🦇
         </div>
 
-        <div class="options">
-          <button class="btn" style="text-align: center; font-weight: bold;" onclick="alert('Termos aceitos com sucesso! Agora vem cá me dar meu abraço. 🫂🖤')">
-            Li, concordo e aceito meu doidinho como ele é 🖊️🖤
+        <div class="note">
+          Quando quiser conversar com calma, rir de alguma besteira ou só pedir um abraço sem compromisso, sabe onde me encontrar. 😉
+        </div>
+
+        <div class="options" style="margin-top: 20px;">
+          <button class="btn" style="text-align: center; font-weight: bold;" onclick="startQuiz()">
+            Refazer o teste com mais calma 🔄
           </button>
         </div>
-
-        <p style="margin-top: 20px; font-size: 0.85rem; color: #cca3b8; text-align: center; font-style: italic;">
-          (Não adianta tentar recusar, o botão de fechar não funciona! 😁)
-        </p>
       `;
     }
   }
