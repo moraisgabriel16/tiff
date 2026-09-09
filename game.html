@@ -38,64 +38,25 @@
       filter: drop-shadow(0 0 6px rgba(255, 0, 85, 0.6));
     }
 
-    .bat1 {
-      top: 10%;
-      left: -50px;
-      animation: flyRight 14s linear infinite;
-    }
-
-    .bat2 {
-      top: 35%;
-      right: -50px;
-      animation: flyLeft 18s linear infinite 3s;
-    }
-
-    .bat3 {
-      top: 75%;
-      left: -50px;
-      animation: flyRight 12s linear infinite 6s;
-    }
-
-    .bat4 {
-      top: 85%;
-      right: -50px;
-      animation: flyLeft 16s linear infinite 1s;
-    }
+    .bat1 { top: 10%; left: -50px; animation: flyRight 14s linear infinite; }
+    .bat2 { top: 35%; right: -50px; animation: flyLeft 18s linear infinite 3s; }
+    .bat3 { top: 75%; left: -50px; animation: flyRight 12s linear infinite 6s; }
+    .bat4 { top: 85%; right: -50px; animation: flyLeft 16s linear infinite 1s; }
 
     @keyframes flyRight {
-      0% {
-        transform: translateX(0) translateY(0) scale(0.8) rotate(5deg);
-      }
-      25% {
-        transform: translateX(35vw) translateY(-20px) scale(1) rotate(-5deg);
-      }
-      50% {
-        transform: translateX(65vw) translateY(15px) scale(0.9) rotate(5deg);
-      }
-      75% {
-        transform: translateX(85vw) translateY(-10px) scale(1.1) rotate(-3deg);
-      }
-      100% {
-        transform: translateX(110vw) translateY(0) scale(0.8) rotate(5deg);
-      }
+      0% { transform: translateX(0) translateY(0) scale(0.8) rotate(5deg); }
+      25% { transform: translateX(35vw) translateY(-20px) scale(1) rotate(-5deg); }
+      50% { transform: translateX(65vw) translateY(15px) scale(0.9) rotate(5deg); }
+      75% { transform: translateX(85vw) translateY(-10px) scale(1.1) rotate(-3deg); }
+      100% { transform: translateX(110vw) translateY(0) scale(0.8) rotate(5deg); }
     }
 
     @keyframes flyLeft {
-      0% {
-        transform: translateX(0) translateY(0) scale(0.8) rotate(-5deg);
-      }
-      25% {
-        transform: translateX(-30vw) translateY(15px) scale(1.1) rotate(5deg);
-      }
-      50% {
-        transform: translateX(-60vw) translateY(-10px) scale(0.9) rotate(-5deg);
-      }
-      75% {
-        transform: translateX(-85vw) translateY(20px) scale(1) rotate(3deg);
-      }
-      100% {
-        transform: translateX(-110vw) translateY(0) scale(0.8) rotate(-5deg);
-      }
+      0% { transform: translateX(0) translateY(0) scale(0.8) rotate(-5deg); }
+      25% { transform: translateX(-30vw) translateY(15px) scale(1.1) rotate(5deg); }
+      50% { transform: translateX(-60vw) translateY(-10px) scale(0.9) rotate(-5deg); }
+      75% { transform: translateX(-85vw) translateY(20px) scale(1) rotate(3deg); }
+      100% { transform: translateX(-110vw) translateY(0) scale(0.8) rotate(-5deg); }
     }
 
     .container {
@@ -310,62 +271,23 @@
   </div>
 
   <!-- Tela Inicial -->
-  <div class="step active" id="step-0">
+  <div class="step active" id="step-start">
     <p style="font-size: 1.15rem; color: #ffe6f0; margin-bottom: 24px; text-shadow: 1px 1px 2px #000; text-align: center; font-weight: 500;">
       Do seu doidinho, com muito amor 🤪🖤
     </p>
     <div class="options">
-      <button class="btn" onclick="nextStep(1)">Bora responder! 🚀</button>
+      <button class="btn" onclick="startQuiz()">Bora responder! 🚀</button>
     </div>
   </div>
 
-  <!-- Pergunta 1 -->
-  <div class="step" id="step-1">
-    <h2>1. O que acontece quando um doidinho completamente apaixonado tenta entender o mundo da mulher mais incrível que ele conhece?</h2>
-    <div class="options">
-      <button class="btn" onclick="recordAndNext(1, 'Você reconhece que ele tá se esforçando de verdade.', 2)">A gente cria uma ponte linda de carinho e paciência. 🖤</button>
-      <button class="btn" onclick="recordAndNext(1, 'Você acha graça nas invenções dele.', 2)">Ele inventa um quiz no estilo Y2K só pra arrancar um sorriso.</button>
-    </div>
-  </div>
-
-  <!-- Pergunta 2 -->
-  <div class="step" id="step-2">
-    <h2>2. Quando a gente se depara com um terreno totalmente novo na relação, qual é o melhor jeito de caminhar por ele?</h2>
-    <div class="options">
-      <button class="btn" onclick="recordAndNext(2, 'Você escolhe dar a mão e caminhar junto.', 3)">De mãos dadas, com paciência e sem deixar ninguém se perder.</button>
-      <button class="btn" onclick="recordAndNext(2, 'Você prefere o diálogo sincero.', 3)">Conversando com o coração aberto e sem birra.</button>
-    </div>
-  </div>
-
-  <!-- Pergunta 3 -->
-  <div class="step" id="step-3">
-    <h2>3. O quanto você valoriza quando alguém quer de verdade aprender sobre a sua liberdade e a sua forma de enxergar a vida?</h2>
-    <div class="options">
-      <button class="btn" onclick="recordAndNext(3, 'Você sabe o quanto esse aprendizado é valioso.', 4)">Demais! Transparência e vontade de aprender valem ouro.</button>
-      <button class="btn" onclick="recordAndNext(3, 'Você enxerga o carinho por trás disso.', 4)">Muito, porque demonstra que o sentimento é real e verdadeiro.</button>
-    </div>
-  </div>
-
-  <!-- Pergunta 4 -->
-  <div class="step" id="step-4">
-    <h2>4. Lembra daquela 'brincadeira' de que um dia eu ainda vou te roubar só pra mim?</h2>
-    <div class="options">
-      <button class="btn" onclick="recordAndNext(4, 'Você sabe que no fundo não é tão brincadeira assim. 🤭', 5)">Eu lembro... e no fundo sei que tem um fundo de verdade. 🤭</button>
-      <button class="btn" onclick="recordAndNext(4, 'Você se sente querida.', 5)">Achei fofo, mostra o quanto você me quer bem!</button>
-    </div>
-  </div>
-
-  <!-- Pergunta 5 -->
-  <div class="step" id="step-5">
-    <h2>5. Sabendo que o doidinho aqui te ama muito e não quer ficar de fora do seu mundo, o que a gente faz agora?</h2>
-    <div class="options">
-      <button class="btn" onclick="recordAndNext(5, 'Pronta para ter um pouquinho de paciência com ele.', 6)">Dá a mão pra ele e ensina com carinho a caminhar nesse novo caminho. ✨</button>
-      <button class="btn" onclick="recordAndNext(5, 'Pronta para dar um abraço bem apertado.', 6)">Aperta aqui e vem me dar um abraço!</button>
-    </div>
+  <!-- Container Dinâmico das Perguntas -->
+  <div class="step" id="step-quiz">
+    <h2 id="question-text"></h2>
+    <div class="options" id="options-container"></div>
   </div>
 
   <!-- Tela Final -->
-  <div class="step" id="step-6">
+  <div class="step" id="step-final">
     <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
     
     <div class="summary-box" id="user-summary">
@@ -391,83 +313,146 @@
 </div>
 
 <script>
-  let currentStep = 0;
-  const totalSteps = 6;
+  // BANCO DE NOVAS PERGUNTAS (Totalmente reformuladas!)
+  const rawQuestions = [
+    {
+      question: "Qual é o superpoder secreto do nosso laço quando as coisas ficam meio confusas?",
+      options: [
+        { text: "A nossa transparência e a coragem de olhar no olho sem rodeios. 🖤", summary: "Você confia na nossa transparência." },
+        { text: "A capacidade de transformar qualquer clima pesado num abraço sincero.", summary: "Você valoriza nosso acolhimento no abraço." }
+      ]
+    },
+    {
+      question: "Quando o seu doidinho tenta inventar coisas loucas tipo um site Y2K, o que passa pela sua cabeça?",
+      options: [
+        { text: "Que ele é completamente doido... mas é o meu doidinho tentando me ver sorrir. 🤭", summary: "Você acha graça e carinho nas minhas loucuras." },
+        { text: "Que o esforço dele pra cuidar da gente vale mais do que qualquer gesto comum.", summary: "Você reconhece o valor do esforço dedicado a nós." }
+      ]
+    },
+    {
+      question: "Para caminhar juntas por estradas totalmente novas e desconhecidas, qual é o ingrediente que não pode faltar?",
+      options: [
+        { text: "Paciência mútua, carinho e a certeza de que ninguém anda sozinho. ✨", summary: "Você concorda que paciência e carinho guiam o caminho." },
+        { text: "Conversa aberta para ajustar os passos sem que ninguém perca sua essência.", summary: "Você escolhe ajustar os passos com diálogo e respeito." }
+      ]
+    },
+    {
+      question: "Sabe aquele papo de que um amor de verdade precisa de paz e cumplicidade?",
+      options: [
+        { text: "Sim! Sem jogos, sem disputas... só a gente sendo porto seguro um pro outro.", summary: "Você quer um amor com paz, sem jogos ou disputas." },
+        { text: "Com certeza, como Gomez e Mortícia admirando a essência um do outro. 🦇", summary: "Você curte a dinâmica de admiração mútua estilo Gomez & Mortícia." }
+      ]
+    },
+    {
+      question: "Se agora mesmo o seu Gomez estivesse te olhando nos olhos e pedindo pra caminhar do seu lado...",
+      options: [
+        { text: "Eu daria a mão e diria: 'Vem, vamos aprender juntos'. 💖", summary: "Você escolhe dar a mão e ensinar com paciência." },
+        { text: "Eu diria: 'Larga o código e vem logo me dar um abraço!' 🫂", summary: "Você prefere fechar a tela e vir pro abraço." }
+      ]
+    }
+  ];
+
+  let questions = [];
+  let currentQuestionIndex = 0;
   const userAnswers = [];
 
-  // Web Audio API para tocar sons nativos
+  // Função para embaralhar arrays (Fisher-Yates)
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // Web Audio API para efeitos sonoros
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   function playClickSound() {
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    
     osc.type = 'sine';
     osc.frequency.setValueAtTime(800, audioCtx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.05);
-
     gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
-
     osc.connect(gain);
     gain.connect(audioCtx.destination);
-
     osc.start();
     osc.stop(audioCtx.currentTime + 0.05);
   }
 
   function playFinishSound() {
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     const notes = [523.25, 659.25, 783.99, 1046.50];
     notes.forEach((freq, index) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
       osc.type = 'triangle';
       osc.frequency.value = freq;
-
       gain.gain.setValueAtTime(0.12, audioCtx.currentTime + index * 0.1);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.1 + 0.3);
-
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-
       osc.start(audioCtx.currentTime + index * 0.1);
       osc.stop(audioCtx.currentTime + index * 0.1 + 0.3);
     });
   }
 
-  function recordAndNext(stepIndex, summaryText, nextStepNum) {
-    userAnswers.push(summaryText);
-    nextStep(nextStepNum);
+  function startQuiz() {
+    playClickSound();
+    // Embaralha as perguntas e também as alternativas dentro de cada pergunta
+    questions = shuffle([...rawQuestions]).map(q => ({
+      question: q.question,
+      options: shuffle([...q.options])
+    }));
+    
+    currentQuestionIndex = 0;
+    document.getElementById('step-start').classList.remove('active');
+    document.getElementById('step-quiz').classList.add('active');
+    renderQuestion();
   }
 
-  function nextStep(step) {
-    if (step === totalSteps) {
-      playFinishSound();
-      renderSummary();
-    } else {
-      playClickSound();
-    }
-
-    document.getElementById(`step-${currentStep}`).classList.remove('active');
-    currentStep = step;
-    document.getElementById(`step-${currentStep}`).classList.add('active');
+  function renderQuestion() {
+    const q = questions[currentQuestionIndex];
+    document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${q.question}`;
     
-    const progressPercent = (currentStep / totalSteps) * 100;
+    const container = document.getElementById('options-container');
+    container.innerHTML = '';
+
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.innerText = opt.text;
+      btn.onclick = () => selectOption(opt.summary);
+      container.appendChild(btn);
+    });
+
+    const progressPercent = ((currentQuestionIndex) / questions.length) * 100;
     document.getElementById('progress').style.width = `${progressPercent}%`;
   }
 
-  function renderSummary() {
-    const summaryBox = document.getElementById('user-summary');
-    if (userAnswers.length > 0) {
-      summaryBox.innerHTML = `<strong>Suas escolhas no caminho:</strong><br>• ` + userAnswers.join('<br>• ');
+  function selectOption(summaryText) {
+    userAnswers.push(summaryText);
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+      playClickSound();
+      renderQuestion();
+    } else {
+      showFinalScreen();
     }
+  }
+
+  function showFinalScreen() {
+    playFinishSound();
+    document.getElementById('progress').style.width = '100%';
+    document.getElementById('step-quiz').classList.remove('active');
+    document.getElementById('step-final').classList.add('active');
+
+    const summaryBox = document.getElementById('user-summary');
+    summaryBox.innerHTML = `<strong>Suas escolhas neste caminho:</strong><br>• ` + userAnswers.join('<br>• ');
   }
 </script>
 
