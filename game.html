@@ -3,28 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Tiffany | Um caminho para nós dois</title>
+  <title>Para Tiffany | Helena & Demolition Lovers Y2K</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --accent: #f43f5e;
-      --accent-hover: #e11d48;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --border: #334155;
-    }
-
+    /* RESET & VARIÁVEIS ESTILO ANOS 2000 / EMO ROMÂNTICO */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Tahoma', 'Geneva', 'Verdana', sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background: #0d0208;
+      background-image: 
+        radial-gradient(circle at 50% 30%, #3a001e 0%, #0d0208 80%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
+      color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -32,31 +26,86 @@
       padding: 20px;
     }
 
+    /* CONTAINER ESTILO JANELA WEBLOG / MSN / WINAMP ANOS 2000 */
     .container {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      max-width: 600px;
+      background: linear-gradient(180deg, #1f0212 0%, #0a0106 100%);
+      border: 2px solid #ff0055;
+      border-radius: 12px;
+      max-width: 620px;
       width: 100%;
-      padding: 32px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      padding: 24px;
+      box-shadow: 
+        0 0 20px rgba(255, 0, 85, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.8);
       position: relative;
-      overflow: hidden;
     }
 
+    /* BARRA DE TÍTULO DA JANELA VINTAGE */
+    .window-header {
+      background: linear-gradient(90deg, #ff0055 0%, #880033 100%);
+      margin: -24px -24px 20px -24px;
+      padding: 8px 16px;
+      border-top-left-radius: 9px;
+      border-top-right-radius: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      border-bottom: 1px solid #330011;
+    }
+
+    .window-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 5px;
+    }
+
+    .win-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      background: linear-gradient(180deg, #ffffff 0%, #cccccc 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+    }
+
+    /* BARRA DE PROGRESSO SKEUOMORPHIC (ESTILO WINAMP/WINDOWS XP) */
     .progress-bar {
-      height: 4px;
-      background-color: var(--border);
-      border-radius: 2px;
+      height: 12px;
+      background: #000;
+      border-radius: 6px;
+      border: 1px solid #ff0055;
       margin-bottom: 24px;
       overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+      padding: 1px;
     }
 
     .progress-fill {
       height: 100%;
-      background-color: var(--accent);
+      background: linear-gradient(180deg, #ff6699 0%, #ff0055 50%, #b3003b 100%);
+      border-radius: 4px;
       width: 0%;
       transition: width 0.4s ease;
+      box-shadow: 0 0 8px #ff0055;
     }
 
     .step {
@@ -68,21 +117,31 @@
       display: block;
     }
 
-    h1, h2 {
-      font-size: 1.25rem;
-      font-weight: 600;
+    /* TIPIFICAÇÃO FOFA E EMO */
+    h1 {
+      font-size: 1.5rem;
+      color: #ff66a3;
+      text-shadow: 0 0 8px rgba(255, 102, 163, 0.5), 1px 1px 0px #000;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 1.15rem;
       line-height: 1.4;
       margin-bottom: 20px;
-      color: var(--text);
+      color: #ffe6f0;
+      text-shadow: 1px 1px 2px #000;
     }
 
     p {
-      color: var(--text-muted);
+      color: #cca3b8;
       line-height: 1.6;
-      margin-bottom: 24px;
-      font-size: 0.98rem;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
     }
 
+    /* BOTÕES ESTILO ANOS 2000 (GLOSSY BUTTONS) */
     .options {
       display: flex;
       flex-direction: column;
@@ -90,36 +149,51 @@
     }
 
     .btn {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 14px 20px;
-      border-radius: 10px;
-      font-size: 0.95rem;
+      background: linear-gradient(180deg, #330018 0%, #1a000c 50%, #0d0006 100%);
+      border: 1px solid #ff0055;
+      border-radius: 8px;
+      color: #ffffff;
+      padding: 14px 18px;
+      font-size: 0.9rem;
       text-align: left;
       cursor: pointer;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 2px 5px rgba(0,0,0,0.5);
       transition: all 0.2s ease;
+      text-shadow: 1px 1px 1px #000;
     }
 
     .btn:hover {
-      background-color: var(--accent);
-      border-color: var(--accent);
-      transform: translateY(-2px);
+      background: linear-gradient(180deg, #ff0055 0%, #cc0044 50%, #88002e 100%);
+      border-color: #ff66a3;
+      box-shadow: 0 0 12px rgba(255, 0, 85, 0.8);
+      transform: translateY(-1px);
     }
 
     .note {
       margin-top: 16px;
       padding: 16px;
-      background-color: rgba(244, 63, 94, 0.1);
-      border-left: 3px solid var(--accent);
-      border-radius: 6px;
+      background: rgba(255, 0, 85, 0.1);
+      border: 1px dashed #ff0055;
+      border-radius: 8px;
       font-size: 0.95rem;
-      color: #fca5a5;
+      color: #ffb3d1;
       line-height: 1.5;
+      text-shadow: 1px 1px 1px #000;
+    }
+
+    .mcr-quote {
+      font-style: italic;
+      color: #ff6699;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      display: block;
+      letter-spacing: 0.5px;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -127,16 +201,30 @@
 <body>
 
 <div class="container">
+  <!-- Topo da Janela Estilo Weblog Y2K -->
+  <div class="window-header">
+    <div class="window-title">
+      <span>🖤 tiffany_and_me.exe — [Anos 2000 Edition]</span>
+    </div>
+    <div class="window-controls">
+      <div class="win-btn">_</div>
+      <div class="win-btn">□</div>
+      <div class="win-btn">×</div>
+    </div>
+  </div>
+
   <div class="progress-bar">
     <div class="progress-fill" id="progress"></div>
   </div>
 
-  <!-- Tela Inicial -->
+  <!-- Tela Inicial (Entrada Fofa/Romântica/MCR) -->
   <div class="step active" id="step-0">
-    <h1>Oi, Tiffany ❤️</h1>
-    <p>Fiz essa página com todo o meu carinho para conversar com você do meu jeito. Prometi que iria tentar me abrir para essa ideia, e estou tentando de verdade. Mas preciso te mostrar como a minha cabeça e meu coração estão navegando por tudo isso. Faz essa reflexão comigo?</p>
+    <h1>Oi, minha Tiffany... 🌹🖤</h1>
+    <span class="mcr-quote">"So long and goodnight... or just the start of forever?"</span>
+    <p>Fiz essa página com todo o meu amor e carinho, bem no nosso estilo. Como naqueles versos intensos das nossas músicas favoritas do MCR, o que a gente constrói é único e vale a pena cuidar.</p>
+    <p>Prometi que iria tentar me abrir para essa nova fase com você, e continuo firme nisso. Mas antes de sábado chegar, preparei esse pequeno percurso para você entender como meu coração está navegando por tudo isso. Faz essa reflexão comigo?</p>
     <div class="options">
-      <button class="btn" onclick="nextStep(1)">Vamos juntas ✨</button>
+      <button class="btn" onclick="nextStep(1)">Entrar no nosso mundo ✨🖤</button>
     </div>
   </div>
 
@@ -151,7 +239,7 @@
 
   <!-- Pergunta 2 -->
   <div class="step" id="step-2">
-    <h2>2. Eu entendo que matar a saudade de alguém que você não vê há tanto tempo dá uma ansiedade boa. Mas quando a gente decide abrir espaço para novos vínculos na relação, qual deve ser o ritmo?</h2>
+    <h2>2. Eu entendo que reencontrar alguém do passado dá uma ansiedade e vontade de rever. Mas quando abrimos espaço para novas experiências na relação, qual deve ser o ritmo?</h2>
     <div class="options">
       <button class="btn" onclick="nextStep(3)">Um passo de cada vez, garantindo que ninguém fique machucado ou ansioso no caminho.</button>
       <button class="btn" onclick="nextStep(3)">Acelerar o passo para não perder a oportunidade de encontrar a pessoa logo.</button>
@@ -160,10 +248,10 @@
 
   <!-- Pergunta 3 -->
   <div class="step" id="step-3">
-    <h2>3. A gente combinou que a nossa intenção na Não Monogamia seria buscar amizades leves e casuais. Se resgatamos um ex-namorado do passado que disse abertamente que não te superou, o que acontece?</h2>
+    <h2>3. A gente combinou que você vai no sábado e que pode rolar no máximo alguns beijos. Por que saber que ele disse que não te superou ainda me deixa pensativo?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(4)">A linha da leveza fica confusa e isso gera inseguranças difíceis de digerir rápido.</button>
-      <button class="btn" onclick="nextStep(4)">É apenas uma amizade comum e não traz peso nenhum para a nossa história.</button>
+      <button class="btn" onclick="nextStep(4)">Porque como ele guarda sentimentos do passado, existe o receio de que ele tente ultrapassar os limites que combinamos.</button>
+      <button class="btn" onclick="nextStep(4)">Porque para você os limites já estão claros e o que ele sente não muda o nosso combinado.</button>
     </div>
   </div>
 
@@ -171,50 +259,51 @@
   <div class="step" id="step-4">
     <h2>4. Eu te prometi que ia tentar, e quero cumprir isso. Mas se um de nós fica angustiado ou confuso antes de um encontro acontecer, qual é a atitude mais carinhosa a se tomar?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(5)">Acolher essa angustia, pausar o ritmo e conversar com calma e sobriedade antes de agir.</button>
-      <button class="btn" onclick="nextStep(5)">Seguir em frente com o encontro assim mesmo para cumprir a promessa a qualquer custo.</button>
+      <button class="btn" onclick="nextStep(5)">Acolher essa angústia, conversar com calma e reforçar o nosso carinho antes de agir.</button>
+      <button class="btn" onclick="nextStep(5)">Seguir em frente com o encontro assim mesmo e ignorar o friozinho na barriga.</button>
     </div>
   </div>
 
   <!-- Pergunta 5 -->
   <div class="step" id="step-5">
-    <h2>5. Como você acha que eu me sinto quando você me conta algo importante dessa forma e o encontro já está marcado para o sábado?</h2>
+    <h2>5. Como você acha que eu me sinto quando um assunto importante é contado de forma confusa e com o encontro já agendado?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(6)">Sentindo que tudo aconteceu rápido demais e que não tive tempo de digerir ou conversar direito.</button>
+      <button class="btn" onclick="nextStep(6)">Sentindo que tudo aconteceu rápido demais e que não tive tempo de assimilar direito.</button>
       <button class="btn" onclick="nextStep(6)">Totalmente seguro e sem nenhuma dúvida na cabeça.</button>
     </div>
   </div>
 
   <!-- Pergunta 6 -->
   <div class="step" id="step-6">
-    <h2>6. Se os papéis fossem invertidos e eu estivesse prestes a sair no sábado com uma ex minha que disse que ainda gosta de mim, o que você esperaria de mim se dissesse que está insegura?</h2>
+    <h2>6. Se os papéis fossem invertidos e eu estivesse prestes a sair com uma ex que não me superou, com o combinado de no máximo alguns beijos, qual atitude minha te daria mais segurança?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(7)">Que eu priorizasse os seus sentimentos e parasse tudo para te ouvir e te dar segurança.</button>
-      <button class="btn" onclick="nextStep(7)">Que eu dissesse para você lidar com isso sozinha porque eu já tinha marcado.</button>
+      <button class="btn" onclick="nextStep(7)">Saber que eu iria respeitar 100% o nosso limite e te deixaria tranquila antes e depois do encontro.</button>
+      <button class="btn" onclick="nextStep(7)">Achar que limites combinados não precisam ser levados tão a sério na hora.</button>
     </div>
   </div>
 
   <!-- Pergunta 7 -->
   <div class="step" id="step-7">
-    <h2>7. O que você acha que é mais importante para o futuro do nosso relacionamento neste exato momento?</h2>
+    <h2>7. Sabendo que o sábado vai acontecer conforme combinamos, qual é a coisa mais importante para a gente após esse encontro?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(8)">Cuidar do nosso chão primeiro, sentar sóbrios e ajustar nossos combinados com carinho.</button>
-      <button class="btn" onclick="nextStep(8)">Manter os planos de sábado sem mexer em nada do que foi planejado.</button>
+      <button class="btn" onclick="nextStep(8)">Sentarmos juntos com carinho para conversar sobre como nos sentimos e reforçar nossa parceria.</button>
+      <button class="btn" onclick="nextStep(8)">Não conversar sobre isso e fingir que nada aconteceu.</button>
     </div>
   </div>
 
   <!-- Tela Final -->
   <div class="step" id="step-8">
-    <h1>O meu coração com o seu 💌</h1>
-    <p>Tiffany, eu te amo demais. Eu não estou dizendo 'nunca' e nem quero te privar de ver pessoas do seu passado. Eu prometi que ia tentar e mantenho a minha palavra.</p>
+    <h1>O meu coração com o seu 🥀🖤</h1>
+    <span class="mcr-quote">"I'd end my days with you in a hail of bullets... or just a safe embrace."</span>
+    <p>Tiffany, eu te amo demais. Como combinamos, estou contigo para você ir no sábado e viver essa experiência, respeitando o limite do que conversamos (alguns beijos e nada além disso).</p>
     
-    <p>Mas tentar não significa atropelar o que eu sinto. Saber que é um ex que ainda guarda sentimentos por você, somado à pressa desse sábado, fez o meu chão balançar.</p>
+    <p>Eu prometi que ia tentar e estou cumprindo. Saber que é um ex que disse não ter te superado ainda me dá um friozinho na barriga, mas confio no nosso amor e nos nossos acordos.</p>
 
     <div class="note">
-      Eu quero estar do seu lado nessa jornada, mas preciso sentir que o meu tempo e a minha paz também importam. Antes desse sábado acontecer, a gente pode sentar, conversar com calma, bem abraçados e sem pressa, para eu te dizer exatamente o que preciso para me sentir seguro?
+      Tudo o que eu preciso para ficar em paz no sábado é sentir que os nossos limites serão mantidos e que, quando você voltar, a gente vai se abraçar, conversar com calma e cuidar do nosso chão.
     </div>
 
-    <p style="margin-top: 20px; font-weight: 500;">Me dá a mão e vamos conversar hoje?</p>
+    <p style="margin-top: 20px; font-weight: bold; color: #ff66a3;">Podemos alinhar só esses detalhes com carinho antes de sábado? Me dá a mão? 🤝✨</p>
   </div>
 </div>
 
