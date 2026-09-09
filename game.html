@@ -23,6 +23,7 @@
       align-items: center;
       min-height: 100vh;
       padding: 16px;
+      overflow-x: hidden;
     }
 
     .container {
@@ -182,6 +183,51 @@
       line-height: 1.5;
     }
 
+    /* BOTÕES DA TELA FINAL (BRINCADEIRA) */
+    .final-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      position: relative;
+      min-height: 60px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-yes {
+      background: linear-gradient(180deg, #00b33c 0%, #006622 100%);
+      border: 1px solid #00ff55;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 255, 85, 0.4);
+      z-index: 2;
+    }
+
+    .btn-no {
+      background: linear-gradient(180deg, #880000 0%, #440000 100%);
+      border: 1px solid #ff3333;
+      color: #ffcccc;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      position: relative;
+      transition: top 0.1s ease, left 0.1s ease;
+      z-index: 10;
+    }
+
+    .summary-box {
+      background: rgba(0, 0, 0, 0.5);
+      border-left: 3px solid #ff0055;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      color: #ffccd9;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -219,28 +265,28 @@
 
   <!-- Pergunta 1 -->
   <div class="step" id="step-1">
-    <h2>1. O que acontece quando você junta um doidinho completamente apaixonado com a mulher mais incrível do mundo?</h2>
+    <h2>1. O que acontece quando um doidinho completamente apaixonado tenta entender o mundo da mulher mais incrível que ele conhece?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(2)">Cria uma conexão tão única que ele fica inventando quizzes pra conversar com ela. 🖤</button>
-      <button class="btn" onclick="nextStep(2)">Vira só mais uma história qualquer (duvido muito!).</button>
+      <button class="btn" onclick="recordAndNext(1, 'Você reconhece que ele tá se esforçando de verdade.', 2)">A gente cria uma ponte linda de carinho e paciência. 🖤</button>
+      <button class="btn" onclick="recordAndNext(1, 'Você acha graça nas invenções dele.', 2)">Ele inventa um quiz no estilo Y2K só pra arrancar um sorriso.</button>
     </div>
   </div>
 
   <!-- Pergunta 2 -->
   <div class="step" id="step-2">
-    <h2>2. Numa escala de 0 a 10, o quanto você acha que um doidinho se esforça e até 'dobra a própria mente' só para te ver feliz?</h2>
+    <h2>2. Quando a gente se depara com um terreno totalmente novo na relação, qual é o melhor jeito de caminhar por ele?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(3)">10/10 — Ele tenta se adaptar a coisas que nem são a praia dele só por você.</button>
-      <button class="btn" onclick="nextStep(3)">1000/10 — Ele faz malabarismo emocional porque te ama de verdade.</button>
+      <button class="btn" onclick="recordAndNext(2, 'Você escolhe dar a mão e caminhar junto.', 3)">De mãos dadas, com paciência e sem deixar ninguém se perder.</button>
+      <button class="btn" onclick="recordAndNext(2, 'Você prefere o diálogo sincero.', 3)">Conversando com o coração aberto e sem birra.</button>
     </div>
   </div>
 
   <!-- Pergunta 3 -->
   <div class="step" id="step-3">
-    <h2>3. Se a gente estivesse num filme e o roteiro estivesse meio confuso, qual é a atitude mais foda dos dois protagonistas?</h2>
+    <h2>3. O quanto você valoriza quando alguém quer de verdade aprender sobre a sua liberdade e a sua forma de enxergar a vida?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(4)">Pausar a cena, olhar no olho e alinhar o coração antes de dar o próximo passo.</button>
-      <button class="btn" onclick="nextStep(4)">Deixar a cena rodar no improviso mesmo sentindo um nozinho na garganta.</button>
+      <button class="btn" onclick="recordAndNext(3, 'Você sabe o quanto esse aprendizado é valioso.', 4)">Demais! Transparência e vontade de aprender valem ouro.</button>
+      <button class="btn" onclick="recordAndNext(3, 'Você enxerga o carinho por trás disso.', 4)">Muito, porque demonstra que o sentimento é real e verdadeiro.</button>
     </div>
   </div>
 
@@ -248,44 +294,53 @@
   <div class="step" id="step-4">
     <h2>4. Lembra daquela 'brincadeira' de que um dia eu ainda vou te roubar só pra mim?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(5)">Eu lembro... e no fundo sei que não é tão brincadeira assim. 🤭</button>
-      <button class="btn" onclick="nextStep(5)">Achei que era totalmente da boca pra fora!</button>
+      <button class="btn" onclick="recordAndNext(4, 'Você sabe que no fundo não é tão brincadeira assim. 🤭', 5)">Eu lembro... e no fundo sei que tem um fundo de verdade. 🤭</button>
+      <button class="btn" onclick="recordAndNext(4, 'Você se sente querida.', 5)">Achei fofo, mostra o quanto você me quer bem!</button>
     </div>
   </div>
 
   <!-- Pergunta 5 -->
   <div class="step" id="step-5">
-    <h2>5. O que torna o nosso laço realmente imbatível?</h2>
+    <h2>5. Sabendo que o doidinho aqui te ama muito e não quer ficar de fora do seu mundo, o que a gente faz agora?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(6)">A nossa transparência, o carinho e o cuidado em não machucar quem a gente ama.</button>
-      <button class="btn" onclick="nextStep(6)">Fazer de conta que nada nos afeta.</button>
+      <button class="btn" onclick="recordAndNext(5, 'Pronta para ter um pouquinho de paciência com ele.', 6)">Dá a mão pra ele e ensina com carinho a caminhar nesse novo caminho. ✨</button>
+      <button class="btn" onclick="recordAndNext(5, 'Pronta para dar um abraço bem apertado.', 6)">Aperta o botão final e vem dar um abraço nele!</button>
     </div>
   </div>
 
-  <!-- Tela Final -->
+  <!-- Tela Final com Piada do Botão -->
   <div class="step" id="step-6">
     <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
-    <p>Tiff, você sabe que eu sou meio doido por você, né?</p>
     
-    <p>Eu passei os últimos dias tentando ajustar minha cabeça para aceitar certas coisas, jurando que conseguiria ser o cara super resolvido e desapegado. Mas a verdade é que <strong>eu te amo demais pra fingir uma postura que não é a minha.</strong></p>
-
-    <p>Você sabe que quando eu brinco que 'ainda vou te roubar só pra mim', tem uma verdade bem grande ali dentro. Eu tô me esforçando pra estar do seu lado em tudo, mas meu coração só quer ter a certeza de que a gente não vai perder esse tempero nosso, que é só nosso.</p>
-
-    <div class="note">
-      Não quero te pressionar nem criar um drama, só queria que você soubesse o tamanho do que eu sinto e o quanto eu valorizo o nosso espaço.
+    <div class="summary-box" id="user-summary">
+      <!-- Será preenchido via JS com base nas escolhas dela -->
     </div>
 
-    <p style="margin-top: 18px; font-weight: bold; color: #ff66a3; text-align: center;">
-      Larga esse celular um minutinho e me dá um abraço? 🫂✨
+    <p>Tiffany, eu quero de verdade aprender a entender o seu mundo, a sua liberdade e a forma como você enxerga as coisas.</p>
+    
+    <p>Não quero ficar de fora nem agir como se estivesse resistente por birra. Só te peço um pouco de paciência comigo nesse processo. Pra mim é um terreno novo e tô me esforçando pra aprender a caminhar nele sem me perder do homem que sou e do que sinto por você.</p>
+
+    <div class="note">
+      Tendo o seu carinho e a sua mão pra me guiar, sei que a gente vai longe. Te amo muito, muié... nunca esqueça disso! 🖤
+    </div>
+
+    <p style="margin-top: 18px; font-style: italic; color: #ff99c2; font-size: 0.85rem; text-align: center;">
+      Escolha com sabedoria a sua resposta abaixo 👇 (se conseguir! 🤪)
     </p>
+
+    <div class="final-actions">
+      <button class="btn-yes" onclick="finishSuccess()">Vou ter paciência com você 💖</button>
+      <button class="btn-no" id="runaway-btn" onmouseover="dodgeButton()" onclick="dodgeButton()" ontouchstart="dodgeButton()">Quero terminar ❌</button>
+    </div>
   </div>
 </div>
 
 <script>
   let currentStep = 0;
   const totalSteps = 6;
+  const userAnswers = [];
 
-  // Web Audio API para tocar sons sem precisar carregar arquivos externos de MP3!
+  // Web Audio API para tocar sons nativos
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   function playClickSound() {
@@ -313,8 +368,7 @@
     if (audioCtx.state === 'suspended') {
       audioCtx.resume();
     }
-    // Efeito sonoro fofo/mágico no final
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // Dó, Mi, Sol, Dó alto
+    const notes = [523.25, 659.25, 783.99, 1046.50];
     notes.forEach((freq, index) => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -333,9 +387,15 @@
     });
   }
 
+  function recordAndNext(stepIndex, summaryText, nextStepNum) {
+    userAnswers.push(summaryText);
+    nextStep(nextStepNum);
+  }
+
   function nextStep(step) {
     if (step === totalSteps) {
       playFinishSound();
+      renderSummary();
     } else {
       playClickSound();
     }
@@ -346,6 +406,32 @@
     
     const progressPercent = (currentStep / totalSteps) * 100;
     document.getElementById('progress').style.width = `${progressPercent}%`;
+  }
+
+  function renderSummary() {
+    const summaryBox = document.getElementById('user-summary');
+    if (userAnswers.length > 0) {
+      summaryBox.innerHTML = `<strong>Suas escolhas no caminho:</strong><br>• ` + userAnswers.join('<br>• ');
+    }
+  }
+
+  // Lógica do Botão Fujão ("Quero terminar")
+  function dodgeButton() {
+    playClickSound();
+    const btn = document.getElementById('runaway-btn');
+    
+    // Calcula posições aleatórias para o botão fugir na tela
+    const x = Math.floor(Math.random() * 200) - 100;
+    const y = Math.floor(Math.random() * 150) - 75;
+
+    btn.style.position = 'relative';
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+  }
+
+  function finishSuccess() {
+    playFinishSound();
+    alert("Sabia que não ia resistir ao seu doidinho! 🥰 Larga esse celular e me dá um abraço bem gostoso! 🫂🖤");
   }
 </script>
 
