@@ -86,6 +86,7 @@
       justify-content: center;
       color: #000;
       font-weight: bold;
+      cursor: pointer;
     }
 
     /* BARRA DE PROGRESSO */
@@ -196,9 +197,9 @@
       <span>🖤 tiffany_and_me.exe</span>
     </div>
     <div class="window-controls">
-      <div class="win-btn">_</div>
-      <div class="win-btn">□</div>
-      <div class="win-btn">×</div>
+      <div class="win-btn" onclick="playClickSound()">_</div>
+      <div class="win-btn" onclick="playClickSound()">□</div>
+      <div class="win-btn" onclick="playClickSound()">×</div>
     </div>
   </div>
 
@@ -216,7 +217,7 @@
     </div>
   </div>
 
-  <!-- Pergunta 1: Psicologia do Acolhimento -->
+  <!-- Pergunta 1 -->
   <div class="step" id="step-1">
     <h2>1. O que acontece quando você junta um doidinho completamente apaixonado com a mulher mais incrível do mundo?</h2>
     <div class="options">
@@ -225,7 +226,7 @@
     </div>
   </div>
 
-  <!-- Pergunta 2: Humor + Sacrifício do Amor -->
+  <!-- Pergunta 2 -->
   <div class="step" id="step-2">
     <h2>2. Numa escala de 0 a 10, o quanto você acha que um doidinho se esforça e até 'dobra a própria mente' só para te ver feliz?</h2>
     <div class="options">
@@ -234,7 +235,7 @@
     </div>
   </div>
 
-  <!-- Pergunta 3: Troca de Papéis (Empatia Ativa) -->
+  <!-- Pergunta 3 -->
   <div class="step" id="step-3">
     <h2>3. Se a gente estivesse num filme e o roteiro estivesse meio confuso, qual é a atitude mais foda dos dois protagonistas?</h2>
     <div class="options">
@@ -243,7 +244,7 @@
     </div>
   </div>
 
-  <!-- Pergunta 4: Reavivando o desejo de exclusividade com humor -->
+  <!-- Pergunta 4 -->
   <div class="step" id="step-4">
     <h2>4. Lembra daquela 'brincadeira' de que um dia eu ainda vou te roubar só pra mim?</h2>
     <div class="options">
@@ -252,7 +253,7 @@
     </div>
   </div>
 
-  <!-- Pergunta 5: O Valor da Parceria -->
+  <!-- Pergunta 5 -->
   <div class="step" id="step-5">
     <h2>5. O que torna o nosso laço realmente imbatível?</h2>
     <div class="options">
@@ -261,7 +262,7 @@
     </div>
   </div>
 
-  <!-- Tela Final: Psicologia da Vulnerabilidade Estratégica -->
+  <!-- Tela Final -->
   <div class="step" id="step-6">
     <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
     <p>Tiff, você sabe que eu sou meio doido por você, né?</p>
@@ -284,7 +285,61 @@
   let currentStep = 0;
   const totalSteps = 6;
 
+  // Web Audio API para tocar sons sem precisar carregar arquivos externos de MP3!
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  function playClickSound() {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.05);
+
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+  }
+
+  function playFinishSound() {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    // Efeito sonoro fofo/mágico no final
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // Dó, Mi, Sol, Dó alto
+    notes.forEach((freq, index) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+
+      gain.gain.setValueAtTime(0.12, audioCtx.currentTime + index * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + index * 0.1 + 0.3);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(audioCtx.currentTime + index * 0.1);
+      osc.stop(audioCtx.currentTime + index * 0.1 + 0.3);
+    });
+  }
+
   function nextStep(step) {
+    if (step === totalSteps) {
+      playFinishSound();
+    } else {
+      playClickSound();
+    }
+
     document.getElementById(`step-${currentStep}`).classList.remove('active');
     currentStep = step;
     document.getElementById(`step-${currentStep}`).classList.add('active');
