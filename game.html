@@ -39,7 +39,7 @@
       position: relative;
     }
 
-    /* BARRA SUPERIOR AJUSTADA PARA CELULAR */
+    /* BARRA SUPERIOR Y2K */
     .window-header {
       background: linear-gradient(90deg, #ff0055 0%, #880033 100%);
       margin: -20px -20px 20px -20px;
@@ -206,7 +206,7 @@
     <div class="progress-fill" id="progress"></div>
   </div>
 
-  <!-- Tela Inicial Minimalista -->
+  <!-- Tela Inicial -->
   <div class="step active" id="step-0">
     <p style="font-size: 1.15rem; color: #ffe6f0; margin-bottom: 24px; text-shadow: 1px 1px 2px #000; text-align: center; font-weight: 500;">
       Do seu doidinho, com muito amor 🤪🖤
@@ -216,78 +216,73 @@
     </div>
   </div>
 
-  <!-- Pergunta 1 -->
+  <!-- Pergunta 1: Psicologia do Acolhimento -->
   <div class="step" id="step-1">
-    <h2>1. O que você sente que é a coisa mais valiosa e bonita que nós dois construímos até hoje?</h2>
+    <h2>1. O que acontece quando você junta um doidinho completamente apaixonado com a mulher mais incrível do mundo?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(2)">A nossa cumplicidade, o carinho e o espaço seguro que temos um no outro.</button>
-      <button class="btn" onclick="nextStep(2)">A liberdade individual acima de qualquer outro sentimento.</button>
+      <button class="btn" onclick="nextStep(2)">Cria uma conexão tão única que ele fica inventando quizzes pra conversar com ela. 🖤</button>
+      <button class="btn" onclick="nextStep(2)">Vira só mais uma história qualquer (duvido muito!).</button>
     </div>
   </div>
 
-  <!-- Pergunta 2 -->
+  <!-- Pergunta 2: Humor + Sacrifício do Amor -->
   <div class="step" id="step-2">
-    <h2>2. Pensei muito sobre nós nos últimos dias. Se eu percebo que tentar aceitar esse encontro com um ex hoje me traz desconforto, qual é a atitude mais verdadeira a se tomar?</h2>
+    <h2>2. Numa escala de 0 a 10, o quanto você acha que um doidinho se esforça e até 'dobra a própria mente' só para te ver feliz?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(3)">Ser transparente sobre os meus limites atuais e conversar com carinho sobre o nosso momento.</button>
-      <button class="btn" onclick="nextStep(3)">Fingir que está tudo bem e engolir o desconforto só para não ter conversa.</button>
+      <button class="btn" onclick="nextStep(3)">10/10 — Ele tenta se adaptar a coisas que nem são a praia dele só por você.</button>
+      <button class="btn" onclick="nextStep(3)">1000/10 — Ele faz malabarismo emocional porque te ama de verdade.</button>
     </div>
   </div>
 
-  <!-- Pergunta 3 -->
+  <!-- Pergunta 3: Troca de Papéis (Empatia Ativa) -->
   <div class="step" id="step-3">
-    <h2>3. Quando organizamos a nossa rotina e os fins de semana, qual a importância de lembrarmos um do outro na hora de fazer os planos?</h2>
+    <h2>3. Se a gente estivesse num filme e o roteiro estivesse meio confuso, qual é a atitude mais foda dos dois protagonistas?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(4)">Fundamental. O cuidado e a consideração com o tempo do outro fortalecem a nossa parceria.</button>
-      <button class="btn" onclick="nextStep(4)">Cada um organiza seus compromissos sem precisar pensar na dinâmica do casal.</button>
+      <button class="btn" onclick="nextStep(4)">Pausar a cena, olhar no olho e alinhar o coração antes de dar o próximo passo.</button>
+      <button class="btn" onclick="nextStep(4)">Deixar a cena rodar no improviso mesmo sentindo um nozinho na garganta.</button>
     </div>
   </div>
 
-  <!-- Pergunta 4 -->
+  <!-- Pergunta 4: Reavivando o desejo de exclusividade com humor -->
   <div class="step" id="step-4">
-    <h2>4. Sabendo que o domingo já estava reservado para outros compromissos, qual seria a melhor forma de garantir que o nosso espaço continue especial?</h2>
+    <h2>4. Lembra daquela 'brincadeira' de que um dia eu ainda vou te roubar só pra mim?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(5)">Planejarmos o nosso tempo juntos com prioridade e intenção, sem que um se sinta em segundo plano.</button>
-      <button class="btn" onclick="nextStep(5)">Deixar para se encontrar só quando sobrar algum encaixe na agenda.</button>
+      <button class="btn" onclick="nextStep(5)">Eu lembro... e no fundo sei que não é tão brincadeira assim. 🤭</button>
+      <button class="btn" onclick="nextStep(5)">Achei que era totalmente da boca pra fora!</button>
     </div>
   </div>
 
-  <!-- Pergunta 5 -->
+  <!-- Pergunta 5: O Valor da Parceria -->
   <div class="step" id="step-5">
-    <h2>5. Se os papéis fossem invertidos e eu fosse sair com uma ex, mas você se sentisse desconfortável com isso hoje, qual postura minha te traria mais paz?</h2>
+    <h2>5. O que torna o nosso laço realmente imbatível?</h2>
     <div class="options">
-      <button class="btn" onclick="nextStep(6)">Ouvir o seu sentimento, priorizar o que construímos e não seguir com algo que te deixa mal.</button>
-      <button class="btn" onclick="nextStep(6)">Manter o plano de sair assim mesmo, ignorando a sua preocupação.</button>
+      <button class="btn" onclick="nextStep(6)">A nossa transparência, o carinho e o cuidado em não machucar quem a gente ama.</button>
+      <button class="btn" onclick="nextStep(6)">Fazer de conta que nada nos afeta.</button>
     </div>
   </div>
 
-  <!-- Pergunta 6 -->
+  <!-- Tela Final: Psicologia da Vulnerabilidade Estratégica -->
   <div class="step" id="step-6">
-    <h2>6. Depois de refletir bastante sobre a gente, o que deve ser a nossa verdadeira prioridade agora?</h2>
-    <div class="options">
-      <button class="btn" onclick="nextStep(7)">Proteger a nossa história, cuidar da nossa cumplicidade e focar no que nos faz bem.</button>
-      <button class="btn" onclick="nextStep(7)">Arriscar o nosso bem-estar por causa de situações ou pessoas do passado.</button>
-    </div>
-  </div>
-
-  <!-- Tela Final -->
-  <div class="step" id="step-7">
-    <h1>Nosso alinhamento 🤝🖤</h1>
-    <p>Tiffany, pensei e refleti muito nos últimos dias sobre a gente. Quero ser 100% sincero: <strong>hoje eu não me sinto confortável com a ideia de você sair com outro homem.</strong></p>
+    <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
+    <p>Tiff, você sabe que eu sou meio doido por você, né?</p>
     
-    <p>Além disso, quando soube que o domingo já estava preenchido, senti falta de termos tido essa consideração juntos na hora de planejar o fim de semana. O que temos é valioso demais para mim e prefiro abrir meu coração com transparência a fingir que está tudo bem.</p>
+    <p>Eu passei os últimos dias tentando ajustar minha cabeça para aceitar certas coisas, jurando que conseguiria ser o cara super resolvido e desapegado. Mas a verdade é que <strong>eu te amo demais pra fingir uma postura que não é a minha.</strong></p>
+
+    <p>Você sabe que quando eu brinco que 'ainda vou te roubar só pra mim', tem uma verdade bem grande ali dentro. Eu tô me esforçando pra estar do seu lado em tudo, mas meu coração só quer ter a certeza de que a gente não vai perder esse tempero nosso, que é só nosso.</p>
 
     <div class="note">
-      Quero que a gente continue cuidando do nosso espaço com carinho, prioridade e respeito mútuo.
+      Não quero te pressionar nem criar um drama, só queria que você soubesse o tamanho do que eu sinto e o quanto eu valorizo o nosso espaço.
     </div>
 
-    <p style="margin-top: 18px; font-weight: bold; color: #ff66a3;">Podemos sentar e conversar sobre nós com toda a calma do mundo? Me dá a mão? ✨</p>
+    <p style="margin-top: 18px; font-weight: bold; color: #ff66a3; text-align: center;">
+      Larga esse celular um minutinho e me dá um abraço? 🫂✨
+    </p>
   </div>
 </div>
 
 <script>
   let currentStep = 0;
-  const totalSteps = 7;
+  const totalSteps = 6;
 
   function nextStep(step) {
     document.getElementById(`step-${currentStep}`).classList.remove('active');
