@@ -666,7 +666,11 @@
 
   function startQuiz() {
     playClickSound();
-    questions = shuffle([...rawQuestions]).map(q => ({
+    
+    // Embaralha todas as 40 e pega APENAS as primeiras 7
+    const selectedSeven = shuffle([...rawQuestions]).slice(0, 7);
+    
+    questions = selectedSeven.map(q => ({
       question: q.question,
       options: shuffle([...q.options])
     }));
@@ -723,12 +727,11 @@
     const isPositive = totalScore >= (questions.length * 0.5);
 
     if (isPositive) {
-      // CENÁRIO POSITIVO / AMOROSO
       finalContainer.innerHTML = `
         <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
         
         <div class="summary-box">
-          <strong>Suas escolhas no caminho:</strong><br>• ${userAnswers.slice(-5).join('<br>• ')}
+          <strong>Suas escolhas no caminho:</strong><br>• ${userAnswers.join('<br>• ')}
         </div>
 
         <p>Tiffany, eu quero de verdade aprender a entender o seu mundo, a sua liberdade e a forma como você enxerga as coisas.</p>
@@ -748,7 +751,6 @@
         </p>
       `;
     } else {
-      // CENÁRIO LEVE E BEM-HUMORADO (SEM FORÇAR / SEM JOGAR BAIXO)
       finalContainer.innerHTML = `
         <h1>Modo Marrenta Ativado! 😜🖤</h1>
         
