@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Força do Amor a Dois 🖤✨</title>
+  <title>O Meu Lugar Favorito É Você 🖤✨</title>
   <style>
     * {
       box-sizing: border-box;
@@ -19,7 +19,7 @@
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
       color: #ffffff;
       min-height: 100vh;
-      padding: 24px 16px;
+      padding: 16px 12px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -31,18 +31,17 @@
       border-radius: 12px;
       max-width: 800px;
       width: 100%;
-      padding: 24px;
+      padding: 20px;
       box-shadow: 
         0 0 25px rgba(255, 0, 85, 0.4),
         inset 0 1px 1px rgba(255, 255, 255, 0.3);
       position: relative;
     }
 
-    /* BARRA SUPERIOR Y2K */
     .window-header {
       background: linear-gradient(90deg, #ff0055 0%, #880033 100%);
-      margin: -24px -24px 24px -24px;
-      padding: 12px 16px;
+      margin: -20px -20px 20px -20px;
+      padding: 10px 14px;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       display: flex;
@@ -54,7 +53,7 @@
 
     .window-title {
       color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: bold;
       letter-spacing: 0.5px;
       text-shadow: 1px 1px 2px #000;
@@ -66,12 +65,12 @@
     }
 
     .win-btn {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 3px;
       border: 1px solid rgba(0, 0, 0, 0.5);
       background: #ccc;
-      font-size: 9px;
+      font-size: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -80,7 +79,7 @@
     }
 
     h1 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: #ff66a3;
       text-shadow: 0 0 10px rgba(255, 102, 163, 0.5);
       margin-bottom: 8px;
@@ -90,30 +89,31 @@
     .subtitle {
       text-align: center;
       color: #cca3b8;
-      font-size: 0.95rem;
-      margin-bottom: 24px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
       line-height: 1.4;
     }
 
     .card-list {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     .card {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       border: 1px solid #ff0055;
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       box-shadow: inset 0 0 10px rgba(255, 0, 85, 0.1);
     }
 
     .card-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 10px;
       border-bottom: 1px solid rgba(255, 0, 85, 0.3);
       padding-bottom: 8px;
     }
@@ -121,7 +121,7 @@
     .card-tag {
       background: #ff0055;
       color: #fff;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: bold;
       padding: 3px 8px;
       border-radius: 4px;
@@ -129,7 +129,7 @@
     }
 
     .card-title {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: #ffe6f0;
       font-weight: bold;
     }
@@ -137,49 +137,55 @@
     .lyric-box {
       background: rgba(255, 0, 85, 0.08);
       border-left: 3px solid #ff0055;
-      padding: 12px 14px;
-      margin: 12px 0;
+      padding: 10px 12px;
+      margin: 10px 0;
       font-style: italic;
       color: #ffccd9;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.5;
       border-radius: 0 6px 6px 0;
     }
 
     .explanation {
       color: #cca3b8;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       line-height: 1.5;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      height: 0;
-      overflow: hidden;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .btn-play {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       width: 100%;
-      height: 100%;
-      border: 0;
+      padding: 12px;
+      background: linear-gradient(180deg, #ff0055 0%, #b3003b 100%);
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border-radius: 6px;
+      border: 1px solid #ff6699;
+      box-shadow: 0 4px 10px rgba(255, 0, 85, 0.3);
+      transition: all 0.2s ease;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    }
+
+    .btn-play:hover {
+      background: linear-gradient(180deg, #ff3377 0%, #d9004c 100%);
+      transform: translateY(-1px);
     }
 
     .footer-note {
-      margin-top: 24px;
-      padding: 16px;
+      margin-top: 20px;
+      padding: 14px;
       background: rgba(255, 0, 85, 0.15);
       border: 1px dashed #ff0055;
       border-radius: 8px;
       text-align: center;
       color: #ffb3d1;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.5;
     }
   </style>
@@ -188,7 +194,7 @@
 
 <div class="container">
   <div class="window-header">
-    <div class="window-title">🖤 monogamy_vs_chaos.exe</div>
+    <div class="window-title">🖤 my_favorite_place.exe</div>
     <div class="win-btns">
       <div class="win-btn">_</div>
       <div class="win-btn">□</div>
@@ -196,107 +202,85 @@
     </div>
   </div>
 
-  <h1>O Amor É Feito a Dois 🖤</h1>
+  <h1>O Meu Lugar Favorito É Você 🖤</h1>
   <p class="subtitle">
-    Músicas e momentos clássicos que mostram por que o verdadeiro afeto exige lealdade, presença e foco absoluto em um único porto seguro.
+    Uma pequena coleção de músicas e momentos para te mostrar que, no meio do barulho e do caos do mundo, a única certeza que eu quero é você.
   </p>
 
   <div class="card-list">
 
-    <!-- CARD 1: MCR DEMOLITION LOVERS -->
+    <!-- CARD 1 -->
     <div class="card">
       <div class="card-header">
         <span class="card-tag">My Chemical Romance</span>
         <span class="card-title">Demolition Lovers</span>
       </div>
       <p class="explanation">
-        <strong>O Conceito:</strong> O "nós contra o mundo". A música mostra que, mesmo quando tudo ao redor está desmoronando e queimando, a única segurança real é estar de mãos dadas com a pessoa certa.
+        <strong>O Nosso "Nós Contra o Mundo":</strong> A vida pode ser caótica e as coisas ao redor podem mudar, mas o que a gente constrói juntos é a única coisa que realmente importa. Segurar a sua mão é o que me mantém em pé.
       </p>
       <div class="lyric-box">
-        "As ice melts on the counter / And as the time goes by / As world turns, as room burns / As the city dies... / I will hold your hand"
+        "As world turns, as room burns / As the city dies... / I will hold your hand"
       </div>
-      <!-- Vídeo no trecho exato: 4m20s (260s) -->
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/P28E3R4sMTo?start=260" title="Demolition Lovers" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <a class="btn-play" href="https://www.youtube.com/watch?v=kS3X_9vS9Sg&t=260s" target="_blank" rel="noopener">
+        ▶ Ouvir esse trecho (4:20) no YouTube
+      </a>
     </div>
 
-    <!-- CARD 2: MCR SUMMERTIME -->
+    <!-- CARD 2 -->
     <div class="card">
       <div class="card-header">
         <span class="card-tag">My Chemical Romance</span>
         <span class="card-title">Summertime</span>
       </div>
       <p class="explanation">
-        <strong>O Conceito:</strong> A singularidade do afeto. Quando alguém vira o seu lugar favorito para se esconder do ruído do mundo, não faz sentido procurar abrigos rasos em outras pessoas.
+        <strong>Meu Abrigo:</strong> O mundo lá fora é barulhento, mas você é o meu lugar de paz. Não existe outro abrigo no mundo onde eu prefira estar do que ao seu lado.
       </p>
       <div class="lyric-box">
         "If the world is gonna end tonight... / Will you hold my hand? / 'Cause you're my favorite place to hide"
       </div>
-      <!-- Vídeo no trecho exato: 2m10s (130s) -->
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/4S33325j_nI?start=130" title="Summertime" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <a class="btn-play" href="https://www.youtube.com/watch?v=4S33325j_nI&t=130s" target="_blank" rel="noopener">
+        ▶ Ouvir esse trecho (2:10) no YouTube
+      </a>
     </div>
 
-    <!-- CARD 3: BIKINI KILL -->
+    <!-- CARD 3 -->
     <div class="card">
       <div class="card-header">
         <span class="card-tag">Bikini Kill</span>
         <span class="card-title">Jigsaw Youth</span>
       </div>
       <p class="explanation">
-        <strong>O Conceito:</strong> A honestidade emocional. O Bikini Kill rejeita modismos e teorias sociais falsas: fingir que "não se importa" em ver o outro com terceiros é falta de respeito com o próprio sentimento.
+        <strong>Verdade e Respeito:</strong> Amor de verdade não aceita meias verdades nem joguinhos. O que eu sinto por você é real, profundo e merece todo o meu respeito e a minha dedicação por inteiro.
       </p>
       <div class="lyric-box">
         "I'm not gonna look at you and say: 'Oh, that's okay, I don't care' / When I do care, and I do mind!"
       </div>
-      <!-- Vídeo no trecho exato: 0m25s (25s) -->
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/5U_i95S4Tew?start=25" title="Jigsaw Youth" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <a class="btn-play" href="https://www.youtube.com/watch?v=mA5X1Wd1l00&t=25s" target="_blank" rel="noopener">
+        ▶ Ouvir esse trecho (0:25) no YouTube
+      </a>
     </div>
 
-    <!-- CARD 4: ROCKY HORROR - DAMMIT JANET -->
+    <!-- CARD 4 -->
     <div class="card">
       <div class="card-header">
         <span class="card-tag">Rocky Horror Picture Show</span>
         <span class="card-title">Dammit Janet</span>
       </div>
       <p class="explanation">
-        <strong>O Conceito:</strong> A beleza do propósito compartilhado. Planejar o futuro a dois dá estrutura e rumo. É o contraponto ao caos hedonista do castelo de Frank-N-Furter.
+        <strong>Construir o Futuro:</strong> Sonhar junto, planejar os próximos passos e caminhar lado a lado é o que dá sentido a tudo. Ter você é ter um rumo certo.
       </p>
       <div class="lyric-box">
-        "The river was deep but I swam it, Janet / The future is ours, so let's plan it, Janet... / Dammit, Janet, I love you!"
+        "The future is ours, so let's plan it, Janet... / I've one thing to say, and that's: I love you"
       </div>
-      <!-- Vídeo no trecho exato: 1m05s (65s) -->
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/g2JmP3I5jUo?start=65" title="Dammit Janet" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <!-- CARD 5: ROCKY HORROR - FLOOR SHOW -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-tag">Rocky Horror Picture Show</span>
-        <span class="card-title">Rose Tint My World / Floor Show</span>
-      </div>
-      <p class="explanation">
-        <strong>O Conceito:</strong> A ressaca do excesso. Após entrarem na onda da libertação irrestrita de Frank-N-Furter (ficando todos com todos), os personagens terminam confusos, vazios e perguntando "o que aconteceu comigo?".
-      </p>
-      <div class="lyric-box">
-        "It's a gas that put on a show... My feelers are humming, my heart's a-bumming! What's happened to me?"
-      </div>
-      <!-- Vídeo no trecho exato: 2m40s (160s) -->
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/kI8_J-k-fR4?start=160" title="Floor Show" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+      <a class="btn-play" href="https://www.youtube.com/watch?v=sKFIQv_Z5No&t=65s" target="_blank" rel="noopener">
+        ▶ Ouvir esse trecho (1:05) no YouTube
+      </a>
     </div>
 
   </div>
 
   <div class="footer-note">
-    <strong>Em resumo:</strong> O amor de verdade não se dilui entre várias pontas. Como no estúdio, na vida ou no código: foco e exclusividade constroem pontes sólidas; o excesso sem rumo gera apenas ruído. 🖤
+    No final do dia, amor de verdade não é sobre ter mil opções, é sobre encontrar aquela única pessoa que faz tudo valer a pena. Obrigado por ser a minha parceira e o meu lugar favorito no mundo. Eu amo você! 🖤
   </div>
 </div>
 
