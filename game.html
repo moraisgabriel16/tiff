@@ -155,7 +155,7 @@
     }
 
     h1 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: #ff66a3;
       text-shadow: 0 0 8px rgba(255, 102, 163, 0.5), 1px 1px 0px #000;
       margin-bottom: 14px;
@@ -239,6 +239,25 @@
       color: #ffccd9;
     }
 
+    /* ESTILOS DOS TERMOS DE USO */
+    .terms-box {
+      background: rgba(10, 2, 6, 0.9);
+      border: 1px solid #ff0055;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 0.85rem;
+      max-height: 220px;
+      overflow-y: auto;
+      margin-bottom: 16px;
+      color: #e6b8c8;
+      line-height: 1.6;
+    }
+
+    .terms-box p {
+      font-size: 0.83rem;
+      margin-bottom: 10px;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -294,10 +313,9 @@
 
 <script>
   // BANCO DE 40 PERGUNTAS
-  // Cada opção possui: text, summary, e score (1 para positiva/compreensiva, 0 para distante/errada)
   const rawQuestions = [
     {
-      question: "1. Qual é o pilar mais forte quando as coisas ficam confusas entre a gente?",
+      question: "Qual é o pilar mais forte quando as coisas ficam confusas entre a gente?",
       options: [
         { text: "A nossa transparência e a coragem de conversar sem rodeios. 🖤", summary: "Você prioriza a transparência e conversa sincera.", score: 1 },
         { text: "A nossa capacidade de transformar qualquer clima pesado num abraço.", summary: "Você valoriza o acolhimento do abraço.", score: 1 },
@@ -305,7 +323,7 @@
       ]
     },
     {
-      question: "2. Quando o seu doidinho tenta inventar coisas loucas tipo um site Y2K, o que passa pela sua cabeça?",
+      question: "Quando o seu doidinho tenta inventar coisas loucas tipo um site Y2K, o que passa pela sua cabeça?",
       options: [
         { text: "Que ele é doido... mas é o meu doidinho tentando me ver sorrir. 🤭", summary: "Você acha graça e carinho nas minhas loucuras.", score: 1 },
         { text: "Que o esforço dele pra cuidar da gente vale mais do que qualquer gesto comum.", summary: "Você reconhece o valor do esforço dedicado.", score: 1 },
@@ -313,7 +331,7 @@
       ]
     },
     {
-      question: "3. Para caminhar por estradas novas e desconhecidas, qual ingrediente não pode faltar?",
+      question: "Para caminhar por estradas novas e desconhecidas, qual ingrediente não pode faltar?",
       options: [
         { text: "Paciência mútua, carinho e a certeza de que ninguém anda sozinho. ✨", summary: "Você concorda que paciência e carinho guiam o caminho.", score: 1 },
         { text: "Conversa aberta para ajustar os passos sem perder a essência.", summary: "Você escolhe ajustar os passos com diálogo e respeito.", score: 1 },
@@ -321,7 +339,7 @@
       ]
     },
     {
-      question: "4. Sabe aquele papo de que um amor de verdade precisa de paz e cumplicidade?",
+      question: "Sabe aquele papo de que um amor de verdade precisa de paz e cumplicidade?",
       options: [
         { text: "Sim! Sem jogos, sem disputas... só a gente sendo porto seguro.", summary: "Você quer um amor com paz, sem jogos ou disputas.", score: 1 },
         { text: "Com certeza, como Gomez e Mortícia admirando a essência um do outro. 🦇", summary: "Você curte a dinâmica Gomez & Mortícia.", score: 1 },
@@ -329,7 +347,7 @@
       ]
     },
     {
-      question: "5. Se agora mesmo o seu Gomez estivesse te olhando nos olhos e pedindo pra caminhar do seu lado...",
+      question: "Se agora mesmo o seu Gomez estivesse te olhando nos olhos e pedindo pra caminhar do seu lado...",
       options: [
         { text: "Eu daria a mão e diria: 'Vem, vamos aprender juntos'. 💖", summary: "Você escolhe dar a mão e caminhar junto.", score: 1 },
         { text: "Eu diria: 'Larga o código e vem logo me dar um abraço!' 🫂", summary: "Você prefere vir pro abraço.", score: 1 },
@@ -337,7 +355,7 @@
       ]
     },
     {
-      question: "6. Como você enxerga quando eu tento aprender mais sobre o seu espaço e seu mundo?",
+      question: "Como você enxerga quando eu tento aprender mais sobre o seu espaço e seu mundo?",
       options: [
         { text: "Acho lindo, mostra o quanto você se importa comigo de verdade.", summary: "Você valoriza a vontade de aprender sobre seu mundo.", score: 1 },
         { text: "Com paciência, porque sei que o importante é a intenção e o amor.", summary: "Você enxerga a boa intenção por trás do aprendizado.", score: 1 },
@@ -345,7 +363,7 @@
       ]
     },
     {
-      question: "7. O que acontece quando um dia de estresse tenta invadir a nossa rotina?",
+      question: "O que acontece quando um dia de estresse tenta invadir a nossa rotina?",
       options: [
         { text: "A gente respira fundo e lembra que somos um time contra o problema.", summary: "Você vê a relação como um time contra os problemas.", score: 1 },
         { text: "Um carinho rápido ou um xodó resolve e alivia o peso.", summary: "Você aposta no carinho para aliviar o estresse.", score: 1 },
@@ -353,7 +371,7 @@
       ]
     },
     {
-      question: "8. Quando a gente discorda de algo, qual é o melhor caminho?",
+      question: "Quando a gente discorda de algo, qual é o melhor caminho?",
       options: [
         { text: "Conversar com calma até o entendimento aparecer sem ferir ninguém.", summary: "Você busca a conversa calma sem ferir o outro.", score: 1 },
         { text: "Dar uma risada, um abraço e ver o que realmente importa.", summary: "Você usa o afeto e bom humor pra desarmar a tensão.", score: 1 },
@@ -361,7 +379,7 @@
       ]
     },
     {
-      question: "9. A brincadeira de 'um dia ainda vou te roubar só pra mim' soa como...",
+      question: "A brincadeira de 'um dia ainda vou te roubar só pra mim' soa como...",
       options: [
         { text: "Um jeito dengoso e fofo de demonstrar o quanto me quer por perto. 🤭", summary: "Você sente como um xodó fofo e sincero.", score: 1 },
         { text: "A certeza de que existe um sentimento forte querendo espaço.", summary: "Você vê como um sinal claro de sentimento forte.", score: 1 },
@@ -369,7 +387,7 @@
       ]
     },
     {
-      question: "10. Se a rotina tentar deixar tudo meio mecânico, o que a gente faz?",
+      question: "Se a rotina tentar deixar tudo meio mecânico, o que a gente faz?",
       options: [
         { text: "Cria um momento especial do nada pra surpreender o outro.", summary: "Você gosta de quebrar a rotina com surpresas.", score: 1 },
         { text: "Racha o bico de alguma besteira e lembra por que se gosta tanto.", summary: "Você aposta no bom humor pra renovar as energias.", score: 1 },
@@ -377,7 +395,7 @@
       ]
     },
     {
-      question: "11. O que a presença do seu doidinho traz pro seu dia?",
+      question: "O que a presença do seu doidinho traz pro seu dia?",
       options: [
         { text: "Uma dose extra de risadas e a certeza de ser cuidada.", summary: "Você sente alegria e sensação de cuidado.", score: 1 },
         { text: "Paz no coração e vontade de compartilhar os detalhes do dia.", summary: "Você sente paz e vontade de compartilhar a vida.", score: 1 },
@@ -385,7 +403,7 @@
       ]
     },
     {
-      question: "12. Qual é a melhor forma de curtir um fim de semana juntas?",
+      question: "Qual é a melhor forma de curtir um fim de semana juntas?",
       options: [
         { text: "Colados num canto, rindo de coisas bobas e descansando juntos.", summary: "Você ama momentos simples e juntinhos.", score: 1 },
         { text: "Fazendo um programa diferente e criando memórias novas.", summary: "Você curte criar memórias novas em passeios.", score: 1 },
@@ -393,7 +411,7 @@
       ]
     },
     {
-      question: "13. Quando você me vê focado em preparar algo para você, você pensa:",
+      question: "Quando você me vê focado em preparar algo para você, você pensa:",
       options: [
         { text: "'Nossa, ele realmente se importa em me ver feliz.' 🥺", summary: "Você percebe a dedicação genuína em te ver feliz.", score: 1 },
         { text: "'Ele é meio doido, mas o carinho dele me ganha facil.'", summary: "Você se deixa levar pelo carinho genuíno.", score: 1 },
@@ -401,7 +419,7 @@
       ]
     },
     {
-      question: "14. O que significa construir uma história com reciprocidade?",
+      question: "O que significa construir uma história com reciprocidade?",
       options: [
         { text: "Olhar pra mesma direção, apoiando as conquistas um do outro.", summary: "Você apoia a construção mútua de conquistas.", score: 1 },
         { text: "Ter a certeza de que a dedicação e o afeto são via de mão dupla.", summary: "Você valoriza a via de mão dupla no afeto.", score: 1 },
@@ -409,7 +427,7 @@
       ]
     },
     {
-      question: "15. Quando você precisa de apoio emocional, qual a sua reação esperada de mim?",
+      question: "Quando você precisa de apoio emocional, qual a sua reação esperada de mim?",
       options: [
         { text: "Que eu escute com paciência e te dê o melhor abraço do mundo.", summary: "Você busca escuta paciente e abraço seguro.", score: 1 },
         { text: "Que eu esteja do seu lado mostrando que você não está sozinha.", summary: "Você busca a certeza de não estar sozinha.", score: 1 },
@@ -417,7 +435,7 @@
       ]
     },
     {
-      question: "16. Se Gomez e Mortícia fossem dar um conselho pra gente hoje, qual seria?",
+      question: "Se Gomez e Mortícia fossem dar um conselho pra gente hoje, qual seria?",
       options: [
         { text: "'Sejam intensos, leais e nunca deixem a chama apagar.' 🦇", summary: "Você escolhe lealdade e intensidade.", score: 1 },
         { text: "'Cuidem um do outro como o bem mais precioso que possuem.'", summary: "Você escolhe o cuidado precioso mudo.", score: 1 },
@@ -425,7 +443,7 @@
       ]
     },
     {
-      question: "17. A liberdade individual numa relação deve ser acompanhada de:",
+      question: "A liberdade individual numa relação deve ser acompanhada de:",
       options: [
         { text: "Confiança sólida, respeito e vontade de voltar pro mesmo lar.", summary: "Você alia liberdade à confiança e vontade de voltar.", score: 1 },
         { text: "Carinho e transparência, pra que ninguém se sinta inseguro.", summary: "Você garante transparência para evitar inseguranças.", score: 1 },
@@ -433,7 +451,7 @@
       ]
     },
     {
-      question: "18. Quando eu cometo um errinho bobo tentando te agradar, o que você faz?",
+      question: "Quando eu cometo um errinho bobo tentando te agradar, o que você faz?",
       options: [
         { text: "Acha fofo o esforço e me dá uma bronca bem carinhosa.", summary: "Você vê o esforço com leveza e carinho.", score: 1 },
         { text: "Ri da situação e a gente ajeita tudo junto sem estresse.", summary: "Você ri do erro e resolve com leveza.", score: 1 },
@@ -441,7 +459,7 @@
       ]
     },
     {
-      question: "19. Qual detalhe mais chama sua atenção na nossa convivência?",
+      question: "Qual detalhe mais chama sua atenção na nossa convivência?",
       options: [
         { text: "A forma leve como a gente ri de besteiras.", summary: "Você valoriza a leveza das nossas risadas.", score: 1 },
         { text: "A segurança de saber que existe carinho verdadeiro envolvido.", summary: "Você valoriza a segurança do carinho sincero.", score: 1 },
@@ -449,7 +467,7 @@
       ]
     },
     {
-      question: "20. O que significa 'ter paciência' quando estamos nos alinhando?",
+      question: "O que significa 'ter paciência' quando estamos nos alinhando?",
       options: [
         { text: "Entender que cada um tem seu tempo, mas o objetivo é caminhar juntas.", summary: "Você respeita o tempo de adaptação de cada um.", score: 1 },
         { text: "Dar espaço sem deixar o afeto e a atenção esfriarem.", summary: "Você dá espaço mantendo o afeto aceso.", score: 1 },
@@ -457,7 +475,7 @@
       ]
     },
     {
-      question: "21. Quando você pensa na palavra 'porto seguro', o que vem à mente?",
+      question: "Quando você pensa na palavra 'porto seguro', o que vem à mente?",
       options: [
         { text: "Um abraço quentinho onde os problemas do mundo externo somem.", summary: "Você vê o abraço como refúgio do mundo.", score: 1 },
         { text: "A certeza de ter alguém com quem contar em qualquer hora.", summary: "Você valoriza a certeza da presença constante.", score: 1 },
@@ -465,7 +483,7 @@
       ]
     },
     {
-      question: "22. Como transformar pequenos momentos em coisas inesquecíveis?",
+      question: "Como transformar pequenos momentos em coisas inesquecíveis?",
       options: [
         { text: "Colocando amor e atenção de verdade em cada detalhe.", summary: "Você coloca intenção e amor nos momentos simples.", score: 1 },
         { text: "Sendo presente de corpo e alma sem distrações.", summary: "Você valoriza a presença de corpo e alma.", score: 1 },
@@ -473,7 +491,7 @@
       ]
     },
     {
-      question: "23. Se a gente tivesse uma trilha sonora para o nosso momento atual, ela seria:",
+      question: "Se a gente tivesse uma trilha sonora para o nosso momento atual, ela seria:",
       options: [
         { text: "Uma música romântica gótica com um toque alegre e apaixonado.", summary: "Você curte o clima romântico e apaixonado.", score: 1 },
         { text: "Uma canção suave que transmite paz e tranquilidade.", summary: "Você prefere o clima suave e pacífico.", score: 1 },
@@ -481,7 +499,7 @@
       ]
     },
     {
-      question: "24. Quando eu te mando uma mensagem do nada no meio do dia, você sente:",
+      question: "Quando eu te mando uma mensagem do nada no meio do dia, você sente:",
       options: [
         { text: "Um quentinho no coração por saber que lembrou de mim. 🥰", summary: "Você sente quentinho ao receber uma lembrança.", score: 1 },
         { text: "Vontade de responder rápido com uma besteira carinhosa.", summary: "Você gosta de responder com afeto e leveza.", score: 1 },
@@ -489,7 +507,7 @@
       ]
     },
     {
-      question: "25. Qual é o papel da leveza na nossa relação?",
+      question: "Qual é o papel da leveza na nossa relação?",
       options: [
         { text: "Garantir que a gente não transforme besteirinhas em tempestades.", summary: "Você prefere descomplicar do que criar tempestades.", score: 1 },
         { text: "Manter o sorriso no rosto mesmo quando a rotina for pesada.", summary: "Você usa o sorriso para superar a rotina pesada.", score: 1 },
@@ -497,7 +515,7 @@
       ]
     },
     {
-      question: "26. O que diferencia um carinho comum de um abraço nosso?",
+      question: "O que diferencia um carinho comum de um abraço nosso?",
       options: [
         { text: "O fato de ser com você, tornando tudo mais especial e único.", summary: "Você sente a singularidade do nosso abraço.", score: 1 },
         { text: "A sensação imediata de paz e acolhimento.", summary: "Você busca a sensação de acolhimento rápido.", score: 1 },
@@ -505,7 +523,7 @@
       ]
     },
     {
-      question: "27. Se eu te pedir um pouco mais de paciência enquanto me adapto, você me diz:",
+      question: "Se eu te pedir um pouco mais de paciência enquanto me adapto, você me diz:",
       options: [
         { text: "'Tô aqui do seu lado, vamos no seu tempo com carinho.' 🖤", summary: "Você oferece tempo e carinho com paciência.", score: 1 },
         { text: "'Desde que a gente continue se cuidando, tá tudo bem.'", summary: "Você aceita o tempo mantendo o cuidado mútuo.", score: 1 },
@@ -513,7 +531,7 @@
       ]
     },
     {
-      question: "28. Qual o melhor jeito de celebrar uma conquista boa na vida?",
+      question: "Qual o melhor jeito de celebrar uma conquista boa na vida?",
       options: [
         { text: "Comemora junto, dando risada e abraçando bem forte.", summary: "Você escolhe comemorar junto com entusiasmo.", score: 1 },
         { text: "Prepara uma surpresa simples pra ver o outro feliz.", summary: "Você prepara surpresas pra celebrar o outro.", score: 1 },
@@ -521,7 +539,7 @@
       ]
     },
     {
-      question: "29. O que fazer se o ciúme ou a insegurança tentarem dar as caras?",
+      question: "O que fazer se o ciúme ou a insegurança tentarem dar as caras?",
       options: [
         { text: "Colocar na mesa com carinho e resolver com acolhimento.", summary: "Você enfrenta inseguranças com acolhimento.", score: 1 },
         { text: "Reafirmar o quanto o sentimento é real pra mandar embora a dúvida.", summary: "Você reafirma o amor para mandar o ciúme embora.", score: 1 },
@@ -529,7 +547,7 @@
       ]
     },
     {
-      question: "30. A admiração mútua em um casal serve para:",
+      question: "A admiração mútua em um casal serve para:",
       options: [
         { text: "Lembrar todos os dias o quanto a pessoa ao lado é incrível.", summary: "Você cultiva a admiração diária pelo outro.", score: 1 },
         { text: "Inspirar ambos a serem melhores sem perderem a própria identidade.", summary: "Você busca inspiração mútua com identidade preservada.", score: 1 },
@@ -537,7 +555,7 @@
       ]
     },
     {
-      question: "31. Se o dia foi exaustivo pra mim e eu chegar quietinho, o que você faz?",
+      question: "Se o dia foi exaustivo pra mim e eu chegar quietinho, o que você faz?",
       options: [
         { text: "Chega perto, dá um cheiro e fica ali em silêncio fazendo carinho.", summary: "Você oferece presença silenciosa e acolhedora.", score: 1 },
         { text: "Prepara um momento relaxante pra me fazer esquecer a canseira.", summary: "Você tenta aliviar a exaustão do outro.", score: 1 },
@@ -545,7 +563,7 @@
       ]
     },
     {
-      question: "32. Quando pensamos nos nossos aprendizados juntos até aqui, você sente:",
+      question: "Quando pensamos nos nossos aprendizados juntos até aqui, você sente:",
       options: [
         { text: "Orgulho de ver a gente amadurecendo e se cuidando.", summary: "Você sente orgulho do amadurecimento conjunto.", score: 1 },
         { text: "Vontade de continuar construindo esse caminho com leveza.", summary: "Você quer continuar construindo com leveza.", score: 1 },
@@ -553,7 +571,7 @@
       ]
     },
     {
-      question: "33. Qual é o tempero principal da nossa cumplicidade?",
+      question: "Qual é o tempero principal da nossa cumplicidade?",
       options: [
         { text: "Saber que posso ser eu mesmo sem medo de julgamentos.", summary: "Você valoriza poder ser você mesma sem julgamentos.", score: 1 },
         { text: "A nossa capacidade de dar risada até nos momentos difíceis.", summary: "Você valoriza o riso nos momentos difíceis.", score: 1 },
@@ -561,7 +579,7 @@
       ]
     },
     {
-      question: "34. Quando alguém fala de 'amor de verdade', qual imagem te vem à cabeça?",
+      question: "Quando alguém fala de 'amor de verdade', qual imagem te vem à cabeça?",
       options: [
         { text: "Duas pessoas se escolhendo todos os dias com carinho e respeito.", summary: "Você vê o amor como escolha diária e respeitosa.", score: 1 },
         { text: "Gomez olhando pra Mortícia com todo o fascínio do mundo.", summary: "Você imagina o fascínio incondicional de Gomez.", score: 1 },
@@ -569,7 +587,7 @@
       ]
     },
     {
-      question: "35. Se a gente pudesse definir a nossa meta de relacionamento, seria:",
+      question: "Se a gente pudesse definir a nossa meta de relacionamento, seria:",
       options: [
         { text: "Paz no peito, risada na boca e muito carinho no dia a dia.", summary: "Você busca paz, risadas e carinho diário.", score: 1 },
         { text: "Uma parceria inabalável contra qualquer tempestade externa.", summary: "Você busca parceria inabalável no mundo.", score: 1 },
@@ -577,15 +595,15 @@
       ]
     },
     {
-      question: "36. O que você acha de ter um momento só nosso pra desligar do mundo?",
+      question: "O que você acha de ter um momento só nosso pra desligar do mundo?",
       options: [
         { text: "Essencial! Preciso dessas pausas pra recarregar ao seu lado.", summary: "Você considera os momentos a dois essenciais.", score: 1 },
-        { text: "Delicioso, é onde a gente renova nosso carinho sem interferência.", summary: "Você gosta de renovar o afeto sem interferências.", score: 0 + 1 },
+        { text: "Delicioso, é onde a gente renova nosso carinho sem interferência.", summary: "Você gosta de renovar o afeto sem interferências.", score: 1 },
         { text: "Prefiro estar sempre em volta de muita gente sem tempo a sós.", summary: "Você prefere evitar momentos a sós.", score: 0 }
       ]
     },
     {
-      question: "37. Quando eu te chamo de 'musa' ou de 'mora', você sente:",
+      question: "Quando eu te chamo de 'musa' ou de 'mora', você sente:",
       options: [
         { text: "Um sorrisinho bobo surgindo no rosto sem querer. 😊", summary: "Você sorri com os apelidos carinhosos.", score: 1 },
         { text: "Uma sensação gostosa de ser amada e querida.", summary: "Você se sente amada com as demonstrações.", score: 1 },
@@ -593,7 +611,7 @@
       ]
     },
     {
-      question: "38. Se a vida nos der desafios grandes pela frente, como devemos encarar?",
+      question: "Se a vida nos der desafios grandes pela frente, como devemos encarar?",
       options: [
         { text: "De mãos dadas, conversando e dividindo o peso das coisas.", summary: "Você quer dividir o peso das dificuldades.", score: 1 },
         { text: "Com coragem e a certeza de que a gente supera junto.", summary: "Você confia na superação conjunta.", score: 1 },
@@ -601,7 +619,7 @@
       ]
     },
     {
-      question: "39. O que mais te faz ter certeza de que vale a pena tentar de verdade?",
+      question: "O que mais te faz ter certeza de que vale a pena tentar de verdade?",
       options: [
         { text: "O carinho sincero e o respeito com que a gente se trata.", summary: "Você confia no carinho sincero e no respeito.", score: 1 },
         { text: "Ver que o sentimento é verdadeiro e não é da boca pra fora.", summary: "Você se apega à verdade do sentimento.", score: 1 },
@@ -609,7 +627,7 @@
       ]
     },
     {
-      question: "40. E no final de todo esse quiz e de todas as perguntas, o que sobra?",
+      question: "E no final de todo esse quiz e de todas as perguntas, o que sobra?",
       options: [
         { text: "A vontade de larga o celular e te dar um abraço bem apertado. 🫂", summary: "Você quer terminar com um abraço bem apertado.", score: 1 },
         { text: "O carinho imenso que tenho por você e o nosso desejo de paz. 🖤", summary: "Você encerra focando no afeto e na paz.", score: 1 },
@@ -623,7 +641,6 @@
   let totalScore = 0;
   const userAnswers = [];
 
-  // Função para embaralhar arrays (Fisher-Yates)
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -632,7 +649,6 @@
     return array;
   }
 
-  // Web Audio API para efeitos sonoros
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   function playClickSound() {
@@ -669,7 +685,6 @@
 
   function startQuiz() {
     playClickSound();
-    // Embaralha as perguntas e as 3 opções de cada pergunta
     questions = shuffle([...rawQuestions]).map(q => ({
       question: q.question,
       options: shuffle([...q.options])
@@ -686,7 +701,8 @@
 
   function renderQuestion() {
     const q = questions[currentQuestionIndex];
-    document.getElementById('question-text').innerText = q.question;
+    
+    document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${q.question}`;
     
     const container = document.getElementById('options-container');
     container.innerHTML = '';
@@ -751,28 +767,32 @@
         </p>
       `;
     } else {
-      // CENÁRIO NEGATIVO / MELANCÓLICO
+      // CENÁRIO DIVERTIDO: TERMOS E CONDIÇÕES DE ATENDIMENTO
       finalContainer.innerHTML = `
-        <h1>Um momento de silêncio... 🌧️🖤</h1>
+        <h1>⚠️ TERMOS E CONDIÇÕES DE USO DO DOIDINHO 📜🤓</h1>
         
-        <div class="summary-box">
-          <strong>O tom das suas escolhas:</strong><br>• ${userAnswers.slice(-5).join('<br>• ')}
+        <p style="font-size: 0.88rem; color: #ffb3d1; margin-bottom: 12px;">
+          Detectamos uma quantidade perigosamente alta de respostas ranzinzas! Antes de prosseguir, você precisa declarar aceite dos seguintes termos:
+        </p>
+
+        <div class="terms-box">
+          <p><strong>CLÁUSULA 1:</strong> Aceito e reconheço que eu (a pessoa mais maravilhosa, incrível e perfeita que já passou na vida desse doido) estou sendo aturada por um garoto que tenta expressar amor fazendo código e site Y2K.</p>
+          
+          <p><strong>CLÁUSULA 2:</strong> Estou ciente de que, mesmo respondendo com marra ou fazendo jogo duro, este doidinho não vai a lugar nenhum e continuará exigindo xodó, abraços e paciência diária.</p>
+          
+          <p><strong>CLÁUSULA 3:</strong> Declaro para todos os fins que tentar parecer insensível no quiz foi apenas uma tentativa falha de disfarçar o quanto eu sou doida por ele no fundo.</p>
+          
+          <p><strong>CLÁUSULA 4:</strong> Fica estipulada a multa imediata de 1 (um) abraço bem apertado e demorado para compensar cada resposta marrenta marcada durante este teste.</p>
         </div>
 
-        <p>Acho que, lendo as suas respostas, deu pra sentir que existe uma distância grande entre o que eu carrego aqui no peito e o que você tá disposta a viver ou sentir agora.</p>
-
-        <p>Construir algo bonito exige que dois corações queiram caminhar pro mesmo lado. Fico triste de perceber que talvez os meus esforços, os meus carinhos e até essas minhas loucuras digitais estejam soando mais como um peso ou algo distante do que como um abrigo seguro pra você.</p>
-
-        <div class="quote-box" style="border-left-color: #777; color: #cca3b8;">
-          Até o Gomez mais apaixonado precisa entender quando Mortícia precisa do seu próprio silêncio. Amar também é saber respeitar quando o outro não quer dar a mão para caminhar junto. 🥀
+        <div class="options">
+          <button class="btn" style="text-align: center; font-weight: bold;" onclick="alert('Termos aceitos com sucesso! Agora vem cá me dar meu abraço. 🫂🖤')">
+            Li, concordo e aceito meu doidinho como ele é 🖊️🖤
+          </button>
         </div>
 
-        <div class="note" style="background: rgba(255, 255, 255, 0.05); border-color: #666; color: #d9b3ff;">
-          Se o seu coração hoje não encontra paz no meu abraço, eu respeito o seu espaço. Meu carinho por você continua real, mas não posso te forçar a caminhar numa estrada que você prefere não trilhar.
-        </div>
-
-        <p style="margin-top: 24px; font-weight: bold; color: #b3a3b8; text-align: center; font-size: 0.95rem;">
-          Se quiser conversar com calma e sem pressa, eu estarei aqui. Caso contrário, guardo comigo os sorrisos sinceros que já dividimos. 🖤
+        <p style="margin-top: 20px; font-size: 0.85rem; color: #cca3b8; text-align: center; font-style: italic;">
+          (Não adianta tentar recusar, o botão de fechar não funciona! 😁)
         </p>
       `;
     }
