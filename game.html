@@ -24,6 +24,78 @@
       min-height: 100vh;
       padding: 16px;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* CAMADA DOS MORCEGOS ANIMADOS */
+    .bat {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.35;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      filter: drop-shadow(0 0 6px rgba(255, 0, 85, 0.6));
+    }
+
+    .bat1 {
+      top: 10%;
+      left: -50px;
+      animation: flyRight 14s linear infinite;
+    }
+
+    .bat2 {
+      top: 35%;
+      right: -50px;
+      animation: flyLeft 18s linear infinite 3s;
+    }
+
+    .bat3 {
+      top: 75%;
+      left: -50px;
+      animation: flyRight 12s linear infinite 6s;
+    }
+
+    .bat4 {
+      top: 85%;
+      right: -50px;
+      animation: flyLeft 16s linear infinite 1s;
+    }
+
+    @keyframes flyRight {
+      0% {
+        transform: translateX(0) translateY(0) scale(0.8) rotate(5deg);
+      }
+      25% {
+        transform: translateX(35vw) translateY(-20px) scale(1) rotate(-5deg);
+      }
+      50% {
+        transform: translateX(65vw) translateY(15px) scale(0.9) rotate(5deg);
+      }
+      75% {
+        transform: translateX(85vw) translateY(-10px) scale(1.1) rotate(-3deg);
+      }
+      100% {
+        transform: translateX(110vw) translateY(0) scale(0.8) rotate(5deg);
+      }
+    }
+
+    @keyframes flyLeft {
+      0% {
+        transform: translateX(0) translateY(0) scale(0.8) rotate(-5deg);
+      }
+      25% {
+        transform: translateX(-30vw) translateY(15px) scale(1.1) rotate(5deg);
+      }
+      50% {
+        transform: translateX(-60vw) translateY(-10px) scale(0.9) rotate(-5deg);
+      }
+      75% {
+        transform: translateX(-85vw) translateY(20px) scale(1) rotate(3deg);
+      }
+      100% {
+        transform: translateX(-110vw) translateY(0) scale(0.8) rotate(-5deg);
+      }
     }
 
     .container {
@@ -38,6 +110,7 @@
         inset 0 1px 1px rgba(255, 255, 255, 0.3),
         inset 0 -2px 5px rgba(0, 0, 0, 0.8);
       position: relative;
+      z-index: 2;
     }
 
     /* BARRA SUPERIOR Y2K */
@@ -183,40 +256,17 @@
       line-height: 1.5;
     }
 
-    /* BOTÕES DA TELA FINAL (BRINCADEIRA) */
-    .final-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      position: relative;
-      min-height: 60px;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-yes {
-      background: linear-gradient(180deg, #00b33c 0%, #006622 100%);
-      border: 1px solid #00ff55;
-      color: #fff;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 255, 85, 0.4);
-      z-index: 2;
-    }
-
-    .btn-no {
-      background: linear-gradient(180deg, #880000 0%, #440000 100%);
-      border: 1px solid #ff3333;
-      color: #ffcccc;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      position: relative;
-      transition: top 0.1s ease, left 0.1s ease;
-      z-index: 10;
+    .quote-box {
+      margin-top: 16px;
+      border-left: 3px solid #ff0055;
+      padding-left: 12px;
+      font-style: italic;
+      color: #ffcca3;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
     }
 
     .summary-box {
@@ -235,6 +285,12 @@
   </style>
 </head>
 <body>
+
+<!-- MORCEGOS FLUTUANDO NO FUNDO -->
+<div class="bat bat1">🦇</div>
+<div class="bat bat2">🦇</div>
+<div class="bat bat3">🦇</div>
+<div class="bat bat4">🦇</div>
 
 <div class="container">
   <!-- Topo da Janela -->
@@ -304,34 +360,33 @@
     <h2>5. Sabendo que o doidinho aqui te ama muito e não quer ficar de fora do seu mundo, o que a gente faz agora?</h2>
     <div class="options">
       <button class="btn" onclick="recordAndNext(5, 'Pronta para ter um pouquinho de paciência com ele.', 6)">Dá a mão pra ele e ensina com carinho a caminhar nesse novo caminho. ✨</button>
-      <button class="btn" onclick="recordAndNext(5, 'Pronta para dar um abraço bem apertado.', 6)">Aperta o botão final e vem dar um abraço nele!</button>
+      <button class="btn" onclick="recordAndNext(5, 'Pronta para dar um abraço bem apertado.', 6)">Aperta aqui e vem me dar um abraço!</button>
     </div>
   </div>
 
-  <!-- Tela Final com Piada do Botão -->
+  <!-- Tela Final -->
   <div class="step" id="step-6">
     <h1>Olha aqui pra mim... 🕵️‍♂️🖤</h1>
     
     <div class="summary-box" id="user-summary">
-      <!-- Será preenchido via JS com base nas escolhas dela -->
+      <!-- Preenchido via JS com as escolhas dela -->
     </div>
 
     <p>Tiffany, eu quero de verdade aprender a entender o seu mundo, a sua liberdade e a forma como você enxerga as coisas.</p>
     
     <p>Não quero ficar de fora nem agir como se estivesse resistente por birra. Só te peço um pouco de paciência comigo nesse processo. Pra mim é um terreno novo e tô me esforçando pra aprender a caminhar nele sem me perder do homem que sou e do que sinto por você.</p>
 
+    <div class="quote-box">
+      Gomez e Mortícia nunca precisaram competir por poder ou mudar quem eram. Ele amava cada detalhe dela, apoiava sua essência e trazia a certeza de que ela nunca precisaria mendigar pelo mínimo. Eu sou o seu Gomez, Tiff — aquele que te admira por inteiro, que cuida do nosso espaço e que quer construir essa história com reciprocidade e paz. 🦇🖤
+    </div>
+
     <div class="note">
       Tendo o seu carinho e a sua mão pra me guiar, sei que a gente vai longe. Te amo muito, muié... nunca esqueça disso! 🖤
     </div>
 
-    <p style="margin-top: 18px; font-style: italic; color: #ff99c2; font-size: 0.85rem; text-align: center;">
-      Escolha com sabedoria a sua resposta abaixo 👇 (se conseguir! 🤪)
+    <p style="margin-top: 24px; font-weight: bold; color: #ff66a3; text-align: center; font-size: 1.05rem;">
+      Larga esse celular um minutinho e vem me dar um abraço? 🫂✨
     </p>
-
-    <div class="final-actions">
-      <button class="btn-yes" onclick="finishSuccess()">Vou ter paciência com você 💖</button>
-      <button class="btn-no" id="runaway-btn" onmouseover="dodgeButton()" onclick="dodgeButton()" ontouchstart="dodgeButton()">Quero terminar ❌</button>
-    </div>
   </div>
 </div>
 
@@ -413,25 +468,6 @@
     if (userAnswers.length > 0) {
       summaryBox.innerHTML = `<strong>Suas escolhas no caminho:</strong><br>• ` + userAnswers.join('<br>• ');
     }
-  }
-
-  // Lógica do Botão Fujão ("Quero terminar")
-  function dodgeButton() {
-    playClickSound();
-    const btn = document.getElementById('runaway-btn');
-    
-    // Calcula posições aleatórias para o botão fugir na tela
-    const x = Math.floor(Math.random() * 200) - 100;
-    const y = Math.floor(Math.random() * 150) - 75;
-
-    btn.style.position = 'relative';
-    btn.style.left = `${x}px`;
-    btn.style.top = `${y}px`;
-  }
-
-  function finishSuccess() {
-    playFinishSound();
-    alert("Sabia que não ia resistir ao seu doidinho! 🥰 Larga esse celular e me dá um abraço bem gostoso! 🫂🖤");
   }
 </script>
 
