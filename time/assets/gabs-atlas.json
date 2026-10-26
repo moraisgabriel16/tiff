@@ -1,0 +1,51 @@
+{
+  "image": "gabs-atlas-v5.png",
+  "width": 1536,
+  "height": 1024,
+  "columns": 3,
+  "rows": 2,
+  "cellWidth": 512,
+  "cellHeight": 512,
+  "frames": {
+    "idle": {
+      "x": 0,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "left": {
+      "x": 512,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "right": {
+      "x": 1024,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "hips": {
+      "x": 0,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    },
+    "jump": {
+      "x": 512,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    },
+    "wave": {
+      "x": 1024,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    }
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "prompt": "Use case: identity-preserve / stylized-concept. Create a production pixel-art CHARACTER SPRITE SHEET of GABRIEL (GABS), the adult man shown in reference images 1–3. Reference 1: face and black button-shirt outfit. Reference 2: clear face identity. Reference 3: full body build and hairstyle. Reference 4 is ONLY the existing TIFFANY sprite sheet, used to match the pixel-art rendering style, character proportions, camera and exact 3-column / 2-row atlas layout. Do not include Tiffany in the new sheet.\nPreserve Gabriel's recognizable features: thick dark brown wavy/curly hair with volume on top and short sides, broad softly rounded face, blue-gray eyes, strong dark brows, short dark beard concentrated at jaw and chin with a lighter moustache, light warm skin, sturdy adult male build and friendly smile. He is not a slim generic anime boy. Clothes match his casual all-black party look: black short-sleeve button-up collared shirt, dark charcoal trousers, black high-top canvas sneakers with off-white soles and toe caps. No jacket, no phone, no glasses, no invented tattoos, no hat. Detailed crisp 16-bit JRPG pixel-art style matching the Tiffany reference: dark plum outlines, visible small square pixels, warm 3–5 tone cel shading, expressive face, consistent adult proportions. No smooth digital painting or blur.\nLAYOUT: EXACTLY 3 equal columns and 2 equal rows, landscape 3:2 canvas, six equal SQUARE cells. One full-body character centered in each cell, same scale, same outfit and identity in all six poses, consistent 3/4 front camera. All hands, arms, hair and boots must fit fully inside their cell with at least 8% clear transparent margin; no overlap across cell boundaries. Six frames in reading order: top-left neutral standing arms down; top-middle dancing left arm and left foot extended left; top-right dancing right arm and right foot extended right; bottom-left hands on hips with bent knees in a playful Time Warp dance pose; bottom-middle joyful jump both arms raised; bottom-right friendly smiling wave. Grounded poses share a baseline. Transparent alpha background everywhere outside character pixels, no background color, no glow, no shadows outside figure, no labels, no grid, no typography, no watermark."
+  }
+}

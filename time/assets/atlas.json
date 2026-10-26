@@ -1,0 +1,64 @@
+{
+  "version": 5,
+  "characterOverrides": {"tiff": {"image": "tiff-atlas-v3.png", "manifest": "tiff-atlas.json", "columns": 3, "rows": 2, "poses": ["idle", "left", "right", "hips", "jump", "wave"]}, "gabs": {"image": "gabs-atlas-v5.png", "manifest": "gabs-atlas.json", "columns": 3, "rows": 2, "poses": ["idle", "left", "right", "hips", "jump", "wave"]}},
+  "ending": {"image": "tiff-gabs-final-v5.png", "width": 1193, "height": 1319, "source": "User-provided final scene"},
+  "backgrounds": {
+    "image": "background-atlas-v2.png",
+    "width": 1254,
+    "height": 1254,
+    "frames": {
+      "castle": {
+        "x": 0,
+        "y": 0,
+        "w": 1254,
+        "h": 627
+      },
+      "ballroom": {
+        "x": 0,
+        "y": 627,
+        "w": 1254,
+        "h": 627
+      }
+    }
+  },
+  "characters": {
+    "image": "character-atlas-v2.png",
+    "width": 1254,
+    "height": 1254,
+    "columns": 5,
+    "rows": 5,
+    "cellWidth": 250.8,
+    "cellHeight": 250.8,
+    "rowsByName": {
+      "tiff": 0,
+      "gabs": 1,
+      "riff": 2,
+      "magenta": 3,
+      "columbia": 4
+    },
+    "columnsByPose": {
+      "idle": 0,
+      "left": 1,
+      "right": 2,
+      "hips": 3,
+      "jump": 4
+    }
+  },
+  "audio": {
+    "full": "time-warp-synth.wav",
+    "dance": "time-warp-dance.wav",
+    "sampleRate": 22050,
+    "channels": 1,
+    "bpm": 150,
+    "danceExcerptStartSeconds": 35.2,
+    "danceExcerptSeconds": 51.2,
+    "source": "https://bitmidi.com/time-warp-mid"
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "prompts": {
+      "backgrounds": "Use case: stylized-concept. Asset type: production game BACKGROUND ATLAS, single image with EXACTLY two equally sized horizontal panels, one above the other, no borders, no gutters, no text. Entire image aspect 1:1. Each panel has aspect 2:1. Polished hand-pixeled 16-bit gothic musical adventure, crisp square pixels, intricate SNES-style dithering and restricted deep plum, burgundy, candlelight amber palette. TOP HALF: exterior of the Rocky Horror Picture Show gothic castle at night, elaborate stone towers, illuminated arched windows, distant violet mountains, full moon, bare twisted trees, gravel path coming toward viewer, roses and wrought iron fences, atmospheric clouds. No people. BOTTOM HALF: the Time Warp ballroom in Rocky Horror Picture Show, ornate gothic party hall, broad checkered floor lower half with room to place dancing sprites, red velvet drapes to left and right, stone columns, candle chandeliers, grand staircase to rear, tall clock, old portraits, gold trim, pink and purple theatrical lighting, festive eerie camp atmosphere. No people. Keep both panels completely filled edge to edge. Clear level perspective and beautifully detailed pixel scenery. No text, no UI, no lettering, no watermark. Must be usable as two separate 2:1 game backgrounds by cropping top and bottom halves.",
+      "characters": "Use case: stylized-concept. Asset type: a precise production GAME CHARACTER SPRITE ATLAS. Transparent background, absolutely no background, no shadows on the ground, no grid lines, no labels or text. Square image divided mathematically into 5 equal columns and 5 equal rows, 25 equal cells. One full-body pixel character centered in each cell, entire figure inside cell with generous 12% transparent padding, all feet on same baseline per row. Crisp professional 16-bit pixel art with dark plum outlines, limited SNES palette, expressive detailed outfits, front three-quarter view, strong coherent silhouettes, not blurry or painted. EXACT 5 rows, one character per row, SAME character consistent across all 5 columns. ROW 1: Tiffany, fictional young adult woman with long wavy brown hair, dusty rose dress, dark boots, small heart necklace. ROW 2: Gabriel, fictional young adult man with short dark hair, navy jacket over pale shirt, charcoal pants, dark boots. ROW 3: Riff Raff from Rocky Horror Picture Show, pale gaunt butler with long straight blond side hair, black tailcoat, white shirt and waistcoat, black trousers. ROW 4: Magenta from Rocky Horror Picture Show, huge curly auburn hair, black maid dress, white apron and white cap, black stockings. ROW 5: Columbia from Rocky Horror Picture Show, short red hair, gold glitter top hat, gold glitter tailcoat, striped shorts, bow tie, tap shoes. EXACT columns left to right for EVERY row: 1 neutral standing hands down; 2 dancing with left foot and left arm extended to left; 3 dancing with right foot and right arm extended right; 4 hands on hips bent knees playful pelvic rock; 5 joyful jump both arms raised. Each sprite SAME camera, body scale and character design across its row, no overlap. Use cell structure with exact equal spacing so this can be sliced programmatically into 25 animation frames. Transparency in all empty areas."
+    }
+  }
+}

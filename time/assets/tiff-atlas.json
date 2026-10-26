@@ -1,0 +1,53 @@
+{
+  "image": "tiff-atlas-v3.png",
+  "width": 1536,
+  "height": 1024,
+  "columns": 3,
+  "rows": 2,
+  "cellWidth": 512,
+  "cellHeight": 512,
+  "frames": {
+    "idle": {
+      "x": 0,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "left": {
+      "x": 512,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "right": {
+      "x": 1024,
+      "y": 0,
+      "w": 512,
+      "h": 512
+    },
+    "hips": {
+      "x": 0,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    },
+    "jump": {
+      "x": 512,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    },
+    "wave": {
+      "x": 1024,
+      "y": 512,
+      "w": 512,
+      "h": 512
+    }
+  },
+  "generation": {
+    "tool": "built-in image_gen",
+    "prompts": {
+      "initial": "Use case: identity-preserve / stylized-concept. Create a production pixel-art CHARACTER SPRITE SHEET of TIFFANY, the adult woman shown in reference photos 1–4. Photos 1–3 are face, hair, glasses, piercings and tattoo identity references; photo 4 is her outfit reference. Reference image 5 is ONLY a pixel-art rendering style and game sprite proportions reference; do NOT copy its pink-dress woman, do NOT include any other characters. Preserve Tiffany's distinctive recognizable features: warm light-medium skin, long straight dark brown hair swept to one side with side-part fringe, large rounded black eyeglasses, dark eyes, silver septum ring, small gold vertical labret jewelry, stretched earlobes with white spiral earrings, colorful red-and-dark chest tattoo and colorful arm tattoos. Use visible reference tattoos as tiny tasteful pixel clusters, not invented text. Outfit: her short black dress with tiny white polka dots, short sleeves, V neckline and fitted waist from photo 4, black mid-calf lace-up boots, red pendant on dark necklace. No hat, no phone, no shoulder bag. Flattering sweet smile, adult proportions in detailed 16-bit JRPG character style, dark plum pixel outlines, crisp visible square pixels, 3–5 tone cel shading, no blurry anti-aliased illustration.\nLAYOUT: landscape 3:2 canvas, EXACTLY 3 equal columns and 2 equal rows, 6 equal square cells, transparent background throughout empty areas. Each full-body character centered in its cell, same scale, same hairstyle, glasses and outfit, consistent 3/4 front camera. All limbs, hair and boots fully inside cell with generous transparent padding of at least 8% each side, no crossing cell edges. Six animation frames in reading order: top-left neutral standing arms down; top-middle Time Warp dance left arm and left foot extended left; top-right same dance right arm and right foot extended right; bottom-left hands on hips bent knees playful dance; bottom-middle joyful jump arms raised with full hands inside cell; bottom-right smiling wave to viewer. Match baseline between grounded poses; jumping pose rises naturally. No grid lines, no labels, no background, no typography, no watermark. This is an animation atlas to be sliced into six equal frames, so exact regular spacing matters."
+    }
+  }
+}
