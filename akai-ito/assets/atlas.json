@@ -1,0 +1,51 @@
+{
+  "version": 2,
+  "description": "Atlas próprios para Akai Ito: animação de caminhada, interação com o fio e encontro.",
+  "characterStates": {
+    "idle": 0,
+    "walk": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "thread": 5,
+    "jump": 6,
+    "reunion": 7,
+    "wave": 8
+  },
+  "sheets": {
+    "tiff": {
+      "image": "tiff-journey-v2.png",
+      "frames": "tiff-frames.json"
+    },
+    "gabs": {
+      "image": "gabs-journey-v2.png",
+      "frames": "gabs-frames.json"
+    },
+    "garden": {
+      "image": "garden-props-v2.png",
+      "frames": "garden-frames.json",
+      "props": [
+        "cherry",
+        "maple",
+        "willow",
+        "knottedLantern",
+        "untiedLantern",
+        "bridge",
+        "grass",
+        "rocks",
+        "sign"
+      ]
+    }
+  },
+  "registration": "Source rectangles follow connected alpha silhouettes. Character row masks isolate neighboring figures; pivots align feet with the path. Source PNGs are preserved.",
+  "generation": {
+    "tool": "built-in image_gen",
+    "prompts": {
+      "tiff": "Use case: stylized-concept, identity-preserve. Edit the referenced Tiffany sprite design into a NEW production animation atlas specifically for a quiet romantic pixel-art walking game called Akai Ito. Preserve her recognizable face, large black glasses, long side-swept brown hair, white spiral earrings, small facial jewelry, red pendant, existing chest and arm tattoos, black short-sleeved white-polka-dot dress and lace-up black boots. No leg tattoos. Preserve her adult identity. Improve craft: elegant detailed hand-placed 16-bit pixels, coherent muted warm charcoal / sepia outlines / ivory / dusty rose palette, restrained brick-red accents that suit parchment and misty gardens. Crisp readable silhouette, no blurry painted illustration. More natural adult proportions, gentle expressive face, no overly giant cartoon eyes.\nEXACT LAYOUT: SQUARE canvas, exactly 3 columns and 3 rows, nine equal square cells. Entire sprite fully inside each cell, feet grounded at identical baseline for all standing and walking frames. All sprites at identical body scale and camera, looking toward the RIGHT in consistent side-three-quarter view, not facing the viewer. Generous 10% transparent padding around each cell, no limbs crossing cells. No drawn red thread: the game draws it dynamically.\nNine poses in reading order: 0 neutral relaxed standing, near hand lightly in front at waist; 1 true WALK cycle rightward, left foot forward right foot back, arms relaxed counter-swing; 2 WALK passing pose, supporting leg straight and other knee coming forward; 3 WALK opposing contact, right foot forward left foot back; 4 WALK opposing passing pose, returning naturally to frame 1; 5 THREAD INTERACTION, both hands delicately held forward at waist working with a tiny imaginary thread, attentive gaze downward; 6 gentle JUMP airborne knees slightly bent with full body and hands inside cell; 7 REUNION, standing right-facing extending ONE hand softly forward at waist as if to hold partner's hand, tender smile; 8 quiet happy celebration, ONE small hand wave, relaxed standing, no big dance moves. Walk cycle feet must touch the same baseline, no sliding character position. Keep consistent face, hair, jewelry, tattoos, outfit and limb lengths in every pose. Transparent alpha background with no background color, no gradient, no glow, no drop shadows, no grid, no text or labels.",
+      "gabs": "Use case: stylized-concept, identity-preserve. Edit the referenced GABRIEL / GABS sprite design into a NEW production animation atlas for a gentle romantic pixel-art walking game called Akai Ito. Preserve Gabriel's likeness: thick short wavy curly dark brown hair with short sides, blue-gray eyes, dark brows, broad softly rounded face, short beard and moustache, light warm skin, sturdy adult male build, kind smile. Preserve black short-sleeved button-up collared shirt, dark charcoal trousers, black canvas high-top sneakers with ivory soles and toes. No invented tattoos or accessories. Improve craft with coherent muted warm charcoal, sepia outlines, ivory and dusty rose bounce lighting matching a parchment and misty-garden palette. Detailed hand-placed crisp 16-bit pixels, strong readable silhouette, natural adult proportions, not enormous anime eyes, no smooth cartoon painting or blur.\nEXACT LAYOUT: SQUARE canvas with precisely 3 equal columns and 3 equal rows, nine equal square cells. Every figure entirely in its cell with generous 10% transparent padding, no overlap, identical scale and camera across all frames. Character looks to the RIGHT in consistent side-three-quarter view, not front facing. Identical feet baseline in all grounded frames. Do NOT draw any red thread; game handles thread dynamically.\nNine frames in reading order: 0 neutral relaxed idle, near hand softly in front at waist; 1 WALK rightward left foot forward right foot back, arms naturally counter-swing; 2 WALK passing pose one leg supporting and other knee moving forward; 3 WALK opposing contact right foot forward left foot back; 4 WALK opposing passing pose returning smoothly to 1; 5 THREAD INTERACTION, slightly leaning forward, both hands together ahead of waist carefully untangling an imaginary fine thread, attentive downward gaze; 6 gentle JUMP with knees bent, neither hand nor head clips the cell; 7 REUNION standing right-facing, ONE hand gently extended at waist toward partner, affectionate smile; 8 a quiet happy small one-hand wave while standing. No dance poses, no wide sideways pointing, no exaggerated celebration. All walking frames must have body at same consistent cell center and same grounded foot baseline. Keep stable appearance, clothing, physique, limb lengths in every frame. Genuine transparent alpha background, no ground shadow, no colored background, no gradient or glow, no grid, no text, no watermark.",
+      "garden": "Use case: stylized-concept. Production ENVIRONMENT PROP ATLAS for a delicate romantic 16-bit pixel-art game inspired by the red thread of fate. Quiet Japanese garden scenery, elegant highly crafted visible pixel clusters and dithering, muted parchment ivory, sage green, dusty rose, warm stone gray, desaturated burgundy red cord accents. Side-on / very slight three-quarter view consistent with a side-scrolling character walking game. Crisp square pixels, not watercolor blobs, not blurry smooth painting. No people, no text, no letters, no watermark.\nEXACT layout: square canvas, precisely 3 equal columns x 3 equal rows, nine equal square cells. One isolated fully visible prop per cell, entire silhouette inside with 10% transparent padding. Genuine transparent alpha in all empty space, no background color, no gradient, no ground shadow outside props. Props look from same viewpoint and lighting with delicate warm plum outlines.\nReading order: 0 a graceful mature pink cherry blossom tree with crooked trunk, finely detailed branching, clusters of dusty pink flowers, complete trunk and roots; 1 a graceful maple tree with burgundy and muted rust-red leaves, complete trunk and roots; 2 an elegant drooping willow tree with sage green leaves, complete trunk and roots; 3 a small wooden garden lantern on a slender post, soft peach paper light, a visible red thread tied in a little tangled bow near its cap, ground base; 4 EXACT SAME lantern-post design as cell 3 but thread neatly untied and flowing as two short loose ends and lamp glowing soft warm ivory; 5 a graceful low arched Japanese stone footbridge, side view with slim railings, wide and shallow, entire bridge including both ends inside cell; 6 a ground clump of fine sage grasses with tiny pink flowers and one butterfly; 7 a small composition of pale mossy garden rocks with a thin red ribbon loop laid on top, natural and delicate; 8 a wooden garden signpost with a small pale blank sign and a red ribbon, absolutely no writing. Rich craftsmanship, usable transparent game props. Keep props centered and each ground contact near bottom of cell."
+    }
+  }
+}
