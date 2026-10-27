@@ -1,0 +1,25 @@
+{
+  "tool": "built-in image_gen",
+  "items": {
+    "image": "castle-items-v1.png",
+    "columns": 3,
+    "rows": 1,
+    "frames": [
+      "key",
+      "record",
+      "rose"
+    ],
+    "prompt": "Use case: stylized-concept. Create a production pixel art game item sprite atlas on a truly transparent background. EXACTLY 3 isolated sprites in ONE horizontal row, centered in three equal square cells, generous transparent padding. Left: ornate antique golden key with heart-shaped bow. Center: black vinyl record with magenta center label and gold musical spark. Right: single crimson rose with green stem and two leaves. Gothic romantic Victorian castle adventure, crisp chunky 16-bit pixel art, dark plum outlines, gold and rose highlights, no lettering, no shadows outside objects, no frames, no extra objects. All items fully contained within their own third, consistent visual size. Landscape canvas."
+  },
+  "props": {
+    "image": "castle-props-v1.png",
+    "columns": 3,
+    "rows": 1,
+    "frames": [
+      "candelabrum",
+      "ghost",
+      "chest"
+    ],
+    "prompt": "Use case: stylized-concept. Production sprite atlas for a romantic gothic castle pixel art adventure. Truly transparent background. EXACTLY THREE isolated objects arranged in one horizontal row of equal square cells, with large transparent margins and no overlap. First cell an ornate gold floor candelabrum with three lit red candles, second cell a floating friendly translucent lavender ghost with small heart-shaped pink glow on chest, third cell a small ornate golden treasure chest open with warm pink magical sparkle inside. Crisp 16-bit chunky pixel art, dark purple outlines, rich crimson and gold highlights, consistent front three-quarter view, sprites fully within their cell, no floor, no text, no labels, no frame or grid. Landscape canvas."
+  }
+}
