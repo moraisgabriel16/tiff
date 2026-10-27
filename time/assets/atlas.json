@@ -1,5 +1,6 @@
 {
-  "version": 5,
+  "version": 6,
+  "exploration": {"manifest": "castle-rooms.json", "rooms": 3, "items": ["key", "record", "rose"], "after": "Time Warp"},
   "characterOverrides": {"tiff": {"image": "tiff-atlas-v3.png", "manifest": "tiff-atlas.json", "columns": 3, "rows": 2, "poses": ["idle", "left", "right", "hips", "jump", "wave"]}, "gabs": {"image": "gabs-atlas-v5.png", "manifest": "gabs-atlas.json", "columns": 3, "rows": 2, "poses": ["idle", "left", "right", "hips", "jump", "wave"]}},
   "ending": {"image": "tiff-gabs-final-v5.png", "width": 1193, "height": 1319, "source": "User-provided final scene"},
   "backgrounds": {

@@ -1,0 +1,30 @@
+{
+  "image": "castle-rooms-v2.png",
+  "width": 1024,
+  "height": 1536,
+  "rooms": [
+    {
+      "name": "O salão das sombras",
+      "x": 0,
+      "y": 0,
+      "w": 1024,
+      "h": 480
+    },
+    {
+      "name": "A biblioteca dos ecos",
+      "x": 0,
+      "y": 480,
+      "w": 1024,
+      "h": 511
+    },
+    {
+      "name": "O camarim de veludo",
+      "x": 0,
+      "y": 991,
+      "w": 1024,
+      "h": 545
+    }
+  ],
+  "tool": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Asset: production BACKGROUND ATLAS for a detailed 16-bit pixel-art point-and-click exploration game inspired by The Rocky Horror Picture Show gothic castle. Crisp square pixels, polished SNES adventure backgrounds, rich plum/burgundy/candlelight amber palette, intricate old stone and velvet textures. NO people, NO text or UI, NO small collectible objects added (game overlays them separately).\nEXACT LAYOUT: portrait 2:3 image with THREE equal horizontal panels stacked vertically, no gutters, borders or labels. Each panel has exact 2:1 width-to-height aspect. Panels fill edge to edge.\nTOP THIRD: gothic castle entrance hall after a strange midnight party, wide stone floor bottom quarter CLEAR for two walking characters, ornate staircase rising toward rear center, left a tall old grandfather clock and framed painting, right an ornate closed wooden door and dusty empty small pedestal table. Candelabras, cobwebs, red velvet curtains, eccentric theatrical camp mystery. Front room view slightly from above, cinematic wide composition.\nMIDDLE THIRD: old castle library and music room, long crowded bookshelves, candles, large arched purple-lit rear window, left reading chair with small table and old brass gramophone, right tall cabinet and large old oil portrait; clear wooden floor across bottom quarter to place walking sprites. Victorian occult-musical theatrical mood, warm gold light with purple shadows. No readable book text.\nBOTTOM THIRD: theatrical dressing room inside the castle, left a large ornate mirror rimmed with warm lightbulbs and vanity, center hanging burgundy/gold costumes and draped curtains, right a closed round gold-trimmed hatbox atop low bench and old theatre masks mounted high; clear checkered floor bottom quarter for walking characters. Deep red velvet and pink light. No people, no faces reflected in mirror.\nThe environments must be visibly distinct and feel like three connected rooms in the same lavish gothic castle. Full scenery, detailed craftsmanship, rich readable silhouettes, clean lower walking space. No text, no lettering, no watermark, no characters. This atlas will be cropped by equal horizontal thirds in the game."
+}
